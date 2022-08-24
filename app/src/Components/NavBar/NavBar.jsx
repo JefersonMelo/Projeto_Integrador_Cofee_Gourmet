@@ -4,10 +4,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAppContext } from "../../Contexts/AppContext";
+import ButtonUserConnect from "../Buttons/ButtonUserConnect";
+import SearchBar from "../Searches/SearchBar";
 
 export default function NavBar({ open }) {
   const [appContext, setAppContext] = useAppContext();
@@ -50,9 +51,12 @@ export default function NavBar({ open }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            EMPRESA
+            COFFEE AT HOME
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Box sx={{ flexGrow: 1.5}}>
+            <SearchBar placeholder={"Pesquisar"} width={400} />
+          </Box>
+          <ButtonUserConnect />
         </Toolbar>
       </AppBar>
     </Box>
