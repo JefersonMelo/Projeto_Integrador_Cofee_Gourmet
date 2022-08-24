@@ -18,3 +18,4 @@ websockets
 SQLAlchemy
 requests
 bcrypt
+Jinja2
