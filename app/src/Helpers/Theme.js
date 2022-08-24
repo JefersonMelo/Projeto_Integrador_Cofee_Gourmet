@@ -1,14 +1,16 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
+//http://html-color.org/pt/0F0000
+
 const defaultThemeOptions = {
   palette: {
     common: {
-      darkGreen: "#00473E",
+      coffe: "#0F0000",
     },
     primary: {
-      main: "#00473E",
-      light: "#00877A",
-      dark: "#003B33",
+      main: "#0E0700",
+      light: "#1D0000",
+      dark: "#0F0000",
     },
     secondary: {
       main: "#00877A",
