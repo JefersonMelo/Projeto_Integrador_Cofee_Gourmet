@@ -25,7 +25,7 @@ export default function App() {
 				<Box sx={{ display: 'flex', overflow: 'hidden' }}>
 					<Box component={'main'} sx={{ mt: 0.01, width: '100%', height: '100%' }}>
 						<Routes>
-							<Route path='/' exact element={<RegistrationForm />} />
+							<Route path='/' exact element={<Home />} />
 							<Route path='/login' exact element={<RegistrationForm />} />
 							<Route path='/home' exact element={<Home />} />
 							<Route path='/new/user' exact element={<Home />} />
