@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAppContext } from "../../Contexts/AppContext";
 import ButtonUserConnect from "../Buttons/ButtonUserConnect";
+import BadgeShoppingCar from "../Badge/BadgeShoppingCar";
 import SearchBar from "../Searches/SearchBar";
 
 export default function NavBar({ open }) {
@@ -53,10 +54,11 @@ export default function NavBar({ open }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             COFFEE AT HOME
           </Typography>
-          <Box sx={{ flexGrow: 1.5}}>
-            <SearchBar placeholder={"Pesquisar"} width={400} />
+          <Box sx={{ flexGrow: 2 }}>
+            <SearchBar placeholder={"Pesquisar"} width={"70%"} />
           </Box>
           <ButtonUserConnect />
+          <BadgeShoppingCar badgeContent={1} />
         </Toolbar>
       </AppBar>
     </Box>
