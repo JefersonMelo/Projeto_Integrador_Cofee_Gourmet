@@ -47,7 +47,7 @@ export const ShowSuccessSnackBar = (res, appContext, setAppContext) => {
 };
 
 export const formtCurrencyBR = (value) => {
-  return value.toLocaleString("pt-BR");
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 };
 
 export function getDescenProp(obj, desc) {
