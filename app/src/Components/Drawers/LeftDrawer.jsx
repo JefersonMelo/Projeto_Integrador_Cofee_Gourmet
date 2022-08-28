@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -15,7 +15,6 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import NavBar from "../NavBar/NavBar";
-import MainPage from "../../Pages/MainPage";
 import { useAppContext } from "../../Contexts/AppContext";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -27,14 +26,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function LeftDrawer() {
+export default function LeftDrawer({ Element }) {
   const theme = useTheme();
   const [appContext, setAppContext] = useAppContext();
 
   const handleDrawerClose = () => {
     setAppContext((appContext) => ({
       ...appContext,
-      drawerOpened: false
+      drawerOpened: false,
     }));
   };
 
@@ -91,7 +90,7 @@ export default function LeftDrawer() {
           ))}
         </List>
       </Drawer>
-      <MainPage open={appContext.drawerOpened} />
+      <Element open={appContext.drawerOpened} />
     </Box>
   );
 }
