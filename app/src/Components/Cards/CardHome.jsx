@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { formtCurrencyBR } from "../../Helpers/Helpers";
+import { formtCurrencyBR } from "../../Helpers/Formats";
 import ImgCoffeeCup from "../../Static/Imgs/coffee-cup-and-beans.jpg";
 import BasicRating from "../Rating/BasicRating";
 import ButtonAddShoppingCart from "../Buttons/ButtonAddShoppingCart"

@@ -8,7 +8,7 @@ import { useAppContext } from "../../Contexts/AppContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
-import { ShowErrorSnackBar, ShowSuccessSnackBar } from "../../Helpers/Helpers";
+import { ShowErrorSnackBar, ShowSuccessSnackBar } from "../../Helpers/SnackBars";
 
 export default function RegistrationForm() {
   const [appContext, setAppContext] = useAppContext();
