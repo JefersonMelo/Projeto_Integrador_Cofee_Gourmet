@@ -5,7 +5,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 const defaultThemeOptions = {
   palette: {
     common: {
-      coffe: "#0F0000",
+      coffee: "#0F0000",
     },
     primary: {
       main: "#0E0700",

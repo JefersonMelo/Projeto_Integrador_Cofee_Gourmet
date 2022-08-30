@@ -92,7 +92,7 @@ export default function MainPage({ open }) {
     <Box sx={{ mt: 7, flexGrow: 12 }}>
       <Main open={open}>
         <Box sx={{ m: 2 }}>
-          <Paper variant="outlined" square>
+          <Paper>
             <Box
               component="img"
               sx={{ width: "100%", height: "300px" }}

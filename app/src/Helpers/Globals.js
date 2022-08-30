@@ -6,7 +6,7 @@ function definesApiUrl() {
 }
 
 export const appVersion = "1.0.0";
-export const appName = "Template";
+export const appName = "Coffee Gourmet";
 export const webURL = window.location.origin;
 export const apiURL = `${definesApiUrl()}/api`;
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -8,12 +8,12 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { formtCurrencyBR } from "../../Helpers/Formats";
 import ImgCoffeeCup from "../../Static/Imgs/coffee-cup-and-beans.jpg";
 import BasicRating from "../Rating/BasicRating";
-import ButtonAddShoppingCart from "../Buttons/ButtonAddShoppingCart"
+import ButtonAddShoppingCart from "../Buttons/ButtonAddShoppingCart";
+// import ShareIcon from "@mui/icons-material/Share";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,7 +27,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CardHome({ id, row }) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -50,7 +50,6 @@ export default function CardHome({ id, row }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-
         <ButtonAddShoppingCart />
 
         {/* <IconButton aria-label="share">
@@ -68,12 +67,12 @@ export default function CardHome({ id, row }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>
-            <Typography>
+            <Typography id={"1"}>
               <strong>{row.ProdutoNome}</strong>
             </Typography>
-            <Typography>{row.Fornecedor}</Typography>
-            <Typography>{row.Peso}Kg</Typography>
-            <Typography>{formtCurrencyBR(row.Valor)}</Typography>
+            <Typography id={"2"}>{row.Fornecedor}</Typography>
+            <Typography id={"3"}>{row.Peso}Kg</Typography>
+            <Typography id={"4"}>{formtCurrencyBR(row.Valor)}</Typography>
           </Typography>
 
           <Typography paragraph>{row.DescDetalhada}</Typography>
