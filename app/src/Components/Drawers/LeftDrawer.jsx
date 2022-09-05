@@ -1,6 +1,7 @@
 import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -66,6 +67,9 @@ export default function LeftDrawer({ Element }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
+        <Typography sx={{ ml: "2%" }} variant="h6">
+          Café Moído
+        </Typography>
         <MenuList>
           {drawerListRoutesGround.map((item, index) => (
             <Link
@@ -83,6 +87,9 @@ export default function LeftDrawer({ Element }) {
           ))}
         </MenuList>
         <Divider />
+        <Typography sx={{ ml: "2%" }} variant="h6">
+          Café em Grãos
+        </Typography>
         <MenuList>
           {drawerListRoutesBeans.map((item, index) => (
             <Link
