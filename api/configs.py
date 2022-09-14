@@ -1,7 +1,7 @@
 import os
 
 # Change
-APP_NAME = 'Café Gourmet'
+APP_NAME = 'Coffee Gourmet'
 
 # Optional
 APP_VERSION = 1.0
