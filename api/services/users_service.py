@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
-from api.models.schemas import UserCreate
+from api.models.schemas import UserCreate, UserLogin
 from api.database.models import User
 
 
@@ -58,15 +58,15 @@ class UsersService:
             return None, str(e)
 
     @classmethod
-    def get_user_email(
+    def get_user_for_auth(
             cls,
             db: Session,
-            email: str,
+            user: UserLogin,
     ) -> Tuple[Optional[User], str]:
 
         try:
 
-            results = db.query(User).filter(User.email == email).first()
+            results = db.query(User).filter(User.email == user.email).first()
 
             if not results:
                 return None, 'Error'
@@ -75,6 +75,25 @@ class UsersService:
 
         except Exception as e:
             return None, str(e)
+
+    # @classmethod
+    # def get_user_email(
+    #         cls,
+    #         db: Session,
+    #         email: str,
+    # ) -> Tuple[Optional[User], str]:
+    #
+    #     try:
+    #
+    #         results = db.query(User).filter(User.email == email).first()
+    #
+    #         if not results:
+    #             return None, 'Error'
+    #
+    #         return results, 'Success'
+    #
+    #     except Exception as e:
+    #         return None, str(e)
 
     @classmethod
     def get_users(

@@ -14,6 +14,13 @@ class UserCreate(UserBase):
         orm_mode = True
 
 
+class UserLogin(UserBase):
+    password: str
+
+    class Config:
+        orm_mode = True
+
+
 class ItemBase(BaseModel):
     title: str
     description: Union[str, None] = None
@@ -29,6 +36,7 @@ class Item(ItemBase):
 
     class Config:
         orm_mode = True
+
 
 class User(UserBase):
     id: int
