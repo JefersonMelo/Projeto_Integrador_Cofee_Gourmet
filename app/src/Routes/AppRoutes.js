@@ -4,8 +4,10 @@ import LeftDrawer from "../Components/Drawers/LeftDrawer";
 import WarningSnackBar from "../Components/SnackBars/WarningSnackBar";
 import RegistrationForm from "../Components/Forms/RegistrationForm";
 import PageNotFound from "../Pages/PageNotFound";
-import MainPage from "../Pages/MainPage";
-import PrivateRoutes from "../Services/PrivateRoute"
+import PublicPage from "../Pages/PublicPage";
+import Home from "../Pages/Home"
+import PrivateRoutes from "../Services/privateRoute"
+import LoginForm from "../Components/Forms/LoginForm"
 
 export default function AppRoutes() {
 
@@ -13,14 +15,14 @@ export default function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 {/* Public Routes*/}
-                <Route path="/" exact element={<LeftDrawer Element={MainPage} />} />
-                <Route path="/home" exact element={<LeftDrawer />} />
-                <Route path="/new/user" exact element={<LeftDrawer />} />
+                <Route path="/" exact element={<LeftDrawer Element={PublicPage} />} />
+                <Route path="/new/user" exact element={<RegistrationForm />} />
+                <Route path="/login" exact element={<LoginForm />} />
                 <Route path="*" element={<PageNotFound />} />
 
                 {/* Private Routes*/}
                 <Route element={<PrivateRoutes />}>
-                    <Route path="/login" exact element={<RegistrationForm />} />
+                    <Route path="/home" exact element={<LeftDrawer Element={Home} />} />
                 </Route>
 
             </Routes>

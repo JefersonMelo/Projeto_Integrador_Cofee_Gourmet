@@ -11,10 +11,11 @@ export const webURL = window.location.origin;
 export const apiURL = `${definesApiUrl()}/api`;
 
 export const apiRouts = {
-  CREATE_USER: "/user/create/user/",
-  GET_ALL_USERS: "/user/all/users/",
-  GET_USER_BY_ID: "/user/id/%user_id%",
-  GET_USER_BY_EMAIL: "/user/email/%user_email%",
-  GET_ALL_ITEMS_BY_USER_ID: "/user/%user_id%/items/",
-  GET_ALL_ITEMS: "/item/items/",
+  CREATE_USER: "/create/user/",
+  GET_ALL_USERS: "/all/users/",
+  GET_USER_BY_ID: "/id/%user_id%",
+  // GET_USER_BY_EMAIL: "/user/email/%user_email%",
+  GET_LOGIN: "/login",
+  GET_ALL_ITEMS_BY_USER_ID: "/%user_id%/items/",
+  GET_ALL_ITEMS: "/items/",
 };
