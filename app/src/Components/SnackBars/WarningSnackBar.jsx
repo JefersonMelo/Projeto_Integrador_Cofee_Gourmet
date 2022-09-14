@@ -35,7 +35,6 @@ export default function WarningSnackBar() {
           onClose={handleClose}
           severity={`${appContext.warning.type}`}
           sx={{ width: "100%" }}
-          variant="filled"
         >
           {appContext.warning.msg}
         </Alert>
