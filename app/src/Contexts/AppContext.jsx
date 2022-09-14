@@ -5,9 +5,6 @@ export const AppContext = createContext();
 export const defaultValues = {
   drawerOpened: false,
   drawerWidth: 240,
-  password: null,
-  userName: null,
-  email: null,
   refresh: false,
   warningsAndErrors: true,
   warning: {
