@@ -1,38 +1,38 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Avatar, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Contexts/AppContext";
+import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
-import { ShowErrorSnackBar, ShowSuccessSnackBar } from "../../Helpers/SnackBars";
+import {
+  ShowErrorSnackBar,
+  ShowSuccessSnackBar,
+} from "../../Helpers/SnackBars";
 
 export default function RegistrationForm() {
   const [appContext, setAppContext] = useAppContext();
-  const navgate = useNavigate();
-
+  const [userContext, setUserContext] = useUserContext();
+  const navigate = useNavigate();
+  console.log(userContext.email);
   const onSubmit = () => {
     let data = {
-      email: appContext.email,
-      password: appContext.password,
+      email: userContext.email,
+      password: userContext.password,
     };
 
     api.post(apiRouts.CREATE_USER, data)
       .then((res) => {
+        console.debug(res);
         ShowSuccessSnackBar(res, appContext, setAppContext);
-        navgate("/home");
+        navigate("/home");
       })
       .catch((err) => {
         ShowErrorSnackBar(err, appContext, setAppContext);
-
-        setAppContext({
-          ...appContext,
-          email: "",
-          password: "",
-        });
       });
   };
 
@@ -59,8 +59,8 @@ export default function RegistrationForm() {
         autoComplete="email"
         autoFocus
         onChange={(event) => {
-          setAppContext((appContext) => ({
-            ...appContext,
+          setUserContext((userContext) => ({
+            ...userContext,
             email: event.target.value,
           }));
         }}
@@ -77,8 +77,8 @@ export default function RegistrationForm() {
         id="password"
         autoComplete="current-password"
         onChange={(event) => {
-          setAppContext((appContext) => ({
-            ...appContext,
+          setUserContext((userContext) => ({
+            ...userContext,
             password: event.target.value,
           }));
         }}

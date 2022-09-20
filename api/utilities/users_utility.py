@@ -12,15 +12,14 @@ class UsersUtility:
 
     def create_user_email(
             self,
-            password: str,
-            email: str
+            user: UserCreate
     ) -> Tuple[Optional[UserCreate], str]:
 
         try:
             with self.session_maker() as session:
 
-                results, msg = self.users.get_user_email(
-                    email=email,
+                results, msg = self.users.get_user_by_email(
+                    email=user.email,
                     db=session
                 )
 
@@ -28,8 +27,7 @@ class UsersUtility:
                     return None, 'Usuário Já Cadastrado. Cadastre Outro Email'
 
                 results, msg = self.users.create_user(
-                    password=password,
-                    email=email,
+                    user=user,
                     db=session
                 )
 

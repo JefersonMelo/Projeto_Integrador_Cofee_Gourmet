@@ -15,8 +15,7 @@ async def create_user(user: Optional[UserCreate] = None):
         users = UsersUtility()
 
         results, msg = users.create_user_email(
-            password=user.password,
-            email=user.email
+            user=user
         )
 
         if not results:
@@ -25,23 +24,6 @@ async def create_user(user: Optional[UserCreate] = None):
         return {'detail': results, 'message': msg}
 
     except Exception:
-        raise HTTPException(status_code=400, detail=msg)
-
-
-@router.get('/all/users/')
-async def get_all_users():
-    try:
-        users = UsersUtility()
-
-        results, msg = users.get_all_users(skip=0, limit=100)
-
-        if not results:
-            raise HTTPException(status_code=400, detail=msg)
-
-        return {'detail': results, 'message': msg}
-
-    except Exception as e:
-        msg = str(e)
         raise HTTPException(status_code=400, detail=msg)
 
 
@@ -76,18 +58,3 @@ async def user_login(user: Optional[UserLogin] = None):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-# @router.get('/user/email/{user_email}')
-# async def get_user_by_email(user_email: str):
-#     try:
-#         users = UsersUtility()
-#
-#         results, msg = users.get_user_by_email(email=user_email)
-#
-#         if not results:
-#             raise HTTPException(status_code=400, detail=msg)
-#
-#         return {'detail': results, 'msg': msg}
-#
-#     except Exception as e:
-#         raise HTTPException(status_code=400, detail=str(e))

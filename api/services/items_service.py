@@ -1,7 +1,7 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
 from api.models.schemas import ItemCreate
-from api.database.models import Item
+from api.database.models import DbItem
 
 
 class ItemsService:
@@ -12,11 +12,11 @@ class ItemsService:
             user_id: int,
             item: ItemCreate,
             db: Session
-    ) -> Tuple[Optional[Item], str]:
+    ) -> Tuple[Optional[DbItem], str]:
 
         try:
 
-            results = Item(**item.dict(), owner_id=user_id)
+            results = DbItem(**item.dict(), owner_id=user_id)
 
             if not results:
                 db.rollback()
@@ -39,11 +39,11 @@ class ItemsService:
             db: Session,
             skip: int,
             limit: int
-    ) -> Tuple[Optional[Item], str]:
+    ):
 
         try:
 
-            results = db.query(Item).offset(skip).limit(limit).all()
+            results = db.query(DbItem).offset(skip).limit(limit).all()
 
             if not results:
                 return None, 'Error'

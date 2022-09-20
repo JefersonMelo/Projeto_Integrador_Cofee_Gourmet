@@ -130,7 +130,7 @@ dmypy.json
 .pyre/
 
 #db sqlite
-templateReactFasAPI.db
+coffee_break.db
 
 # DEV
 comandos.py

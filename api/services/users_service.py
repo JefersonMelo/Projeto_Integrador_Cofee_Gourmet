@@ -1,7 +1,7 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
 from api.models.schemas import UserCreate, UserLogin
-from api.database.models import User
+from api.database.models import DbUser
 
 
 class UsersService:
@@ -9,18 +9,16 @@ class UsersService:
     @classmethod
     def create_user(
             cls,
-            password: str,
-            email: str,
+            user: UserCreate,
             db: Session
-    ) -> Tuple[Optional[UserCreate], str]:
+    ) -> Tuple[Optional[DbUser], str]:
 
         try:
 
-            fake_hashed_password = password + "notreallyhashed"
-
-            results = User(
-                email=email,
-                hashed_password=fake_hashed_password
+            results = DbUser(
+                email=user.email,
+                password=user.password,
+                name=user.name
             )
 
             if not results:
@@ -33,7 +31,7 @@ class UsersService:
 
             db.refresh(results)
 
-            return results, 'Success'
+            return results, 'User Created with Success'
 
         except Exception as e:
             return None, str(e)
@@ -43,11 +41,11 @@ class UsersService:
             cls,
             db: Session,
             user_id: int,
-    ) -> Tuple[Optional[User], str]:
+    ) -> Tuple[Optional[DbUser], str]:
 
         try:
 
-            results = db.query(User).filter(User.id == user_id).first()
+            results = db.query(DbUser).filter(DbUser.id == user_id).first()
 
             if not results:
                 return None, 'Error'
@@ -62,11 +60,11 @@ class UsersService:
             cls,
             db: Session,
             user: UserLogin,
-    ) -> Tuple[Optional[User], str]:
+    ) -> Tuple[Optional[DbUser], str]:
 
         try:
 
-            results = db.query(User).filter(User.email == user.email).first()
+            results = db.query(DbUser).filter(DbUser.email == user.email).first()
 
             if not results:
                 return None, 'Error'
@@ -76,24 +74,24 @@ class UsersService:
         except Exception as e:
             return None, str(e)
 
-    # @classmethod
-    # def get_user_email(
-    #         cls,
-    #         db: Session,
-    #         email: str,
-    # ) -> Tuple[Optional[User], str]:
-    #
-    #     try:
-    #
-    #         results = db.query(User).filter(User.email == email).first()
-    #
-    #         if not results:
-    #             return None, 'Error'
-    #
-    #         return results, 'Success'
-    #
-    #     except Exception as e:
-    #         return None, str(e)
+    @classmethod
+    def get_user_by_email(
+            cls,
+            db: Session,
+            email: str,
+    ) -> Tuple[Optional[DbUser], str]:
+
+        try:
+
+            results = db.query(DbUser).filter(DbUser.email == email).first()
+
+            if not results:
+                return None, 'Error'
+
+            return results, 'Success'
+
+        except Exception as e:
+            return None, str(e)
 
     @classmethod
     def get_users(
@@ -101,11 +99,11 @@ class UsersService:
             db: Session,
             skip: int,
             limit: int
-    ) -> Tuple[Optional[User], str]:
+    ):
 
         try:
 
-            results = db.query(User).offset(skip).limit(limit).all()
+            results = db.query(DbUser).offset(skip).limit(limit).all()
 
             if not results:
                 return None, 'Error'
