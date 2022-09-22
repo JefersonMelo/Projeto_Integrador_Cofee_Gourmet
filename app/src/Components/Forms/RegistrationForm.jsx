@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,6 +9,7 @@ import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
+import { login, logout } from "../../Services/auth";
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar,
@@ -17,36 +18,53 @@ import {
 export default function RegistrationForm() {
   const [appContext, setAppContext] = useAppContext();
   const [userContext, setUserContext] = useUserContext();
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  console.log(userContext.email);
+
   const onSubmit = () => {
     let data = {
-      email: userContext.email,
-      password: userContext.password,
+      name: userName,
+      email: email,
+      password: password,
     };
 
     api.post(apiRouts.CREATE_USER, data)
       .then((res) => {
-        console.debug(res);
+        login(res.data.token);
         ShowSuccessSnackBar(res, appContext, setAppContext);
         navigate("/home");
+        setUserContext(() => ({
+          ...userContext,
+          token: res.data.token,
+          userName: res.data.userName,
+        }));
       })
       .catch((err) => {
         ShowErrorSnackBar(err, appContext, setAppContext);
+        logout();
       });
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      m={24}
-      mt={16}
-      // component="form"
-    >
-      <Avatar></Avatar>
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Avatar>CB</Avatar>
       <Typography variant="h5">Cadastro</Typography>
+
+      <TextField
+        variant="outlined"
+        margin="normal"
+        fullWidth
+        required={true}
+        id="name"
+        label="Nome"
+        name="name"
+        autoFocus
+        onChange={(e) => {
+          setUserName(e.target.value);
+        }}
+      />
 
       <TextField
         variant="outlined"
@@ -58,11 +76,8 @@ export default function RegistrationForm() {
         name="email"
         autoComplete="email"
         autoFocus
-        onChange={(event) => {
-          setUserContext((userContext) => ({
-            ...userContext,
-            email: event.target.value,
-          }));
+        onChange={(e) => {
+          setEmail(e.target.value);
         }}
       />
 
@@ -76,16 +91,14 @@ export default function RegistrationForm() {
         type="password"
         id="password"
         autoComplete="current-password"
-        onChange={(event) => {
-          setUserContext((userContext) => ({
-            ...userContext,
-            password: event.target.value,
-          }));
+        onChange={(e) => {
+          setPassword(e.target.value);
         }}
       />
 
       <Button
-        disabled={!validatorEmail(appContext.email)}
+        sx={{ mt: "0.8rem", mb: "1rem" }}
+        disabled={!validatorEmail(email)}
         variant="contained"
         color="primary"
         type="submit"
