@@ -5,9 +5,7 @@ export const newUserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userContext, setUserContext] = useState({
     token: null,
-    setToken: () => {},
     userName: null,
-    email: null,
 });
 
   return (

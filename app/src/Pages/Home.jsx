@@ -3,10 +3,13 @@ import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { Main } from "../Pages/Config/MainStyle";
 import { useAppContext } from "../Contexts/AppContext";
+import { useUserContext } from "../Contexts/UserContext";
+import { login, getToken } from "../Services/auth";
 
 
 export default function Home() {
   const [appContext, ] = useAppContext();
+  const [userContext, setUserContext] = useUserContext();
   return (
     <Box sx={{ mt: 7, flexGrow: 12 }}>
     <Main open={appContext.drawerOpened} context={appContext}>

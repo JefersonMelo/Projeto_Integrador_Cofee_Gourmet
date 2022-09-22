@@ -8,6 +8,7 @@ import PublicPage from "../Pages/PublicPage";
 import Home from "../Pages/Home"
 import PrivateRoutes from "../Services/privateRoute"
 import LoginForm from "../Components/Forms/LoginForm"
+import BorderBox from "../Components/Box/BorderBox";
 
 export default function AppRoutes() {
 
@@ -16,8 +17,8 @@ export default function AppRoutes() {
             <Routes>
                 {/* Public Routes*/}
                 <Route path="/" exact element={<LeftDrawer Element={PublicPage} />} />
-                <Route path="/new/user" exact element={<RegistrationForm />} />
-                <Route path="/login" exact element={<LoginForm />} />
+                <Route path="/new/user" exact element={<BorderBox Element={RegistrationForm} />} />
+                <Route path="/login" exact element={<BorderBox Element={LoginForm} />} />
                 <Route path="*" element={<PageNotFound />} />
 
                 {/* Private Routes*/}
