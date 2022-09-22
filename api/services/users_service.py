@@ -64,7 +64,12 @@ class UsersService:
 
         try:
 
-            results = db.query(DbUser).filter(DbUser.email == user.email).first()
+            results = db.query(
+                DbUser
+            ).filter(
+                DbUser.email == user.email,
+                DbUser.password == user.password
+            ).first()
 
             if not results:
                 return None, 'Error'

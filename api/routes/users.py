@@ -54,7 +54,7 @@ async def user_login(user: Optional[UserLogin] = None):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'id': results.id, 'token': '@coffee-token', 'msg': msg}
+        return {'id': results.id, 'userName': results.name, 'token': '@coffee-token', 'msg': msg}
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
