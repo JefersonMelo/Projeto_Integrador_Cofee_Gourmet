@@ -18,7 +18,7 @@ export const NavBarLogo = () => {
       to={{ pathname: "/" }}
     >
       <Typography variant="h6" component="div">
-        COFFEE AT HOME
+        COFFEE BREAK
       </Typography>
     </Box>
   );

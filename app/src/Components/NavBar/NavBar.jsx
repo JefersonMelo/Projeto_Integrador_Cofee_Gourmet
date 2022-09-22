@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -6,13 +7,17 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
 import { useAppContext } from "../../Contexts/AppContext";
 import ButtonUserConnect from "../Buttons/ButtonUserConnect";
 import BadgeShoppingCar from "../Badge/BadgeShoppingCar";
 import SearchBar from "../Searches/SearchBar";
+import { getToken, logout } from "../../Services/auth";
+import { Button } from "@mui/material";
 
 export default function NavBar({ open }) {
   const [appContext, setAppContext] = useAppContext();
+  const navigate = useNavigate();
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -52,13 +57,25 @@ export default function NavBar({ open }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            COFFEE AT HOME
+            COFFEE BREAK
           </Typography>
           <Box sx={{ flexGrow: 2 }}>
             <SearchBar placeholder={"Pesquisar"} width={"70%"} />
           </Box>
-          <ButtonUserConnect />
-          <BadgeShoppingCar badgeContent={1} />
+
+          {getToken() ? (
+            <>
+              <Button onClick={()=>{
+                logout()
+                navigate("/");
+                }}>
+                <Avatar sx={{ width: 24, height: 24 }}>J</Avatar>
+              </Button>
+              <BadgeShoppingCar badgeContent={1} />
+            </>
+          ) : (
+            <ButtonUserConnect />
+          )}
         </Toolbar>
       </AppBar>
     </Box>
