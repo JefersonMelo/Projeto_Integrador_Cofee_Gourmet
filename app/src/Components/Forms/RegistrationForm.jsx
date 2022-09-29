@@ -9,7 +9,7 @@ import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
-import { login, logout } from "../../Services/auth";
+import { logout } from "../../Services/storage";
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar,
@@ -32,14 +32,14 @@ export default function RegistrationForm() {
 
     api.post(apiRouts.CREATE_USER, data)
       .then((res) => {
-        login(res.data.token);
         ShowSuccessSnackBar(res, appContext, setAppContext);
-        navigate("/home");
         setUserContext(() => ({
           ...userContext,
+          userid: res.data.id,
           token: res.data.token,
-          userName: res.data.userName,
+          username: res.data.username,
         }));
+        navigate("/home");
       })
       .catch((err) => {
         ShowErrorSnackBar(err, appContext, setAppContext);

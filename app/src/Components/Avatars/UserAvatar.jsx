@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import { Menu, MenuItem } from "@mui/material";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import { Chip, Menu, MenuItem } from "@mui/material";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-// import { useAppContext } from "../../Contexts/AppContext";
-import { logout } from "../../Services/auth";
+import { useUserContext } from "../../Contexts/UserContext";
+import { logout } from "../../Services/storage";
+
 
 export default function UserAvatar() {
-  //   const [appContext, setAppContext] = useAppContext();
-  const navigate = useNavigate();
+  const [userContext] = useUserContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -26,9 +25,10 @@ export default function UserAvatar() {
   };
 
   const handleSignOut = () => {
-    handleClose();
     logout();
-    navigate("/");
+    window.location.reload();
+    handleClose();
+    
   };
 
   return (
@@ -43,9 +43,13 @@ export default function UserAvatar() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 24, height: 24, bgcolor: "white" }}>
-              <strong style={{ color: "black" }}>J</strong>
-            </Avatar>
+            <Chip
+              variant="outlined"
+              size="small"
+              sx={{ bgcolor: "white" }}
+              icon={<SentimentSatisfiedAltIcon />}
+              label={userContext.username}
+            />
           </IconButton>
         </Tooltip>
         <Menu

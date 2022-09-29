@@ -10,11 +10,12 @@ import { useAppContext } from "../../Contexts/AppContext";
 import ButtonUserConnect from "../Buttons/ButtonUserConnect";
 import BadgeShoppingCar from "../Badge/BadgeShoppingCar";
 import SearchBar from "../Searches/SearchBar";
-import { getToken } from "../../Services/auth";
+import { useUserContext } from "../../Contexts/UserContext";
 import UserAvatar from "../Avatars/UserAvatar";
 
 export default function NavBar({ open }) {
   const [appContext, setAppContext] = useAppContext();
+  const [userContext] = useUserContext();
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -60,7 +61,7 @@ export default function NavBar({ open }) {
             <SearchBar placeholder={"Pesquisar"} width={"70%"} />
           </Box>
 
-          {getToken() ? (
+          {userContext.token ? (
             <>
               <UserAvatar />
               <BadgeShoppingCar badgeContent={1} />

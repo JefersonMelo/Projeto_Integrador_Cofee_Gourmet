@@ -6,13 +6,12 @@ import Button from "@mui/material/Button";
 import { Avatar, TextField } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
+import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
-import { validatorEmail } from "../../Helpers/Validators";
-import { login } from "../../Services/auth";
+import { validatorEmail } from "../../Helpers/Validators";  
 import { ShowSuccessSnackBar } from "../../Helpers/SnackBars";
 import { Theme } from "../../Helpers/Theme";
-import { useUserContext } from "../../Contexts/UserContext";
 
 export default function RegistrationForm() {
   const [appContext, setAppContext] = useAppContext();
@@ -32,20 +31,20 @@ export default function RegistrationForm() {
     api.post(apiRouts.GET_LOGIN, data)
       .then((res) => {
         ShowSuccessSnackBar(res, appContext, setAppContext);
-        login(res.data.token);
-        navigate("/home");
-        setUserContext(()=>({
+        setUserContext(() => ({
           ...userContext,
+          userid: res.data.userid,
+          username: res.data.username,
           token: res.data.token,
-          userName: res.data.userName
         }));
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
         setCheckedUser(true);
       });
   };
-  
+
   return (
     <>
       <Box display="flex" flexDirection="column" alignItems="center">
