@@ -29,6 +29,7 @@ async def create_user(user: Optional[UserCreate] = None):
 
 @router.get('/user/id/{user_id}')
 async def get_user(user_id: int):
+    msg = None
     try:
         users = UsersUtility()
 
@@ -39,13 +40,13 @@ async def get_user(user_id: int):
 
         return {'detail': results, 'message': msg}
 
-    except Exception as e:
-        msg = str(e)
+    except Exception:
         raise HTTPException(status_code=400, detail=msg)
 
 
 @router.post('/login')
 async def user_login(user: Optional[UserLogin] = None):
+    msg = None
     try:
         users = UsersUtility()
 
@@ -56,5 +57,5 @@ async def user_login(user: Optional[UserLogin] = None):
 
         return {'userid': results.id, 'username': results.name, 'token': '@coffee-token', 'msg': msg}
 
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=400, detail=msg)

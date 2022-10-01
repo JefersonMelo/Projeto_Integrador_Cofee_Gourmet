@@ -72,9 +72,9 @@ class UsersService:
             ).first()
 
             if not results:
-                return None, 'Error'
+                return None, 'Triste, Mas Você Não Te Achei!'
 
-            return results, 'Success'
+            return results, f'{results.name}, Valeu Por Estar Aqui!'
 
         except Exception as e:
             return None, str(e)

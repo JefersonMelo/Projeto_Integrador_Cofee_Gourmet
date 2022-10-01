@@ -9,7 +9,7 @@ import { useAppContext } from "../../Contexts/AppContext";
 import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
-import { validatorEmail } from "../../Helpers/Validators";  
+import { validatorEmail } from "../../Helpers/Validators";
 import { ShowSuccessSnackBar } from "../../Helpers/SnackBars";
 import { Theme } from "../../Helpers/Theme";
 
@@ -18,7 +18,7 @@ export default function RegistrationForm() {
   const [userContext, setUserContext] = useUserContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [checkedUser, setCheckedUser] = useState(false);
+  const [checkedUser, setCheckedUser] = useState(true);
   const navigate = useNavigate();
   const colors = Theme.palette;
 
@@ -41,7 +41,7 @@ export default function RegistrationForm() {
       })
       .catch((err) => {
         console.log(err);
-        setCheckedUser(true);
+        setCheckedUser(false);
       });
   };
 
@@ -51,7 +51,7 @@ export default function RegistrationForm() {
         <Avatar></Avatar>
         <Typography variant="h5">Login</Typography>
         <TextField
-          error={checkedUser}
+          error={!checkedUser}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -66,6 +66,7 @@ export default function RegistrationForm() {
           }}
         />
         <TextField
+          error={!checkedUser}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -79,6 +80,21 @@ export default function RegistrationForm() {
             setPassword(e.target.value);
           }}
         />
+        {!checkedUser && (
+        <>
+          <Box
+            sx={{
+              justifyContent: "flex-end",
+              display: "flex",
+              alignItems: "flex-end",
+            }}
+          >
+            <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
+              Senha ou Pessoal Não Foram Localizados 🙄
+            </FormHelperText>
+          </Box>
+        </>
+      )}
         <Button
           sx={{ mt: "0.8rem" }}
           disabled={!validatorEmail(email)}
@@ -93,7 +109,7 @@ export default function RegistrationForm() {
           Entrar
         </Button>
       </Box>
-      {checkedUser && (
+      {!checkedUser && (
         <>
           <Box
             sx={{
