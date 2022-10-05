@@ -3,5 +3,8 @@ from enum import Enum
 
 class Tags(Enum):
     User = 'user'
-    Item = 'items'
+    Product = 'product'
     Home = 'home'
+    Order = 'order'
+    CarShop = 'carShop'
+    Category = 'category'
