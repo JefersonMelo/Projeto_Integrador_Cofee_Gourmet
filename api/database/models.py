@@ -6,131 +6,132 @@ from .mixins import DeletionMixin, ModificationMixin, CreationMixin
 
 
 class DbUser(Base, DeletionMixin, ModificationMixin):
-    __tablename__ = "users"
+    __tablename__ = "Users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String(255), unique=True, index=True)
-    name = Column(String(255), index=True)
-    password = Column(String)
-    is_active = Column(Boolean, default=True)
+    UserID = Column(Integer, primary_key=True, index=True)
+    UserEmail = Column(String(255), unique=True, index=True)
+    UserName = Column(String(255), index=True)
+    Password = Column(String)
+    UserIsActive = Column(Boolean, default=True)
 
     items = relationship("DbCarShop", back_populates="user")
-    address = relationship("DbAddress", back_populates="user")
-    contacts = relationship("DbContact", back_populates="user")
+    Address = relationship("DbAddress", back_populates="user")
+    Contacts = relationship("DbContact", back_populates="user")
 
 
 class DbAddress(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "address"
-    id = Column(Integer, primary_key=True, index=True)
-    city = Column(String(255), index=True)
-    province = Column(String(255), index=True)
-    country = Column(String(2), index=True)
+    __tablename__ = "Address"
+    AddressID = Column(Integer, primary_key=True, index=True)
+    City = Column(String(255), index=True)
+    Province = Column(String(255), index=True)
+    Country = Column(String(2), index=True)
 
-    fk_user_id = Column(Integer, ForeignKey("users.id"))
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
-    user = relationship("DbUser", back_populates="address")
+    user = relationship("DbUser", back_populates="Address")
 
 
 class DbContact(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "contacts"
-    id = Column(Integer, primary_key=True, index=True)
-    phone_1 = Column(String(255), index=True)
-    phone_2 = Column(String(255), index=True)
-    email = Column(String(255), index=True)
+    __tablename__ = "Contacts"
+    ContactID = Column(Integer, primary_key=True, index=True)
+    Phone_1 = Column(String(255), index=True)
+    Phone_2 = Column(String(255), index=True)
 
-    fk_user_id = Column(Integer, ForeignKey("users.id"))
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
-    user = relationship("DbUser", back_populates="contacts")
+    user = relationship("DbUser", back_populates="Contacts")
 
 
 class DbCarShop(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "carShop"
+    __tablename__ = "CarShop"
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(255), index=True)
-    description = Column(String, index=True)
+    CarShopID = Column(Integer, primary_key=True, index=True)
+    CarTitle = Column(String(255), index=True)
+    CarDescription = Column(String, index=True)
 
-    fk_user_id = Column(Integer, ForeignKey("users.id"))
-    fk_product_id = Column(Integer, ForeignKey("products.id"))
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
+    FK_ProductID = Column(Integer, ForeignKey("Products.ProductID"))
 
     user = relationship("DbUser", back_populates="items")
-    products = relationship("DbProduct", back_populates="car_shop")
+    Products = relationship("DbProduct", back_populates="car_shop")
     relationships = relationship("DbCarShopOrderRelationShip", back_populates="car_shop")
 
 
 class DbCarShopOrderRelationShip(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "carShopOrderRelationShip"
+    __tablename__ = "CarShopOrderRelationShip"
 
-    id = Column(Integer, primary_key=True, index=True)
-    fk_car_shop_id = Column(Integer, ForeignKey("carShop.id"))
-    fk_order_id = Column(Integer, ForeignKey("orders.id"))
+    CarShopRelationShipID = Column(Integer, primary_key=True, index=True)
+    FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
+    FK_OrderID = Column(Integer, ForeignKey("Orders.OrderID"))
 
     order = relationship("DbOrder", back_populates="relationships")
     car_shop = relationship("DbCarShop", back_populates="relationships")
 
 
 class DbOrder(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "orders"
+    __tablename__ = "Orders"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), nullable=False, index=True)
-    sub_total = Column(Numeric(3, 2), nullable=False, index=True)
-    status = Column(Boolean, default=False)
+    OrderID = Column(Integer, primary_key=True, index=True)
+    OrderName = Column(String(255), nullable=False, index=True)
+    SubTotal = Column(Numeric(3, 2), nullable=False, index=True)
+    Status = Column(Boolean, default=False)
 
-    fk_user_id = Column(Integer, ForeignKey("users.id"))
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
     relationships = relationship("DbCarShopOrderRelationShip", back_populates="order")
 
 
 class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "products"
+    __tablename__ = "Products"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), nullable=False, index=True)
-    description = Column(String, nullable=False, index=True)
-    rating = Column(Integer, index=True)
+    ProductID = Column(Integer, primary_key=True, index=True)
+    ProductName = Column(String(255), nullable=False, index=True)
+    ProductDescription = Column(String, nullable=False, index=True)
+    Rating = Column(Integer, index=True)
 
-    price = Column(Numeric(3, 2), nullable=False, index=True)
-    discount = Column(Numeric(0, 2), nullable=False, index=True)
+    Price = Column(Numeric(3, 2), nullable=False, index=True)
+    Discount = Column(Numeric(0, 2), nullable=False, index=True)
 
-    validityStartDate = Column(DateTime, name='validityStartDate', nullable=False)
-    validityEndDate = Column(DateTime, name='validityEndDate', nullable=False)
+    FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"))
+    FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"))
 
-    product_type = relationship("DbProductType", back_populates="products")
-    category = relationship("DbCategory", back_populates="products")
-    car_shop = relationship("DbCarShop", back_populates="products")
+    ValidityStartDate = Column(DateTime, name='validityStartDate', nullable=False)
+    ValidityEndDate = Column(DateTime, name='validityEndDate', nullable=False)
+
+    product_type = relationship("DbProductType", back_populates="Products")
+    category = relationship("DbCategory", back_populates="Products")
+    car_shop = relationship("DbCarShop", back_populates="Products")
 
 
 class DbProductType(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "productTypes"
+    __tablename__ = "ProductTypes"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), index=True)
+    ProductTypeID = Column(Integer, primary_key=True, index=True)
+    TypeName = Column(String(255), index=True)
 
-    fk_product_id = Column(Integer, ForeignKey("products.id"))
-    fk_category_id = Column(Integer, ForeignKey("categories.id"))
+    FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"))
 
-    products = relationship("DbProduct", back_populates="product_type")
+    Products = relationship("DbProduct", back_populates="product_type")
     sub_type = relationship("DbProductSubType", back_populates="product_types")
 
 
 class DbProductSubType(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "productSubTypes"
+    __tablename__ = "ProductSubTypes"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), index=True)
+    ProductSubtypeID = Column(Integer, primary_key=True, index=True)
+    SubTypeName = Column(String(255), index=True)
 
-    fk_product_type_id = Column(Integer, ForeignKey("productTypes.id"))
+    FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"))
 
     product_types = relationship("DbProductType", back_populates="sub_type")
 
 
 class DbCategory(Base, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "categories"
+    __tablename__ = "Categories"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), index=True)
+    CategoryID = Column(Integer, primary_key=True, index=True)
+    CategoryName = Column(String(255), unique=True, index=True)
+    Description = Column(String)
+    CategoryIsActive = Column(Boolean, default=True)
 
-    fk_product_id = Column(Integer, ForeignKey("products.id"))
-
-    products = relationship("DbProduct", back_populates="category")
+    Products = relationship("DbProduct", back_populates="category")

@@ -1,10 +1,30 @@
-from typing import Union
+from datetime import datetime
+from typing import Union, Optional
 
 from pydantic import BaseModel
 
 
+class CreationBase(BaseModel):
+    CreatedBy: Optional[str] = None
+    Created: Optional[datetime] = None
+
+
+class ModificationBase(BaseModel):
+    ModifiedBy: Optional[str] = None
+    Modified: Optional[datetime] = None
+
+
+class DeletionBase(BaseModel):
+    DeletedBy: Optional[str] = None
+    Deleted: Optional[datetime] = None
+
+
 class UserBase(BaseModel):
     email: str
+
+
+class DescriptionBase(BaseModel):
+    Description: Optional[str] = None
 
 
 class UserCreate(UserBase):
@@ -27,13 +47,13 @@ class ItemBase(BaseModel):
     description: Union[str, None] = None
 
 
-class ItemCreate(ItemBase):
+class CreateProduct(ItemBase):
     pass
 
 
-class Item(ItemBase):
+class Product(ItemBase):
     id: int
-    owner_id: int
+    user_id: int
 
     class Config:
         orm_mode = True
@@ -42,4 +62,12 @@ class Item(ItemBase):
 class User(UserBase):
     id: int
     is_active: bool
-    items: list[Item] = []
+    items: list[Product] = []
+
+
+class Category(DescriptionBase, CreationBase, DeletionBase, ModificationBase):
+    CategoryName: str
+    CategoryIsActive: bool
+
+    class Config:
+        orm_mode = True
