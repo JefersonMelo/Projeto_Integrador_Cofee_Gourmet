@@ -1,19 +1,19 @@
 from typing import Optional
 from fastapi import HTTPException
 
-from ..utilities.items_utility import ItemsUtility
-from ..models.schemas import ItemCreate
+from ..utilities.product_utility import ProductUtility
+from ..schemas.product_schema import CreateProduct
 from fastapi import APIRouter
 
 router = APIRouter()
 
 
-@router.post('/user/{user_id}')
-async def create_item_for_user(user_id: int, item: Optional[ItemCreate]):
+@router.post('/add/new/product')
+async def create_new_product(product: Optional[CreateProduct]):
     try:
-        items = ItemsUtility()
+        product_utility = ProductUtility()
 
-        results, msg = items.create_item_for_user(user_id=user_id, item=item)
+        results, msg = product_utility.create_product(product=product)
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)
@@ -28,7 +28,7 @@ async def create_item_for_user(user_id: int, item: Optional[ItemCreate]):
 @router.get('/')
 def get_all_items():
     try:
-        items = ItemsUtility()
+        items = ProductUtility()
 
         results, msg = items.get_all_items(skip=0, limit=100)
 

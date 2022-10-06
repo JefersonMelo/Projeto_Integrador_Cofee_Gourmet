@@ -1,22 +1,22 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
-from api.models.schemas import ItemCreate
-from api.database.models import DbItem
+from api.schemas.product_schema import CreateProduct
+from api.database.models import DbCarShop
 
 
-class ItemsService:
+class CarShopService:
 
     @classmethod
     def create_item_user(
             cls,
             user_id: int,
-            item: ItemCreate,
+            item: CreateProduct,
             db: Session
-    ) -> Tuple[Optional[DbItem], str]:
+    ) -> Tuple[Optional[DbCarShop], str]:
 
         try:
 
-            results = DbItem(**item.dict(), owner_id=user_id)
+            results = DbCarShop(**item.dict(), fk_user_id=user_id)
 
             if not results:
                 db.rollback()
@@ -43,7 +43,7 @@ class ItemsService:
 
         try:
 
-            results = db.query(DbItem).offset(skip).limit(limit).all()
+            results = db.query(DbCarShop).offset(skip).limit(limit).all()
 
             if not results:
                 return None, 'Error'

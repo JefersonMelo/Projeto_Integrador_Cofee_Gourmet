@@ -1,20 +1,20 @@
 from typing import Optional, Tuple
 from api.database.connection import get_session
-from api.models.schemas import ItemCreate, Item
-from api.services.items_service import ItemsService
+from api.schemas.product_schema import CreateProduct, Product
+from api.services.shop_service import CarShopService
 
 
-class ItemsUtility:
+class CarShopUtility:
 
     def __init__(self):
-        self.items = ItemsService()
+        self.items = CarShopService()
         self.session_maker = get_session
 
     def create_item_for_user(
             self,
             user_id: int,
-            item: ItemCreate
-    ) -> Tuple[Optional[ItemCreate], str]:
+            item: CreateProduct
+    ) -> Tuple[Optional[CreateProduct], str]:
 
         try:
             with self.session_maker() as session:
@@ -40,7 +40,7 @@ class ItemsUtility:
             self,
             skip: int,
             limit: int
-    ) -> Tuple[Optional[Item], str]:
+    ) -> Tuple[Optional[Product], str]:
 
         try:
             with self.session_maker() as session:

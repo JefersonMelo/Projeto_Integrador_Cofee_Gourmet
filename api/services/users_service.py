@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
-from api.models.schemas import UserCreate, UserLogin
+from api.schemas.user_schema import UserCreate, UserLogin
 from api.database.models import DbUser
 
 
@@ -15,11 +15,7 @@ class UsersService:
 
         try:
 
-            results = DbUser(
-                email=user.email,
-                password=user.password,
-                name=user.name
-            )
+            results = DbUser()
 
             if not results:
                 db.rollback()
@@ -45,7 +41,7 @@ class UsersService:
 
         try:
 
-            results = db.query(DbUser).filter(DbUser.id == user_id).first()
+            results = db.query(DbUser).filter(DbUser.UserID == user_id).first()
 
             if not results:
                 return None, 'Error'

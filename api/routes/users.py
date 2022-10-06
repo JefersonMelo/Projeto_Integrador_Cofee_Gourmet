@@ -2,7 +2,7 @@ from typing import Optional
 from fastapi import HTTPException
 
 from ..utilities.users_utility import UsersUtility
-from ..models.schemas import UserCreate, UserLogin
+from ..schemas.user_schema import UserCreate, UserLogin
 from fastapi import APIRouter
 
 router = APIRouter()
