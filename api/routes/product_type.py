@@ -30,7 +30,24 @@ def get_all_types():
     try:
         type_utility = TypeUtility()
 
-        results, msg = type_utility.get_all_types()
+        results, msg = type_utility.get_all_product_types()
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'detail': results, 'msg': msg}
+
+    except Exception as e:
+        msg = str(e)
+        raise HTTPException(status_code=400, detail=msg)
+
+
+@router.get('/get/product/type/{product_type_id}')
+def get_all_types(product_type_id: int):
+    try:
+        type_utility = TypeUtility()
+
+        results, msg = type_utility.get_product_type_by_id(product_type_id=product_type_id)
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)

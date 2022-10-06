@@ -49,3 +49,26 @@ class ProductTypeService:
 
         except Exception as e:
             return None, str(e)
+
+    @classmethod
+    def select_product_type_by_id(
+            cls,
+            product_type_id: int,
+            db: Session,
+    ) -> Tuple[Optional[List[DbProductType]], str]:
+
+        try:
+
+            results = db.query(
+                DbProductType
+            ).filter(
+                DbProductType.ProductTypeID == product_type_id
+            ).first()
+
+            if not results:
+                return None, 'Erro ao Recuperar Tipos'
+
+            return results, 'Tipos Recuperados com Sucesso!'
+
+        except Exception as e:
+            return None, str(e)
