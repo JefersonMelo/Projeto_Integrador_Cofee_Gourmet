@@ -1,7 +1,7 @@
 from typing import Optional, Tuple, List
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from api.schemas.category_schema import Category
-from api.database.models import DbCategory
+from api.database.models import DbCategory, DbProductType
 
 
 class CategoryService:
@@ -51,6 +51,30 @@ class CategoryService:
             return None, str(e)
 
     @classmethod
+    def select_categories_and_product_types(
+            cls,
+            db: Session,
+    ) -> Tuple[Optional[List[DbCategory]], str]:
+
+        try:
+
+            results = db.query(
+                DbCategory
+            ).join(
+                DbProductType
+            ).options(
+                joinedload(DbCategory.ProductsTypes)
+            ).all()
+
+            if not results:
+                return None, 'Erro ao Buscar Categorias'
+
+            return results, 'Categorias Localizadas Com Sucesso!'
+
+        except Exception as e:
+            return None, str(e)
+
+    @classmethod
     def select_category_by_id(
             cls,
             category_id: int,
@@ -64,6 +88,35 @@ class CategoryService:
             ).filter(
                 DbCategory.CategoryID == category_id
             ).first()
+
+            if not results:
+                return None, 'Erro ao Buscar Categorias'
+
+            return results, 'Categorias Localizadas Com Sucesso!'
+
+        except Exception as e:
+            return None, str(e)
+
+    @classmethod
+    def select_category_and_products_types_by_category_id(
+            cls,
+            category_id: int,
+            db: Session,
+    ) -> Tuple[Optional[List[DbCategory]], str]:
+
+        try:
+
+            results = db.query(
+                DbCategory
+            ).join(
+                DbProductType
+            ).filter(
+                DbCategory.CategoryID == category_id,
+            ).filter(
+                DbProductType.FK_CategoryID == category_id
+            ).options(
+                joinedload(DbCategory.ProductsTypes)
+            ).all()
 
             if not results:
                 return None, 'Erro ao Buscar Categorias'
