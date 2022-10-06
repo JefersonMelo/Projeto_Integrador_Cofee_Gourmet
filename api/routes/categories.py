@@ -2,7 +2,7 @@ from typing import Optional
 from fastapi import HTTPException
 
 from ..utilities.category_utility import CategoryUtility
-from ..models.schemas import Category
+from ..schemas .category_schema import Category
 from fastapi import APIRouter
 
 router = APIRouter()

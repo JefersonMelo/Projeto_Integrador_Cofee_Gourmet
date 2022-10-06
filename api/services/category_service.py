@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, List
 from sqlalchemy.orm import Session
-from api.models.schemas import Category
+from api.schemas.category_schema import Category
 from api.database.models import DbCategory
 
 
