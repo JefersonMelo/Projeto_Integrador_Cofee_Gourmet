@@ -14,9 +14,9 @@ class DbUser(Base, DeletionMixin, ModificationMixin):
     Password = Column(String)
     UserIsActive = Column(Boolean, default=True)
 
-    items = relationship("DbCarShop", back_populates="user")
-    Address = relationship("DbAddress", back_populates="user")
-    Contacts = relationship("DbContact", back_populates="user")
+    Items = relationship("DbCarShop", back_populates="User")
+    Address = relationship("DbAddress", back_populates="User")
+    Contacts = relationship("DbContact", back_populates="User")
 
 
 class DbAddress(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -28,7 +28,7 @@ class DbAddress(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
-    user = relationship("DbUser", back_populates="Address")
+    User = relationship("DbUser", back_populates="Address")
 
 
 class DbContact(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -39,7 +39,7 @@ class DbContact(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
-    user = relationship("DbUser", back_populates="Contacts")
+    User = relationship("DbUser", back_populates="Contacts")
 
 
 class DbCarShop(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -52,9 +52,9 @@ class DbCarShop(Base, DeletionMixin, ModificationMixin, CreationMixin):
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     FK_ProductID = Column(Integer, ForeignKey("Products.ProductID"))
 
-    user = relationship("DbUser", back_populates="items")
-    Products = relationship("DbProduct", back_populates="car_shop")
-    relationships = relationship("DbCarShopOrderRelationShip", back_populates="car_shop")
+    User = relationship("DbUser", back_populates="Items")
+    Products = relationship("DbProduct", back_populates="CarShop")
+    Relationships = relationship("DbCarShopOrderRelationShip", back_populates="CarShop")
 
 
 class DbCarShopOrderRelationShip(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -64,8 +64,8 @@ class DbCarShopOrderRelationShip(Base, DeletionMixin, ModificationMixin, Creatio
     FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
     FK_OrderID = Column(Integer, ForeignKey("Orders.OrderID"))
 
-    order = relationship("DbOrder", back_populates="relationships")
-    car_shop = relationship("DbCarShop", back_populates="relationships")
+    Order = relationship("DbOrder", back_populates="Relationships")
+    CarShop = relationship("DbCarShop", back_populates="Relationships")
 
 
 class DbOrder(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -78,7 +78,7 @@ class DbOrder(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
-    relationships = relationship("DbCarShopOrderRelationShip", back_populates="order")
+    Relationships = relationship("DbCarShopOrderRelationShip", back_populates="Order")
 
 
 class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -98,9 +98,9 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
     ValidityStartDate = Column(DateTime, name='validityStartDate', nullable=False)
     ValidityEndDate = Column(DateTime, name='validityEndDate', nullable=False)
 
-    product_type = relationship("DbProductType", back_populates="Products")
-    category = relationship("DbCategory", back_populates="Products")
-    car_shop = relationship("DbCarShop", back_populates="Products")
+    ProductType = relationship("DbProductType", back_populates="Products")
+    Category = relationship("DbCategory", back_populates="Products")
+    CarShop = relationship("DbCarShop", back_populates="Products")
 
 
 class DbProductType(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -108,11 +108,14 @@ class DbProductType(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     ProductTypeID = Column(Integer, primary_key=True, index=True)
     TypeName = Column(String(255), index=True)
+    ProductTypeIsActive = Column(Boolean, default=True)
+    ProductTypeDescription = Column(String)
 
     FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"))
 
-    Products = relationship("DbProduct", back_populates="product_type")
-    sub_type = relationship("DbProductSubType", back_populates="product_types")
+    Products = relationship("DbProduct", back_populates="ProductType")
+    SubType = relationship("DbProductSubType", back_populates="ProductTypes")
+    Category = relationship("DbCategory", back_populates="ProductsTypes")
 
 
 class DbProductSubType(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -123,7 +126,7 @@ class DbProductSubType(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"))
 
-    product_types = relationship("DbProductType", back_populates="sub_type")
+    ProductTypes = relationship("DbProductType", back_populates="SubType")
 
 
 class DbCategory(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -134,4 +137,5 @@ class DbCategory(Base, DeletionMixin, ModificationMixin, CreationMixin):
     Description = Column(String)
     CategoryIsActive = Column(Boolean, default=True)
 
-    Products = relationship("DbProduct", back_populates="category")
+    Products = relationship("DbProduct", back_populates="Category")
+    ProductsTypes = relationship("DbProductType", back_populates="Category")

@@ -8,3 +8,5 @@ class Tags(Enum):
     Order = 'order'
     CarShop = 'carShop'
     Category = 'category'
+    ProductType = 'product type'
+    ProductSubType = 'product sub type'
