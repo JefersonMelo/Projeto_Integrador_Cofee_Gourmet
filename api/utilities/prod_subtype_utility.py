@@ -55,3 +55,27 @@ class ProductSubtypeUtility:
 
         except Exception as e:
             return [], str(e)
+
+    def get_subtype_by_id(
+            self,
+            subtype_id: int
+    ) -> Tuple[Optional[Tuple[ProductSubtype]], str]:
+
+        try:
+            with self.session_maker() as session:
+
+                results, msg = self.subtype_service.select_subtype_by_id(
+                    subtype_id=subtype_id,
+                    db=session
+                )
+
+                if not results:
+                    session.rollback()
+                    return None, msg
+
+                session.expunge_all()
+
+                return results, msg
+
+        except Exception as e:
+            return None, str(e)

@@ -60,8 +60,9 @@ class ProductSubtypeService:
         try:
 
             results = db.query(
-                DbProductSubType.ProductSubtypeID == subtype_id
+                DbProductSubType
             ).filter(
+                DbProductSubType.ProductSubtypeID == subtype_id,
                 DbProductSubType.Deleted.is_(None)
             ).first()
 
