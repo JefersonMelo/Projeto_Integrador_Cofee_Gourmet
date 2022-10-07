@@ -9,13 +9,13 @@ class ProductSubtypeService:
     @classmethod
     def insert_new_product_subtype(
             cls,
-            prod_sub_type: ProductSubtype,
+            prod_subtype: ProductSubtype,
             db: Session
     ) -> Tuple[Optional[DbProductSubType], str]:
 
         try:
 
-            results = DbProductSubType(**prod_sub_type.dict())
+            results = DbProductSubType(**prod_subtype.dict())
 
             if not results:
                 db.rollback()

@@ -12,14 +12,14 @@ class ProductSubtypeUtility:
 
     def create_product_subtype(
             self,
-            prod_sub_type: ProductSubtype
+            prod_subtype: ProductSubtype
     ) -> Tuple[Optional[ProductSubtype], str]:
 
         try:
             with self.session_maker() as session:
 
                 results, msg = self.subtype_service.insert_new_product_subtype(
-                    prod_sub_type=prod_sub_type,
+                    prod_subtype=prod_subtype,
                     db=session
                 )
 

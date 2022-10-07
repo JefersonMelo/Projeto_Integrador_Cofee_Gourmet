@@ -9,11 +9,11 @@ router = APIRouter()
 
 
 @router.post('/add/new/product/sub/type')
-async def create_new_product_subtype(prod_sub_type: Optional[ProductSubtype]):
+async def create_new_product_subtype(prod_subtype: Optional[ProductSubtype]):
     try:
         subtype_utility = ProductSubtypeUtility()
 
-        results, msg = subtype_utility.create_product_subtype(prod_sub_type=prod_sub_type)
+        results, msg = subtype_utility.create_product_subtype(prod_subtype=prod_subtype)
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)
