@@ -9,4 +9,4 @@ class Tags(Enum):
     CarShop = 'carShop'
     Category = 'category'
     ProductType = 'product type'
-    ProductSubType = 'product sub type'
+    ProductSubtype = 'product sub type'

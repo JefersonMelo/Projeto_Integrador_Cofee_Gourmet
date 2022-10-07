@@ -1,19 +1,19 @@
 from typing import Optional
 from fastapi import HTTPException
 
-from ..utilities.product_utility import ProductUtility
-from ..models.schemas import CreateProduct
+from ..utilities.prod_subtype_utility import ProductSubtypeUtility
+from ..schemas.prod_subtype_schema import ProductSubtype
 from fastapi import APIRouter
 
 router = APIRouter()
 
 
-@router.post('/add/new/product')
-async def create_new_product(product: Optional[CreateProduct]):
+@router.post('/add/new/product/sub/type')
+async def create_new_product_subtype(prod_sub_type: Optional[ProductSubtype]):
     try:
-        product_utility = ProductUtility()
+        subtype_utility = ProductSubtypeUtility()
 
-        results, msg = product_utility.create_product(product=product)
+        results, msg = subtype_utility.create_product_subtype(prod_sub_type=prod_sub_type)
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)
@@ -25,12 +25,12 @@ async def create_new_product(product: Optional[CreateProduct]):
         raise HTTPException(status_code=400, detail=msg)
 
 
-@router.get('/')
-def get_all_items():
+@router.get('/get/all/sub/types')
+def get_all_subtypes():
     try:
-        items = ProductUtility()
+        subtype_utility = ProductSubtypeUtility()
 
-        results, msg = items.get_all_items(skip=0, limit=100)
+        results, msg = subtype_utility.get_subtypes()
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)

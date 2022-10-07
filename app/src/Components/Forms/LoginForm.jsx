@@ -90,7 +90,7 @@ export default function RegistrationForm() {
             }}
           >
             <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
-              Senha ou Pessoal Não Foram Localizados 🙄
+              Senha ou Pessoa Não Foi Localizado 🙄
             </FormHelperText>
           </Box>
         </>

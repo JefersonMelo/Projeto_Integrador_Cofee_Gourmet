@@ -1,25 +1,25 @@
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 from api.database.connection import get_session
-from api.schemas.product_schema import CreateProduct, Product
-from api.services.product_service import ProductService
+from api.schemas.prod_subtype_schema import ProductSubtype
+from api.services.prod_subtype_service import ProductSubtypeService
 
 
-class ProductUtility:
+class ProductSubtypeUtility:
 
     def __init__(self):
-        self.items = ProductService()
+        self.subtype_service = ProductSubtypeService()
         self.session_maker = get_session
 
-    def create_product(
+    def create_product_subtype(
             self,
-            product: CreateProduct
-    ) -> Tuple[Optional[CreateProduct], str]:
+            prod_sub_type: ProductSubtype
+    ) -> Tuple[Optional[ProductSubtype], str]:
 
         try:
             with self.session_maker() as session:
 
-                results, msg = self.items.insert_new_product(
-                    product=product,
+                results, msg = self.subtype_service.insert_new_product_subtype(
+                    prod_sub_type=prod_sub_type,
                     db=session
                 )
 
@@ -34,28 +34,24 @@ class ProductUtility:
         except Exception as e:
             return None, str(e)
 
-    def get_all_items(
+    def get_subtypes(
             self,
-            skip: int,
-            limit: int
-    ) -> Tuple[Optional[Product], str]:
+    ) -> Tuple[List[Optional[ProductSubtype]], str]:
 
         try:
             with self.session_maker() as session:
 
-                results, msg = self.items.get_items(
-                    skip=skip,
-                    limit=limit,
+                results, msg = self.subtype_service.select_all_subtypes(
                     db=session
                 )
 
                 if not results:
                     session.rollback()
-                    return None, msg
+                    return [], msg
 
                 session.expunge_all()
 
                 return results, msg
 
         except Exception as e:
-            return None, str(e)
+            return [], str(e)
