@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Numeric
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Numeric, Float
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -88,7 +88,7 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
     ProductName = Column(String(255), nullable=False, index=True)
     ProductDescription = Column(String, nullable=False, index=True)
     Rating = Column(Integer, index=True)
-
+    WeightInGrams = Column(Float, name='WeightInGrams', index=True)
     Price = Column(Numeric(3, 2), nullable=False, index=True)
     Discount = Column(Integer, nullable=True, index=True)
 

@@ -10,3 +10,4 @@ class Tags(Enum):
     Category = 'category'
     ProductType = 'product type'
     ProductSubtype = 'product sub type'
+    Provider = 'provider'

@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 from api.database.connection import get_session
 from api.schemas.product_schema import CreateProduct, Product
 from api.services.product_service import ProductService
@@ -7,7 +7,7 @@ from api.services.product_service import ProductService
 class ProductUtility:
 
     def __init__(self):
-        self.items = ProductService()
+        self.prod_service = ProductService()
         self.session_maker = get_session
 
     def create_product(
@@ -18,7 +18,7 @@ class ProductUtility:
         try:
             with self.session_maker() as session:
 
-                results, msg = self.items.insert_new_product(
+                results, msg = self.prod_service.insert_new_product(
                     product=product,
                     db=session
                 )
@@ -34,18 +34,42 @@ class ProductUtility:
         except Exception as e:
             return None, str(e)
 
-    def get_all_items(
+    def get_products(
             self,
             skip: int,
             limit: int
-    ) -> Tuple[Optional[Product], str]:
+    ) -> Tuple[List[Optional[Product]], str]:
 
         try:
             with self.session_maker() as session:
 
-                results, msg = self.items.get_items(
+                results, msg = self.prod_service.select_all_products(
                     skip=skip,
                     limit=limit,
+                    db=session
+                )
+
+                if not results:
+                    session.rollback()
+                    return [], msg
+
+                session.expunge_all()
+
+                return results, msg
+
+        except Exception as e:
+            return [], str(e)
+
+    def get_product_and_categories(
+            self,
+            product_id
+    ) -> Tuple[Optional[Tuple[Product]], str]:
+
+        try:
+            with self.session_maker() as session:
+
+                results, msg = self.prod_service.select_product_and_categories_by_product_id(
+                    product_id=product_id,
                     db=session
                 )
 

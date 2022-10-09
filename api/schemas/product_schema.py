@@ -1,21 +1,27 @@
 from datetime import datetime
-from typing import Union, Optional
 
 from pydantic import BaseModel
+from api.schemas.mixins_schema import CreationBase, DeletionBase, ModificationBase
 
 
-class ItemBase(BaseModel):
-    title: str
-    description: Union[str, None] = None
+class ProductBase(BaseModel):
+    ProductName: str
+    ProductDescription: str
+    Price: float
 
 
-class CreateProduct(ItemBase):
+class Product(ProductBase):
     pass
 
 
-class Product(ItemBase):
-    ProductID: int
-    FK_UserID: int
+class CreateProduct(ProductBase, CreationBase, DeletionBase, ModificationBase):
+    FK_CategoryID: int
+    FK_ProviderID: int
+    Rating: int
+    Discount: float
+    ValidityStartDate: datetime
+    ValidityEndDate: datetime
+    WeightInGrams: float
 
     class Config:
         orm_mode = True

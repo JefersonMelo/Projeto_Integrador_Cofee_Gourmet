@@ -10,6 +10,7 @@ router = APIRouter()
 
 @router.post('/add/new/product')
 async def create_new_product(product: Optional[CreateProduct]):
+    msg = None
     try:
         product_utility = ProductUtility()
 
@@ -21,16 +22,17 @@ async def create_new_product(product: Optional[CreateProduct]):
         return {'detail': results, 'msg': msg}
 
     except Exception as e:
-        msg = str(e)
+        print(str(e))
         raise HTTPException(status_code=400, detail=msg)
 
 
-@router.get('/')
-def get_all_items():
+@router.get('/get/all/products')
+def get_all_products():
+    msg = None
     try:
-        items = ProductUtility()
+        prod_utility = ProductUtility()
 
-        results, msg = items.get_all_items(skip=0, limit=100)
+        results, msg = prod_utility.get_products(skip=0, limit=100)
 
         if not results:
             raise HTTPException(status_code=400, detail=msg)
@@ -38,5 +40,26 @@ def get_all_items():
         return {'detail': results, 'msg': msg}
 
     except Exception as e:
-        msg = str(e)
+        print(str(e))
         raise HTTPException(status_code=400, detail=msg)
+
+
+@router.get('/get/product/{product_id}')
+def get_product_by_product_id(product_id: int):
+    msg = None
+    try:
+        prod_utility = ProductUtility()
+
+        results, msg = prod_utility.get_product_and_categories(
+            product_id=product_id
+        )
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'detail': results, 'msg': msg}
+
+    except Exception as e:
+        print(str(e))
+        raise HTTPException(status_code=400, detail=msg)
+
