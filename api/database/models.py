@@ -90,10 +90,11 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
     Rating = Column(Integer, index=True)
 
     Price = Column(Numeric(3, 2), nullable=False, index=True)
-    Discount = Column(Numeric(0, 2), nullable=False, index=True)
+    Discount = Column(Integer, nullable=True, index=True)
 
     FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"))
     FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"))
+    FK_ProviderID = Column(Integer, ForeignKey("Providers.ProviderID"))
 
     ValidityStartDate = Column(DateTime, name='validityStartDate', nullable=False)
     ValidityEndDate = Column(DateTime, name='validityEndDate', nullable=False)
@@ -101,6 +102,7 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
     ProductType = relationship("DbProductType", back_populates="Products")
     Category = relationship("DbCategory", back_populates="Products")
     CarShop = relationship("DbCarShop", back_populates="Products")
+    Provider = relationship("DbProvider", back_populates="Products")
 
 
 class DbProductType(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -139,3 +141,14 @@ class DbCategory(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     Products = relationship("DbProduct", back_populates="Category")
     ProductsTypes = relationship("DbProductType", back_populates="Category")
+
+
+class DbProvider(Base, DeletionMixin, ModificationMixin, CreationMixin):
+    __tablename__ = "Providers"
+
+    ProviderID = Column(Integer, primary_key=True, index=True)
+    ProviderName = Column(String(255), unique=True, index=True)
+    ProviderDescription = Column(String)
+    ProviderIsActive = Column(Boolean, default=True)
+
+    Products = relationship("DbProduct", back_populates="Provider")
