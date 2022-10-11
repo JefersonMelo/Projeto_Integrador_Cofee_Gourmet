@@ -6,6 +6,7 @@ import { ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/ma
 import { ThemeProvider } from '@emotion/react'
 import { AppProvider } from './Contexts/AppContext';
 import { UserProvider } from './Contexts/UserContext';
+import { ProductProvider } from './Contexts/ProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,9 +16,11 @@ root.render(
             <MuiThemeProvider theme={Theme}>
                 <ThemeProvider theme={Theme}>
                     <AppProvider>
-                        <UserProvider>
-                            <App />
-                        </UserProvider>
+                        <ProductProvider>
+                            <UserProvider>
+                                <App />
+                            </UserProvider>
+                        </ProductProvider>
                     </AppProvider>
                 </ThemeProvider>
             </MuiThemeProvider>

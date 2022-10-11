@@ -3,7 +3,7 @@ import { getLocalStorage, setLocalStorage } from "../Services/storage";
 
 export const newUserContext = createContext();
 
-const initialState = {
+const defaultValues = {
   token: null,
   username: null,
   userid: null,
@@ -11,8 +11,7 @@ const initialState = {
 
 export const UserProvider = ({ children }) => {
   const [userContext, setUserContext] = useState(() =>
-    getLocalStorage("userContext", initialState)
-  );
+    getLocalStorage("userContext", defaultValues));
 
   useEffect(() => {
     setLocalStorage("userContext", userContext);

@@ -34,8 +34,8 @@ export default function CardHome({ id, row }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, elevation: 3 }} key={`${id}-${row.ProdutoID}`}>
-      <CardHeader title={row.ProdutoNome} />
+    <Card sx={{ maxWidth: 345, elevation: 3 }} key={`${id}-${row.ProductID}`}>
+      <CardHeader title={row.ProductName} />
 
       <CardMedia
         component="img"
@@ -46,7 +46,7 @@ export default function CardHome({ id, row }) {
       <CardContent>
         <BasicRating />
         <Typography variant="body2" color="text.secondary">
-          {row.DescResumida}
+          {row.ProductDescription}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -68,14 +68,13 @@ export default function CardHome({ id, row }) {
         <CardContent>
           <Typography paragraph>
             <Typography id={"1"}>
-              <strong>{row.ProdutoNome}</strong>
+              <strong>{row.ProductName}</strong>
             </Typography>
-            <Typography id={"2"}>{row.Fornecedor}</Typography>
-            <Typography id={"3"}>{row.Peso}Kg</Typography>
-            <Typography id={"4"}>{formtCurrencyBR(row.Valor)}</Typography>
+            <Typography id={"2"}>{row.FK_ProviderID}</Typography>
+            <Typography id={"3"}>{(row.WeightInGrams >= 1000) ? `${row.WeightInGrams}Kg`: `${row.WeightInGrams}g`}</Typography>
+            <Typography id={"4"}>{formtCurrencyBR(row.Price)}</Typography>
           </Typography>
-
-          <Typography paragraph>{row.DescDetalhada}</Typography>
+          <Typography paragraph>{row.ProductDescription}</Typography>
         </CardContent>
       </Collapse>
     </Card>

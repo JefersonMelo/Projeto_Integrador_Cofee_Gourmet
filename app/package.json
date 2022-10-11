@@ -9,6 +9,7 @@
     "@mui/material": "latest",
     "@mui/styled-engine-sc": "latest",
     "axios": "latest",
+    "eslint-plugin-react-hooks": "latest",
     "jsonwebtoken": "latest",
     "react": "latest",
     "react-dom": "latest",

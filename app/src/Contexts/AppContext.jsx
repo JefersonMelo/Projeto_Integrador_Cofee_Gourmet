@@ -15,10 +15,10 @@ export const defaultValues = {
 };
 
 export const AppProvider = ({ children }) => {
-  const [appState, setAppState] = useState(defaultValues);
+  const [appContext, setAppContext] = useState(defaultValues);
 
   return (
-    <AppContext.Provider value={[appState, setAppState]}>
+    <AppContext.Provider value={[appContext, setAppContext]}>
       {children}
     </AppContext.Provider>
   );

@@ -11,6 +11,7 @@ export const webURL = window.location.origin;
 export const apiURL = `${definesApiUrl()}/api`;
 
 export const apiRouts = {
+  /*USERS*/
   CREATE_USER: "/create/user/",
   GET_ALL_USERS: "/all/users/",
   GET_USER_BY_ID: "/id/%user_id%",
@@ -18,4 +19,14 @@ export const apiRouts = {
   GET_LOGIN: "/login",
   GET_ALL_ITEMS_BY_USER_ID: "/%user_id%/items/",
   GET_ALL_ITEMS: "/items/",
+
+  /*CATEGORY*/
+
+  /*PRODUCT TYPE*/
+
+  /*PRODUCT SUBTYPE*/
+
+  /*PRODUCTS*/
+  GET_ALL_PRODUCTS: "/get/all/products"
+
 };

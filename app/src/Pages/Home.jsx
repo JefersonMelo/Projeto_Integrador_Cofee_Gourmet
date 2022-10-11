@@ -7,7 +7,7 @@ import { useUserContext } from "../Contexts/UserContext";
 
 export default function Home() {
   const [appContext] = useAppContext();
-  const userContext = useUserContext();
+  const [userContext] = useUserContext();
   
   return (
     <Box sx={{ mt: 7, flexGrow: 12 }}>
