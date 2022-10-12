@@ -1,7 +1,7 @@
 from typing import Optional, Tuple, List
 from sqlalchemy.orm import Session, joinedload
 from api.schemas.product_schema import CreateProduct
-from api.database.models import DbProduct
+from api.database.models import DbProduct, DbProvider
 
 
 class ProductService:
@@ -42,7 +42,15 @@ class ProductService:
 
         try:
 
-            results = db.query(DbProduct).offset(skip).limit(limit).all()
+            results = db.query(
+                DbProduct
+            ).join(
+                DbProvider
+            ).filter(
+                DbProduct.FK_ProviderID == DbProvider.ProviderID
+            ).options(
+                joinedload(DbProduct.Provider)
+            ).offset(skip).limit(limit).all()
 
             if not results:
                 return [], 'Erro ao Carregar Produtos.'

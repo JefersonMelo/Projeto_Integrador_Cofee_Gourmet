@@ -6,7 +6,8 @@ from api.schemas.mixins_schema import CreationBase, DeletionBase, ModificationBa
 
 class ProductBase(BaseModel):
     ProductName: str
-    ProductDescription: str
+    FullDescription: str
+    ShortDescription: str
     Price: float
 
 
@@ -17,11 +18,12 @@ class Product(ProductBase):
 class CreateProduct(ProductBase, CreationBase, DeletionBase, ModificationBase):
     FK_CategoryID: int
     FK_ProviderID: int
-    Rating: int
-    Discount: float
+    FK_ProductTypeID: int
+    TotalRating: int
+    Discount: int
     ValidityStartDate: datetime
     ValidityEndDate: datetime
-    WeightInGrams: float
+    WeightInGrams: int
 
     class Config:
         orm_mode = True
