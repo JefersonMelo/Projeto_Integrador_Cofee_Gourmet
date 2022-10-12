@@ -135,3 +135,4 @@ dmypy.json
 # DEV
 comandos.py
 /api/database/data/**[a-z].json
+tests/

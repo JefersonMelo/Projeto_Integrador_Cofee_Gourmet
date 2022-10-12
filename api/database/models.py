@@ -17,6 +17,7 @@ class DbUser(Base, DeletionMixin, ModificationMixin):
     Items = relationship("DbCarShop", back_populates="User")
     Address = relationship("DbAddress", back_populates="User")
     Contacts = relationship("DbContact", back_populates="User")
+    Rating = relationship("DbRating", back_populates="User")
 
 
 class DbAddress(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -86,9 +87,10 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
 
     ProductID = Column(Integer, primary_key=True, index=True)
     ProductName = Column(String(255), nullable=False, index=True)
-    ProductDescription = Column(String, nullable=False, index=True)
-    Rating = Column(Integer, index=True)
-    WeightInGrams = Column(Float, name='WeightInGrams', index=True)
+    FullDescription = Column(String, nullable=False, index=True)
+    ShortDescription = Column(String, nullable=False, index=True)
+    TotalRating = Column(Integer, index=True)
+    WeightInGrams = Column(Integer, index=True)
     Price = Column(Numeric(3, 2), nullable=False, index=True)
     Discount = Column(Integer, nullable=True, index=True)
 
@@ -103,6 +105,7 @@ class DbProduct(Base, DeletionMixin, ModificationMixin, CreationMixin):
     Category = relationship("DbCategory", back_populates="Products")
     CarShop = relationship("DbCarShop", back_populates="Products")
     Provider = relationship("DbProvider", back_populates="Products")
+    Rating = relationship("DbRating", back_populates="Products")
 
 
 class DbProductType(Base, DeletionMixin, ModificationMixin, CreationMixin):
@@ -152,3 +155,16 @@ class DbProvider(Base, DeletionMixin, ModificationMixin, CreationMixin):
     ProviderIsActive = Column(Boolean, default=True)
 
     Products = relationship("DbProduct", back_populates="Provider")
+
+
+class DbRating(Base, ModificationMixin, CreationMixin):
+    __tablename__ = "Ratings"
+
+    RatingID = Column(Integer, primary_key=True, index=True)
+    Rating = Column(Integer, index=True)
+
+    FK_ProductID = Column(Integer, ForeignKey("Products.ProductID"))
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
+
+    Products = relationship("DbProduct", back_populates="Rating")
+    User = relationship("DbUser", back_populates="Rating")
