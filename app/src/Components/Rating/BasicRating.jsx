@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 
-export default function BasicRating() {
-  const [value, setValue] = useState(2);
+export default function BasicRating({ ratingValue }) {
+  const [value, setValue] = useState(ratingValue);
 
   return (
     <Box

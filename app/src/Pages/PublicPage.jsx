@@ -29,7 +29,7 @@ export default function PublicPage() {
         ShowErrorSnackBar(err, appContext, setAppContext);
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appContext]);
+  }, []);
 
   return (
     <Box sx={{ mt: 7, flexGrow: 12 }}>
