@@ -4,6 +4,11 @@ export const logout = () => {
   window.location.replace("/");
 };
 
+export const removeItem = (key) => {
+  localStorage.removeItem(key);
+  window.location.replace("/");
+};
+
 export const setLocalStorage = (key, value) => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
