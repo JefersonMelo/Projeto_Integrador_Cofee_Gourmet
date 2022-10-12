@@ -5,6 +5,8 @@ export const newAppProductContext = createContext();
 
 export const defaultValues = {
   products: [],
+  provider: [],
+  key: "productContext",
 };
 
 export const ProductProvider = ({ children }) => {
