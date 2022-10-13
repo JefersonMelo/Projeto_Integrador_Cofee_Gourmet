@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Avatar, TextField } from "@mui/material";
+import { Avatar, FormHelperText, TextField } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
 import { useUserContext } from "../../Contexts/UserContext";
 import api from "../../Services/api";
@@ -21,18 +21,29 @@ export default function RegistrationForm() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [checkedPassword, setcheckedPassword] = useState(true);
   const navigate = useNavigate();
 
+  const pw = (password) => {
+    if (!password) {
+      setcheckedPassword(false);
+    } else {
+      setcheckedPassword(true);
+    }
+  };
   const onSubmit = () => {
+    if (!password || !email || !userName) {
+      return;
+    }
+
     let data = {
-      name: userName,
-      email: email,
-      password: password,
+      UserName: userName,
+      UserEmail: email,
+      Password: password,
     };
 
     api.post(apiRouts.CREATE_USER, data)
       .then((res) => {
-        ShowSuccessSnackBar(res, appContext, setAppContext);
         setUserContext(() => ({
           ...userContext,
           userid: res.data.id,
@@ -40,6 +51,7 @@ export default function RegistrationForm() {
           username: res.data.username,
         }));
         navigate("/home");
+        ShowSuccessSnackBar(res, appContext, setAppContext);
       })
       .catch((err) => {
         ShowErrorSnackBar(err, appContext, setAppContext);
@@ -93,8 +105,24 @@ export default function RegistrationForm() {
         autoComplete="current-password"
         onChange={(e) => {
           setPassword(e.target.value);
+          pw(e.target.value);
         }}
       />
+      {!checkedPassword && (
+        <>
+          <Box
+            sx={{
+              justifyContent: "flex-end",
+              display: "flex",
+              alignItems: "flex-end",
+            }}
+          >
+            <FormHelperText error={!checkedPassword} sx={{ mt: "0.5rem" }}>
+              Digite uma Senha 🙄
+            </FormHelperText>
+          </Box>
+        </>
+      )}
 
       <Button
         sx={{ mt: "0.8rem", mb: "1rem" }}

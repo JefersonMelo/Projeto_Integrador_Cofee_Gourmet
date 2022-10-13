@@ -15,7 +15,7 @@ class UsersService:
 
         try:
 
-            results = DbUser()
+            results = DbUser(**user.dict())
 
             if not results:
                 db.rollback()
@@ -63,14 +63,14 @@ class UsersService:
             results = db.query(
                 DbUser
             ).filter(
-                DbUser.email == user.email,
-                DbUser.password == user.password
+                DbUser.UserEmail == user.UserEmail,
+                DbUser.Password == user.Password
             ).first()
 
             if not results:
                 return None, 'Triste, Mas Você Não Te Achei!'
 
-            return results, f'{results.name}, Valeu Por Estar Aqui!'
+            return results, f'{results.UserName}, Valeu Por Estar Aqui!'
 
         except Exception as e:
             return None, str(e)
@@ -84,12 +84,12 @@ class UsersService:
 
         try:
 
-            results = db.query(DbUser).filter(DbUser.email == email).first()
+            results = db.query(DbUser).filter(DbUser.UserEmail == email).first()
 
             if not results:
-                return None, 'Error'
+                return None, 'Usuário Não Localizado'
 
-            return results, 'Success'
+            return results, 'Usuário Localizado Com Sucesso!'
 
         except Exception as e:
             return None, str(e)

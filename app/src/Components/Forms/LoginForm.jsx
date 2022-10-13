@@ -24,8 +24,8 @@ export default function RegistrationForm() {
 
   const onSubmit = () => {
     const data = {
-      email: email,
-      password: password,
+      UserEmail: email,
+      Password: password,
     };
 
     api.post(apiRouts.GET_LOGIN, data)
@@ -40,7 +40,6 @@ export default function RegistrationForm() {
         navigate("/home");
       })
       .catch((err) => {
-        console.log(err);
         setCheckedUser(false);
       });
   };
@@ -90,7 +89,7 @@ export default function RegistrationForm() {
             }}
           >
             <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
-              Senha ou Pessoa Não Foi Localizado 🙄
+              Verifique Email e Senha 🙄
             </FormHelperText>
           </Box>
         </>

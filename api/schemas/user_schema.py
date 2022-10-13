@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from api.schemas.product_schema import Product
@@ -10,20 +12,20 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     UserName: str
     Password: str
+    UserIsActive: Optional[bool] = True
 
     class Config:
         orm_mode = True
 
 
 class UserLogin(UserBase):
-    password: str
+    Password: str
 
     class Config:
         orm_mode = True
 
 
-class User(UserBase):
-    UserID: int
+class User(UserCreate):
     UserIsActive: bool
     Items: list[Product] = []
 

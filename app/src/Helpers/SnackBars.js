@@ -5,7 +5,7 @@ export const ShowErrorSnackBar = (err, appContext, setAppContext) => {
       warning: {
         opened: true,
         type: "error",
-        msg: `${err.message} 😑`,
+        msg: `${err.data.detail} 😑`,
       },
     });
   };
@@ -16,7 +16,7 @@ export const ShowErrorSnackBar = (err, appContext, setAppContext) => {
       warning: {
         opened: true,
         type: "success",
-        msg: `${res.data.msg} 😊`,
+        msg: `${res.data.detail} 😊`,
       },
     });
   };

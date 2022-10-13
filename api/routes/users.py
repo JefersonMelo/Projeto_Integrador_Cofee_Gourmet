@@ -21,7 +21,7 @@ async def create_user(user: Optional[UserCreate] = None):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'message': msg}
+        return {'userid': results.UserID, 'username': results.UserName, 'token': '@coffee-token', 'detail': msg}
 
     except Exception:
         raise HTTPException(status_code=400, detail=msg)
@@ -38,7 +38,7 @@ async def get_user(user_id: int):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'message': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception:
         raise HTTPException(status_code=400, detail=msg)
@@ -55,7 +55,7 @@ async def user_login(user: Optional[UserLogin] = None):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'userid': results.id, 'username': results.name, 'token': '@coffee-token', 'msg': msg}
+        return {'userid': results.UserID, 'username': results.UserName, 'token': '@coffee-token', 'detail': msg}
 
     except Exception:
         raise HTTPException(status_code=400, detail=msg)
