@@ -17,7 +17,9 @@
     "react-router-dom": "latest",
     "react-scripts": "latest",
     "styled-components": "latest",
-    "web-vitals": "latest"
+    "web-vitals": "latest",
+    "react-swipeable-views": "latest",
+    "react-swipeable-views-utils": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
