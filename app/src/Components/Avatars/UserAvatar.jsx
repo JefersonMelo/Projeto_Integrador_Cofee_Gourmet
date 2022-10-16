@@ -34,7 +34,10 @@ export default function UserAvatar() {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Configurações de Conta">
+        <Tooltip 
+        arrow
+        title="Configurações de Conta"
+        >
           <IconButton
             onClick={handleClick}
             size="small"
