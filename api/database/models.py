@@ -1,19 +1,19 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 from .database import Base
-from .base_mixins import DeletionMixin, ModificationMixin, CreationMixin
-from .address_mixin import AddressMixin
-from .category_mixin import CategoryMixin
-from .contact_mixin import ContactMixin
-from .order_mixin import OrderMixin
-from .prod_subtype_mixin import ProductSubtypeMixin
-from .prod_type_mixin import ProductTypeMixin
-from .product_mixin import ProductMixin
-from .provider_mixin import ProviderMixin
-from .rating_mixin import RatingMixin
-from .shop_mixin import CarShopMixin
-from .shop_relationship_mixin import CarShopOrderRelationshipMixin
-from .user_mixin import UserMixin
+from api.database.mixins.base_mixins import DeletionMixin, ModificationMixin, CreationMixin
+from api.database.mixins.address_mixin import AddressMixin
+from api.database.mixins.category_mixin import CategoryMixin
+from api.database.mixins.contact_mixin import ContactMixin
+from api.database.mixins.order_mixin import OrderMixin
+from api.database.mixins.prod_subtype_mixin import ProductSubtypeMixin
+from api.database.mixins.prod_type_mixin import ProductTypeMixin
+from api.database.mixins.product_mixin import ProductMixin
+from api.database.mixins.provider_mixin import ProviderMixin
+from api.database.mixins.rating_mixin import RatingMixin
+from api.database.mixins.shop_mixin import CarShopMixin
+from api.database.mixins.shop_relationship_mixin import CarShopOrderRelationshipMixin
+from api.database.mixins.user_mixin import UserMixin
 
 
 class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):

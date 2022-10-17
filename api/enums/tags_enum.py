@@ -6,7 +6,7 @@ class Tags(Enum):
     Product = 'product'
     Home = 'home'
     Order = 'order'
-    CarShop = 'carShop'
+    CarShop = 'car shop'
     Category = 'category'
     ProductType = 'product type'
     ProductSubtype = 'product sub type'
