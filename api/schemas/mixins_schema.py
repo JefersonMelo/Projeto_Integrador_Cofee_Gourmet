@@ -26,3 +26,10 @@ class DeletionBase(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class PaymentConfirmedBase(BaseModel):
+    ConfirmedDate: Optional[datetime] = None
+
+    class Config:
+        orm_mode = True

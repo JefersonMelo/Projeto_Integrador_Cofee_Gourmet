@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, DateTime, func
 
 
 class CarShopMixin(object):
     CarShopID = Column(Integer, primary_key=True, index=True)
-    CarTitle = Column(String(255), index=True)
-    CarDescription = Column(String, index=True)
+    CreationDate = Column(DateTime, name='CreationDate', server_default=func.now())

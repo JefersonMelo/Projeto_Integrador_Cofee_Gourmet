@@ -1,5 +1,7 @@
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
+
+from api.schemas.car_shop_schema import NewItemCarShop
 from api.schemas.product_schema import CreateProduct
 from api.database.models import DbCarShop
 
@@ -7,16 +9,15 @@ from api.database.models import DbCarShop
 class CarShopService:
 
     @classmethod
-    def create_item_user(
+    def add_item_car_shop_by_user_id_and_product_id(
             cls,
-            user_id: int,
-            item: CreateProduct,
+            new_item: NewItemCarShop,
             db: Session
     ) -> Tuple[Optional[DbCarShop], str]:
 
         try:
 
-            results = DbCarShop(**item.dict(), fk_user_id=user_id)
+            results = DbCarShop(**new_item.dict())
 
             if not results:
                 db.rollback()
@@ -28,7 +29,7 @@ class CarShopService:
 
             db.refresh(results)
 
-            return results, 'Success'
+            return results, 'Adicionado ao Super Carro com Sucesso!'
 
         except Exception as e:
             return None, str(e)

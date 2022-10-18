@@ -39,7 +39,7 @@ class DbContact(Base, ContactMixin, DeletionMixin, ModificationMixin, CreationMi
     User = relationship("DbUser", back_populates="Contacts")
 
 
-class DbCarShop(Base, CarShopMixin, DeletionMixin, ModificationMixin, CreationMixin):
+class DbCarShop(Base, CarShopMixin, DeletionMixin):
     __tablename__ = "CarShop"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
