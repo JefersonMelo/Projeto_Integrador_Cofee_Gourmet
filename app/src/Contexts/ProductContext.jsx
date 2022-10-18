@@ -5,7 +5,6 @@ export const newAppProductContext = createContext();
 
 export const defaultValues = {
   products: [],
-  provider: [],
   key: "productContext",
 };
 
