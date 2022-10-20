@@ -3,7 +3,7 @@ from sqlalchemy import Column, DateTime, String, func
 
 class CreationMixin(object):
     Created = Column(DateTime, name='Created', server_default=func.now())
-    CreatedBy = Column(String(255), name='CreatedBy', nullable=False)
+    CreatedBy = Column(String(255), name='CreatedBy', nullable=True)
 
 
 class DeletionMixin(object):

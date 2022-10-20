@@ -19,6 +19,7 @@ class CreateProduct(ProductBase, CreationBase, DeletionBase, ModificationBase):
     FK_CategoryID: int
     FK_ProviderID: int
     FK_ProductTypeID: int
+    FK_ProductSubtypeID: int
     TotalRating: int
     Discount: int
     ValidityStartDate: datetime

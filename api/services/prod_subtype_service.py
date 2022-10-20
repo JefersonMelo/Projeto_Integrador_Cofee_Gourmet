@@ -1,7 +1,7 @@
-from typing import Optional, Tuple, List, Union
+from typing import Optional, Tuple, List
 from sqlalchemy.orm import Session
 from api.schemas.prod_subtype_schema import ProductSubtype
-from api.database.models import DbProductSubType
+from api.database.models import DbProductSubtype
 
 
 class ProductSubtypeService:
@@ -11,11 +11,11 @@ class ProductSubtypeService:
             cls,
             prod_subtype: ProductSubtype,
             db: Session
-    ) -> Tuple[Optional[DbProductSubType], str]:
+    ) -> Tuple[Optional[DbProductSubtype], str]:
 
         try:
 
-            results = DbProductSubType(**prod_subtype.dict())
+            results = DbProductSubtype(**prod_subtype.dict())
 
             if not results:
                 db.rollback()
@@ -36,11 +36,11 @@ class ProductSubtypeService:
     def select_all_subtypes(
             cls,
             db: Session
-    ) -> Tuple[List[Optional[DbProductSubType]], str]:
+    ) -> Tuple[List[Optional[DbProductSubtype]], str]:
 
         try:
 
-            results = db.query(DbProductSubType).all()
+            results = db.query(DbProductSubtype).all()
 
             if not results:
                 return [], 'Subtipos Não Localizado'
@@ -55,15 +55,15 @@ class ProductSubtypeService:
             cls,
             subtype_id: int,
             db: Session
-    ) -> Tuple[Optional[Tuple[DbProductSubType]], str]:
+    ) -> Tuple[Optional[Tuple[DbProductSubtype]], str]:
 
         try:
 
             results = db.query(
-                DbProductSubType
+                DbProductSubtype
             ).filter(
-                DbProductSubType.ProductSubtypeID == subtype_id,
-                DbProductSubType.Deleted.is_(None)
+                DbProductSubtype.ProductSubtypeID == subtype_id,
+                DbProductSubtype.Deleted.is_(None)
             ).first()
 
             if not results:

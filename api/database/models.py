@@ -12,7 +12,7 @@ from api.database.mixins.product_mixin import ProductMixin
 from api.database.mixins.provider_mixin import ProviderMixin
 from api.database.mixins.rating_mixin import RatingMixin
 from api.database.mixins.shop_mixin import CarShopMixin
-from api.database.mixins.shop_relationship_mixin import CarShopOrderRelationshipMixin
+# from api.database.mixins.shop_relationship_mixin import CarShopOrderRelationshipMixin
 from api.database.mixins.user_mixin import UserMixin
 
 
@@ -25,44 +25,36 @@ class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):
     Rating = relationship("DbRating", back_populates="User")
 
 
-class DbAddress(Base, AddressMixin, DeletionMixin, ModificationMixin, CreationMixin):
+class DbAddress(Base, AddressMixin, DeletionMixin, CreationMixin):
     __tablename__ = "Address"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     User = relationship("DbUser", back_populates="Address")
 
 
-class DbContact(Base, ContactMixin, DeletionMixin, ModificationMixin, CreationMixin):
+class DbContact(Base, ContactMixin, DeletionMixin, CreationMixin):
     __tablename__ = "Contacts"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     User = relationship("DbUser", back_populates="Contacts")
 
 
-class DbCarShop(Base, CarShopMixin, DeletionMixin):
+class DbCarShop(Base, CarShopMixin, DeletionMixin, CreationMixin):
     __tablename__ = "CarShop"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     FK_ProductID = Column(Integer, ForeignKey("Products.ProductID"))
     User = relationship("DbUser", back_populates="Items")
     Products = relationship("DbProduct", back_populates="CarShop")
-    Relationships = relationship("DbCarShopOrderRelationship", back_populates="CarShop")
+    # Relationships = relationship("DbCarShopOrderRelationship", back_populates="CarShop")
 
 
-class DbCarShopOrderRelationship(Base, CarShopOrderRelationshipMixin, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "CarShopOrderRelationShip"
-
-    FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
-    FK_OrderID = Column(Integer, ForeignKey("Orders.OrderID"))
-    Order = relationship("DbOrder", back_populates="Relationships")
-    CarShop = relationship("DbCarShop", back_populates="Relationships")
-
-
-class DbOrder(Base, OrderMixin, DeletionMixin, ModificationMixin, CreationMixin):
+class DbOrder(Base, OrderMixin, ModificationMixin, CreationMixin):
     __tablename__ = "Orders"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
-    Relationships = relationship("DbCarShopOrderRelationship", back_populates="Order")
+    FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
+    # Relationships = relationship("DbCarShopOrderRelationship", back_populates="Order")
 
 
 class DbProduct(Base, ProductMixin, DeletionMixin, ModificationMixin, CreationMixin):
@@ -70,9 +62,11 @@ class DbProduct(Base, ProductMixin, DeletionMixin, ModificationMixin, CreationMi
 
     FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"), nullable=False)
     FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"), nullable=False)
+    FK_ProductSubtypeID = Column(Integer, ForeignKey("ProductSubtypes.ProductSubtypeID"), nullable=False)
     FK_ProviderID = Column(Integer, ForeignKey("Providers.ProviderID"), nullable=False)
 
     ProductType = relationship("DbProductType", back_populates="Products")
+    Subtype = relationship("DbProductSubtype", back_populates="Products")
     Category = relationship("DbCategory", back_populates="Products")
     CarShop = relationship("DbCarShop", back_populates="Products")
     Provider = relationship("DbProvider", back_populates="Products")
@@ -84,15 +78,16 @@ class DbProductType(Base, ProductTypeMixin, DeletionMixin, ModificationMixin, Cr
 
     FK_CategoryID = Column(Integer, ForeignKey("Categories.CategoryID"))
     Products = relationship("DbProduct", back_populates="ProductType")
-    SubType = relationship("DbProductSubType", back_populates="ProductTypes")
+    Subtype = relationship("DbProductSubtype", back_populates="ProductTypes")
     Category = relationship("DbCategory", back_populates="ProductsTypes")
 
 
-class DbProductSubType(Base, ProductSubtypeMixin, DeletionMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "ProductSubTypes"
+class DbProductSubtype(Base, ProductSubtypeMixin, DeletionMixin, ModificationMixin, CreationMixin):
+    __tablename__ = "ProductSubtypes"
 
     FK_ProductTypeID = Column(Integer, ForeignKey("ProductTypes.ProductTypeID"))
-    ProductTypes = relationship("DbProductType", back_populates="SubType")
+    ProductTypes = relationship("DbProductType", back_populates="Subtype")
+    Products = relationship("DbProduct", back_populates="Subtype")
 
 
 class DbCategory(Base, CategoryMixin, DeletionMixin, ModificationMixin, CreationMixin):
@@ -115,3 +110,12 @@ class DbRating(Base, RatingMixin, ModificationMixin, CreationMixin):
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     Products = relationship("DbProduct", back_populates="Rating")
     User = relationship("DbUser", back_populates="Rating")
+
+# class DbCarShopOrderRelationship(Base, CarShopOrderRelationshipMixin,
+# DeletionMixin, ModificationMixin, CreationMixin):
+#     __tablename__ = "CarShopOrderRelationShip"
+#
+#     FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
+#     FK_OrderID = Column(Integer, ForeignKey("Orders.OrderID"))
+#     Order = relationship("DbOrder", back_populates="Relationships")
+#     CarShop = relationship("DbCarShop", back_populates="Relationships")
