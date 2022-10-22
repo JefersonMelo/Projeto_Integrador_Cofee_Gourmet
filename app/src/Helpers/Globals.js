@@ -27,9 +27,10 @@ export const apiRouts = {
   /*PRODUCT SUBTYPE*/
 
   /*PRODUCTS*/
-  GET_ALL_PRODUCTS: "/get/all/products",
+  GET_ALL_PRODUCTS: "/get/all/products",  
 
   /*CAR SHOP*/
-  ADD_NEW_ITEM_IN_CAR_SHOP: "/add/new/product/in/car/shop"
+  ADD_NEW_ITEM_IN_CAR_SHOP: "/add/new/product/in/car/shop",
+  GET_CAR_SHOP_BY_USER_ID: "/get/car/shop/%user_id%"
 
 };
