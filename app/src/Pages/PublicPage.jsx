@@ -25,7 +25,6 @@ export default function PublicPage() {
         }));
       })
       .catch((err) => {
-        console.log(err);
         ShowErrorSnackBar(err, appContext, setAppContext);
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
