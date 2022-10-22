@@ -7,7 +7,10 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useUserContext } from "../../Contexts/UserContext";
 import { apiRouts } from "../../Helpers/Globals";
 import api from "../../Services/api";
-import { ShowSuccessSnackBar } from "../../Helpers/SnackBars";
+import {
+  ShowErrorSnackBar,
+  ShowSuccessSnackBar,
+} from "../../Helpers/SnackBars";
 import { useAppContext } from "../../Contexts/AppContext";
 
 export default function ButtonAddShoppingCar({ product }) {
@@ -21,13 +24,13 @@ export default function ButtonAddShoppingCar({ product }) {
       FK_ProductID: product.ProductID,
     };
 
-    console.log(data)
-
     api.post(apiRouts.ADD_NEW_ITEM_IN_CAR_SHOP, data)
       .then((res) => {
         ShowSuccessSnackBar(res, appContext, setAppContext);
       })
-      .cath((err) => console.log(err));
+      .cath((err) => {
+        ShowErrorSnackBar(err, appContext, setAppContext);
+      });
   };
 
   return (

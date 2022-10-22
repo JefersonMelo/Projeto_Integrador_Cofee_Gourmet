@@ -2,7 +2,6 @@ from typing import Optional
 from fastapi import HTTPException
 
 from ..schemas.car_shop_schema import NewItemCarShop
-from ..utilities.prod_type_utility import TypeUtility
 from fastapi import APIRouter
 
 from ..utilities.shop_utility import CarShopUtility
@@ -20,42 +19,36 @@ async def add_new_product_in_car_shop(new_item: Optional[NewItemCarShop]):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
         raise HTTPException(status_code=400, detail=msg)
 
 
-@router.get('/get/all/product/types')
-def get_all_types():
+@router.get('/get/car/shop/{user_id}')
+def get_car_shop_by_user_id(user_id: int):
     try:
-        type_utility = TypeUtility()
+        shop_utility = CarShopUtility()
 
-        results, msg = type_utility.get_all_product_types()
+        results, msg = shop_utility.get_all_items_by_user_id(user_id=user_id)
 
-        if not results:
-            raise HTTPException(status_code=400, detail=msg)
-
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
         raise HTTPException(status_code=400, detail=msg)
 
 
-@router.get('/get/product/type/{product_type_id}')
-def get_all_types(product_type_id: int):
-    try:
-        type_utility = TypeUtility()
-
-        results, msg = type_utility.get_product_type_by_id(product_type_id=product_type_id)
-
-        if not results:
-            raise HTTPException(status_code=400, detail=msg)
-
-        return {'detail': results, 'msg': msg}
-
-    except Exception as e:
-        msg = str(e)
-        raise HTTPException(status_code=400, detail=msg)
+# @router.delete('/del/item/car/shop/{user_id}')
+# def delete_item_car_by_user_id(user_id: int):
+#     try:
+#         shop_utility = CarShopUtility()
+#
+#         results, msg = shop_utility.get_all_items_by_user_id(user_id=user_id)
+#
+#         return {'results': results, 'detail': msg}
+#
+#     except Exception as e:
+#         msg = str(e)
+#         raise HTTPException(status_code=400, detail=msg)

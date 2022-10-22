@@ -1,8 +1,9 @@
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 from api.database.connection import get_session
+from api.database.models import DbCarShop
 from api.schemas.car_shop_schema import NewItemCarShop
-from api.schemas.product_schema import CreateProduct, Product
+from api.schemas.product_schema import CreateProduct
 from api.services.shop_service import CarShopService
 
 
@@ -38,18 +39,16 @@ class CarShopUtility:
         except Exception as e:
             return None, str(e)
 
-    def get_all_items(
+    def get_all_items_by_user_id(
             self,
-            skip: int,
-            limit: int
-    ) -> Tuple[Optional[Product], str]:
+            user_id: int,
+    ) -> Tuple[Optional[List[DbCarShop]], str]:
 
         try:
             with self.session_maker() as session:
 
-                results, msg = self.items.get_items(
-                    skip=skip,
-                    limit=limit,
+                results, msg = self.shop_service.select_user_items(
+                    user_id=user_id,
                     db=session
                 )
 
@@ -63,3 +62,27 @@ class CarShopUtility:
 
         except Exception as e:
             return None, str(e)
+
+    # def delete_item_by_user_id(
+    #         self,
+    #         user_id: int,
+    # ) -> Tuple[Optional[List[DbCarShop]], str]:
+    #
+    #     try:
+    #         with self.session_maker() as session:
+    #
+    #             results, msg = self.shop_service.select_user_items(
+    #                 user_id=user_id,
+    #                 db=session
+    #             )
+    #
+    #             if not results:
+    #                 session.rollback()
+    #                 return None, msg
+    #
+    #             session.expunge_all()
+    #
+    #             return results, msg
+    #
+    #     except Exception as e:
+    #         return None, str(e)

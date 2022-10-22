@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 from api.schemas.mixins_schema import CreationBase, DeletionBase, PaymentConfirmedBase
