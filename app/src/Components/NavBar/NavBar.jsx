@@ -64,7 +64,7 @@ export default function NavBar({ open }) {
           {userContext.token ? (
             <>
               <UserAvatar />
-              <BadgeShoppingCar badgeContent={1} />
+              <BadgeShoppingCar />
             </>
           ) : (
             <ButtonUserConnect />
