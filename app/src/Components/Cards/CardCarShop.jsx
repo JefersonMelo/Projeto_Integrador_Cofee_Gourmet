@@ -7,23 +7,27 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { formatCurrencyBR, FromISODateHourTmzToDMY } from "../../Helpers/Formats";
+import {
+  formatCurrencyBR,
+  FromISODateHourTmzToDMY,
+} from "../../Helpers/Formats";
 import ImgCoffeeCup from "../../Static/Imgs/coffee-cup-and-beans.jpg";
 import BasicRating from "../Rating/BasicRating";
 import ButtonAddShoppingCar from "../Buttons/ButtonAddShoppingCar";
 import { ExpandMore } from "./Style/CardStyle";
-// import ShareIcon from "@mui/icons-material/Share";
 
-export default function CardHome({ id, row }) {
+export default function CardCarShop({ id, row }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  console.log(row);
+
   return (
-    <Card sx={{ maxWidth: 345, elevation: 3 }} key={`${id}-${row.ProductID}`}>
-      <CardHeader title={row.ProductName} />
+    <Card sx={{ maxWidth: 345, elevation: 3 }} key={`${id}-${row.Products.ProductID}`}>
+      <CardHeader title={row.Products.ProductName} />
 
       <CardMedia
         component="img"
@@ -32,17 +36,13 @@ export default function CardHome({ id, row }) {
         alt="Coffee in Cup"
       />
       <CardContent>
-        <BasicRating ratingValue={row.TotalRating}/>
+        <BasicRating ratingValue={row.Products.TotalRating} />
         <Typography variant="body2" color="text.secondary">
-          {row.ShortDescription}
+          {row.Products.ShortDescription}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <ButtonAddShoppingCar product={row}/>
-
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+        
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -52,19 +52,35 @@ export default function CardHome({ id, row }) {
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
+
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>
             <Typography id={"1"}>
-              <strong>{row.ProductName}</strong>
+              <strong>{row.Products.ProductName}</strong>
             </Typography>
-            <Typography id={"2"}>Fabricante: {row.Provider.ProviderName}</Typography>
-            <Typography id={"3"}>Peso: {(row.WeightInGrams >= 1000) ? `${row.WeightInGrams/1000}Kg`: `${row.WeightInGrams}g`}</Typography>
-            <Typography id={"4"}>{`Preço: ${formatCurrencyBR(row.Price)}`}</Typography>
-            <Typography id={"5"}>{row.Discount ? `Desconto: ${row.Discount}%` : null}</Typography>
-            <Typography id={"6"}>Validade: {FromISODateHourTmzToDMY(row.ValidityEndDate.toString())}</Typography>
+            <Typography id={"3"}>
+              Peso:{" "}
+              {row.Products.WeightInGrams >= 1000
+                ? `${row.Products.WeightInGrams / 1000}Kg`
+                : `${row.Products.WeightInGrams}g`}
+            </Typography>
+            <Typography id={"4"}>{`Preço: ${formatCurrencyBR(
+              row.Products.Price
+            )}`}</Typography>
+            <Typography id={"5"}>
+              {row.Products.Discount
+                ? `Desconto: ${row.Products.Discount}%`
+                : null}
+            </Typography>
+            <Typography id={"6"}>
+              Validade:{" "}
+              {FromISODateHourTmzToDMY(row.Products.ValidityEndDate.toString())}
+            </Typography>
           </Typography>
-          <Typography id={"7"} paragraph>{row.FullDescription}</Typography>
+          {/* <Typography id={"7"} paragraph>
+            {row.Products.FullDescription}
+          </Typography> */}
         </CardContent>
       </Collapse>
     </Card>
