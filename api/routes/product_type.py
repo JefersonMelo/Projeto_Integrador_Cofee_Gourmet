@@ -18,7 +18,7 @@ async def create_new_type(product_type: Optional[ProductType]):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
@@ -35,7 +35,7 @@ def get_all_types():
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
@@ -52,7 +52,7 @@ def get_all_types(product_type_id: int):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Tuple, List
+from typing import Optional, Tuple, List, Union
 
 from sqlalchemy import and_, update
 from sqlalchemy.engine import Result
@@ -68,34 +68,39 @@ class CarShopService:
         except Exception as e:
             return None, str(e)
 
-    # @classmethod
-    # def delete_item_car_shop_by_user_id(
-    #         cls,
-    #         db: Session,
-    #         user_id: int,
-    #         product_id: int
-    # ) -> Tuple[Optional[Result], str]:
-    #
-    #     try:
-    #
-    #         results = db.execute(
-    #             update(
-    #                 DbCarShop
-    #             ).returning(
-    #                 DbCarShop
-    #             ).where(
-    #                 DbCarShop.FK_UserID == user_id,
-    #                 and_(DbCarShop.Deleted.is_(None)),
-    #                 DbProduct.ProductID == product_id,
-    #             ).values(
-    #                 Deleted=datetime.now()
-    #             )
-    #         )
-    #
-    #         if not results:
-    #             return None, 'Erro Ao Deletar Itens Do Carrinho'
-    #
-    #         return results, 'Item Deletado Do Carrinho Com Sucesso!'
-    #
-    #     except Exception as e:
-    #         return None, str(e)
+    @classmethod
+    def delete_item_car_shop_by_user_id(
+            cls,
+            db: Session,
+            user_id: int,
+            product_id: int,
+            car_id: int,
+    ) -> Union[Optional[DbCarShop], str]:
+
+        try:
+            # SQLite dont supported returning
+            # .returning(
+            # DbCarShop
+            # )
+
+            results = db.execute(
+                update(
+                    DbCarShop
+                ).where(
+                    DbCarShop.FK_UserID == user_id,
+                    DbCarShop.CarShopID == car_id,
+                    DbCarShop.FK_ProductID == product_id,
+                    and_(DbCarShop.Deleted.is_(None)),
+                ).values(
+                    Deleted=datetime.now()
+                )
+            )
+
+            if not results:
+                raise ConnectionError('Erro Ao Deletar Item Do Carrinho')
+
+            return results, 'Item Deletado Do Carrinho Com Sucesso!'
+
+        except Exception as e:
+            print(str(e))
+            raise ConnectionError('Erro Ao Deletar Item Do Carrinho')

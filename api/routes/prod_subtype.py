@@ -18,7 +18,7 @@ async def create_new_product_subtype(prod_subtype: Optional[ProductSubtype]):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
@@ -35,7 +35,7 @@ def get_all_subtypes():
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)
@@ -52,7 +52,7 @@ def get_all_subtype_by_id(subtype_id: int):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         msg = str(e)

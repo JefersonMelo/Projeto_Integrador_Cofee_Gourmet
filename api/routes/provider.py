@@ -20,7 +20,7 @@ async def create_new_provider(provider: Optional[Provider]):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))
@@ -38,7 +38,7 @@ def get_all_providers():
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))
@@ -58,7 +58,7 @@ def get_product_by_provider_id(provider_id: int):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))

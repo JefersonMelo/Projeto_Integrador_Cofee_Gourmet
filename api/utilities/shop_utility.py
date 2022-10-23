@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, Tuple, List
 from api.database.connection import get_session
 from api.database.models import DbCarShop
-from api.schemas.car_shop_schema import NewItemCarShop
+from api.schemas.car_shop_schema import NewItemCarShop, RemoveItemCarShop
 from api.schemas.product_schema import CreateProduct
 from api.services.shop_service import CarShopService
 
@@ -63,26 +63,29 @@ class CarShopUtility:
         except Exception as e:
             return None, str(e)
 
-    # def delete_item_by_user_id(
-    #         self,
-    #         user_id: int,
-    # ) -> Tuple[Optional[List[DbCarShop]], str]:
-    #
-    #     try:
-    #         with self.session_maker() as session:
-    #
-    #             results, msg = self.shop_service.select_user_items(
-    #                 user_id=user_id,
-    #                 db=session
-    #             )
-    #
-    #             if not results:
-    #                 session.rollback()
-    #                 return None, msg
-    #
-    #             session.expunge_all()
-    #
-    #             return results, msg
-    #
-    #     except Exception as e:
-    #         return None, str(e)
+    def delete_item_car_shop(
+            self,
+            del_item: RemoveItemCarShop,
+    ) -> Tuple[Optional[DbCarShop], str]:
+
+        try:
+            with self.session_maker() as session:
+
+                results, msg = self.shop_service.delete_item_car_shop_by_user_id(
+                    user_id=del_item.FK_UserID,
+                    product_id=del_item.FK_ProductID,
+                    car_id=del_item.CarShopID,
+                    db=session
+                )
+
+                if not results:
+                    session.rollback()
+                    raise ConnectionError(msg)
+
+                session.expunge_all()
+
+                return results, msg
+
+        except Exception as e:
+            print(e)
+            raise ConnectionError(msg)

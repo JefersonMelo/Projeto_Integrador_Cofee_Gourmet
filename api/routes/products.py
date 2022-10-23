@@ -19,7 +19,7 @@ async def create_new_product(product: Optional[CreateProduct]):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))
@@ -37,7 +37,7 @@ def get_all_products():
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))
@@ -57,7 +57,7 @@ def get_product_by_product_id(product_id: int):
         if not results:
             raise HTTPException(status_code=400, detail=msg)
 
-        return {'detail': results, 'msg': msg}
+        return {'results': results, 'detail': msg}
 
     except Exception as e:
         print(str(e))
