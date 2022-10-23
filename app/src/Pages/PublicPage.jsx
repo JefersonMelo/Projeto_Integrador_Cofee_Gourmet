@@ -21,7 +21,7 @@ export default function PublicPage() {
       .then((res) => {
         setProductContext(() => ({
           ...productContext,
-          products: res.data.detail,
+          products: res.data.results,
         }));
       })
       .catch((err) => {
