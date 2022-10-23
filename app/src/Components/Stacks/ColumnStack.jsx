@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { Divider } from "@mui/material";
+import ButtonReturnShop from "../Buttons/ButtonReturnShop";
 
 export default function ColumnStack({ Element, values }) {
   return values ? (
@@ -14,7 +15,10 @@ export default function ColumnStack({ Element, values }) {
         minHeight: "100vh",
       }}
     >
-      <Stack spacing={2} divider={<Divider flexItem />}>
+      <Stack
+        spacing={2}
+        divider={<Divider flexItem />}
+      >
         {values?.map((row, index) => (
           <Box key={index}>
             <Element id={index} row={row} />
@@ -32,7 +36,7 @@ export default function ColumnStack({ Element, values }) {
         minHeight: "100vh",
       }}
     >
-      CARRINHO VAZIO
+      <ButtonReturnShop/>
     </Box>
   );
 }
