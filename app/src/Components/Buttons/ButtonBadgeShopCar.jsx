@@ -17,8 +17,7 @@ export default function ButtonBadgeShopCar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api
-      .get(
+    api.get(
         apiRouts.GET_CAR_SHOP_BY_USER_ID.replace(
           "%user_id%",
           userContext.userid
@@ -45,7 +44,7 @@ export default function ButtonBadgeShopCar() {
       <Button
         onClick={() =>
           badgeContent
-            ? navigate("/car/shop")
+            ? navigate("/user/car/shop")
             : ShowErrorSnackBar(err, appContext, setAppContext)
         }
         color="inherit"
