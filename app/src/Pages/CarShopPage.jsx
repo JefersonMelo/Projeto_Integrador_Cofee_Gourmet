@@ -23,12 +23,16 @@ export default function CarShopPage() {
       )
       .then((res) => {
         setItems(res.data.results);
+        setAppContext((prev) => ({
+          ...prev,
+          itemsCarShop: res.data.results,
+        }));
       })
       .catch((err) => {
         ShowErrorSnackBar(err, appContext, setAppContext);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userContext.userid]);
+  }, [userContext.userid, appContext.refresh]);
 
   return (
     <Box sx={{ mt: 7, flexGrow: 12 }}>
