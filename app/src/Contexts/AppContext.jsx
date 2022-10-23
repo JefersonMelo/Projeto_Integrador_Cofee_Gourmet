@@ -12,6 +12,7 @@ export const defaultValues = {
     type: "error",
     msg: "unknown",
   },
+  itemsCarShop: {},
 };
 
 export const AppProvider = ({ children }) => {
