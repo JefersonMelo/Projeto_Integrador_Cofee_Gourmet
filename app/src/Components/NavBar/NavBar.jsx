@@ -8,11 +8,11 @@ import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAppContext } from "../../Contexts/AppContext";
 import ButtonUserConnect from "../Buttons/ButtonUserConnect";
-import ButtonBadgeShopCar from "../Badge/ButtonBadgeShopCar";
+import ButtonBadgeShopCar from "../Buttons/ButtonBadgeShopCar";
 // import SearchBar from "../Searches/SearchBar";
 import { useUserContext } from "../../Contexts/UserContext";
 import UserAvatar from "../Avatars/UserAvatar";
-import { Button } from "@mui/material";
+import { NavBarLogo } from "./NavBarLogo";
 
 export default function NavBar({ open }) {
   const [appContext, setAppContext] = useAppContext();
@@ -55,9 +55,8 @@ export default function NavBar({ open }) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button sx={{ color: "inherit" }}>COFFEE BREAK</Button>
-          </Box>
+
+          <NavBarLogo />
 
           {/* <Box sx={{ flexGrow: 2 }}>
             <SearchBar placeholder={"Pesquisar"} width={"70%"} />

@@ -1,25 +1,21 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import { Theme } from "../../Helpers/Theme";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const NavBarLogo = () => {
-  const colors = Theme.palette;
+  const navigate = useNavigate();
+
   return (
-    <Box
-      component={Link}
-      sx={{
-        flexGrow: 1,
-        position: "relative",
-        textDecoration: "none",
-        color: colors.dropzone.grey98,
-      }}
-      to={{ pathname: "/" }}
-    >
-      <Typography variant="h6" component="div">
+    <Box sx={{ flexGrow: 1 }}>
+      <Button
+        onClick={() => {
+          navigate("/");
+        }}
+        sx={{ color: "inherit" }}
+      >
         COFFEE BREAK
-      </Typography>
+      </Button>
     </Box>
   );
 };
