@@ -31,6 +31,6 @@ export const apiRouts = {
 
   /*CAR SHOP*/
   ADD_NEW_ITEM_IN_CAR_SHOP: "/add/new/product/in/car/shop",
-  GET_CAR_SHOP_BY_USER_ID: "/get/car/shop/%user_id%"
-
+  GET_CAR_SHOP_BY_USER_ID: "/get/car/shop/%user_id%",
+  DELETE_ITEM_CAR_SHOP: "/del/item/car/shop"
 };
