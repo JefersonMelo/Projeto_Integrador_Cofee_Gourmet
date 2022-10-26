@@ -7,12 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { useUserContext } from "../../Contexts/UserContext";
+import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import { logout } from "../../Services/storage";
 
 
 export default function UserAvatar() {
-  const [userContext] = useUserContext();
+  const [authContext] = useAuthContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -51,7 +51,7 @@ export default function UserAvatar() {
               size="small"
               sx={{ bgcolor: "white" }}
               icon={<SentimentSatisfiedAltIcon />}
-              label={userContext.username}
+              label={authContext.username}
             />
           </IconButton>
         </Tooltip>

@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { Avatar, TextField } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
-import { useUserContext } from "../../Contexts/UserContext";
+import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
@@ -15,7 +15,7 @@ import { Theme } from "../../Helpers/Theme";
 
 export default function RegistrationForm() {
   const [appContext, setAppContext] = useAppContext();
-  const [userContext, setUserContext] = useUserContext();
+  const [authContext, setAuthContext] = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkedUser, setCheckedUser] = useState(true);
@@ -31,8 +31,8 @@ export default function RegistrationForm() {
     api.post(apiRouts.GET_LOGIN, data)
       .then((res) => {
         ShowSuccessSnackBar(res, appContext, setAppContext);
-        setUserContext(() => ({
-          ...userContext,
+        setAuthContext(() => ({
+          ...authContext,
           userid: res.data.userid,
           username: res.data.username,
           token: res.data.token,

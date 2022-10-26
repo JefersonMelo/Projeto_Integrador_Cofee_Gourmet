@@ -15,7 +15,7 @@ import {
   ShowSuccessSnackBar,
 } from "../../Helpers/SnackBars";
 
-export default function RegistrationForm() {
+export default function NewContactForm() {
   const [appContext, setAppContext] = useAppContext();
   const [authContext, setAuthContext] = useAuthContext();
   const [userName, setUserName] = useState("");
@@ -61,8 +61,7 @@ export default function RegistrationForm() {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Avatar>CB</Avatar>
-      <Typography variant="h5">Cadastro</Typography>
+      <Typography variant="h5">Adicionar Contatos</Typography>
 
       <TextField
         variant="outlined"

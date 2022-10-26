@@ -10,6 +10,8 @@ import PrivateRoutes from "../Services/privateRoute"
 import LoginForm from "../Components/Forms/LoginForm"
 import BorderBox from "../Components/Boxes/BorderBox";
 import CarShopPage from "../Pages/CarShopPage";
+import UserInfosPage from "../Pages/UserInfosPage";
+import PaymentPage from "../Pages/PaymentPage";
 
 export default function AppRoutes() {
 
@@ -26,6 +28,8 @@ export default function AppRoutes() {
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" exact element={<LeftDrawer Element={Home} />} />
                     <Route path="/user/car/shop" exact element={<LeftDrawer Element={CarShopPage} />} />
+                    <Route path="/user/add/infos" exact element={<LeftDrawer Element={UserInfosPage} />} />
+                    <Route path="/payment" exact element={<LeftDrawer Element={PaymentPage} />} />
                 </Route>
 
             </Routes>

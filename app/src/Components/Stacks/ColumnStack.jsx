@@ -12,7 +12,7 @@ export default function ColumnStack({ Element, values }) {
         display: "flex",
         justifyContent: "left",
         alignItems: "center",
-        minHeight: "100vh",
+        // minHeight: "100vh",
       }}
     >
       <Stack
@@ -33,7 +33,7 @@ export default function ColumnStack({ Element, values }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        // minHeight: "100vh",
       }}
     >
       <ButtonReturnShop/>

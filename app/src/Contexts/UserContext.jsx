@@ -1,21 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { getLocalStorage, setLocalStorage } from "../Services/storage";
+import React, { createContext, useContext, useState } from "react";
 
 export const newUserContext = createContext();
 
-const defaultValues = {
-  token: null,
-  username: null,
-  userid: null,
-};
-
 export const UserProvider = ({ children }) => {
-  const [userContext, setUserContext] = useState(() =>
-    getLocalStorage("userContext", defaultValues));
-
-  useEffect(() => {
-    setLocalStorage("userContext", userContext);
-  }, [userContext]);
+  const [userContext, setUserContext] = useState({
+    contacts: null,
+    address: null,
+  });
 
   return (
     <newUserContext.Provider value={[userContext, setUserContext]}>

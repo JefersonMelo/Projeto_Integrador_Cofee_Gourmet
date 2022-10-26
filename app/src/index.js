@@ -5,8 +5,10 @@ import { Theme } from './Helpers/Theme';
 import { ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react'
 import { AppProvider } from './Contexts/AppContext';
-import { UserProvider } from './Contexts/UserContext';
+import { AuthenticationProvider } from './Contexts/AuthenticationContext';
 import { ProductProvider } from './Contexts/ProductContext';
+import { UserProvider } from './Contexts/UserContext';
+import { CarShopProvider } from './Contexts/CarShopContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,9 +19,13 @@ root.render(
                 <ThemeProvider theme={Theme}>
                     <AppProvider>
                         <ProductProvider>
-                            <UserProvider>
-                                <App />
-                            </UserProvider>
+                            <AuthenticationProvider>
+                                <UserProvider>
+                                    <CarShopProvider>
+                                        <App />
+                                    </CarShopProvider>
+                                </UserProvider>
+                            </AuthenticationProvider>
                         </ProductProvider>
                     </AppProvider>
                 </ThemeProvider>

@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Theme } from "../../Helpers/Theme";
-import { Box, Tooltip } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { useAppContext } from "../../Contexts/AppContext";
@@ -36,18 +36,16 @@ export default function ButtonRemoveItemShop({ removeItem, id }) {
   };
   return (
     <Box id={id}>
-      <Tooltip title="Remover do Carrinho">
-        <span>
+      <Tooltip title="Remover do Carrinho" arrow>
+        <Typography component={'span'} variant={'body2'}>
           <IconButton
             sx={{ color: colors.error.main, size: "small" }}
             aria-label="delete"
-            onClick={() => {
-              onSubmit(removeItem);
-            }}
+            onClick={() => (onSubmit(removeItem))}
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
-        </span>
+        </Typography>
       </Tooltip>
     </Box>
   );
