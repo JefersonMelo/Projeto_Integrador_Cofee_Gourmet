@@ -1,9 +1,12 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String
 
 
 class AddressMixin(object):
-    UserID = Column(Integer, primary_key=True, index=True)
-    UserEmail = Column(String(255), unique=True, index=True)
-    UserName = Column(String(255), index=True)
-    Password = Column(String)
-    UserIsActive = Column(Boolean, default=True)
+    AddressID = Column(Integer, primary_key=True, index=True)
+    AddressName = Column(String(255), index=True)
+    AddressNumber = Column(Integer, index=True)
+    Complement = Column(String(255), index=True)
+    Planet = Column(String(255), index=True)
+    Country = Column(String(2), index=True)
+    District = Column(String(255), index=True)
+    City = Column(String(255), index=True)

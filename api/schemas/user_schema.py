@@ -5,6 +5,10 @@ from pydantic import BaseModel
 from api.schemas.product_schema import Product
 
 
+class UserInfoBase(BaseModel):
+    FK_UserID: int
+
+
 class UserBase(BaseModel):
     UserEmail: str
 
@@ -28,4 +32,3 @@ class UserLogin(UserBase):
 class User(UserCreate):
     UserIsActive: bool
     Items: list[Product] = []
-
