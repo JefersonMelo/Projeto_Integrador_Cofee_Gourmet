@@ -8,9 +8,10 @@ import { ShowErrorSnackBar } from "../Helpers/SnackBars";
 import { useAuthContext } from "../Contexts/AuthenticationContext";
 import ColumnStack from "../Components/Stacks/ColumnStack";
 import CardCarShop from "../Components/Cards/CardCarShop";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import ButtonPayment from "../Components/Buttons/ButtonPayment";
 import { useCarShopContext } from "../Contexts/CarShopContext";
+import ButtonReturnShop from "../Components/Buttons/ButtonReturnShop";
 
 export default function CarShopPage() {
   const [authContext] = useAuthContext();
@@ -19,7 +20,8 @@ export default function CarShopPage() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    api.get(
+    api
+      .get(
         apiRouts.GET_CAR_SHOP_BY_USER_ID.replace(
           "%user_id%",
           authContext.userid
@@ -41,10 +43,23 @@ export default function CarShopPage() {
   return (
     <Box sx={{ mt: 11, flexGrow: 12 }}>
       <Main open={appContext.drawerOpened} context={appContext}>
+        {shopContext.itemsCarShop?.length && (
+          <Box
+            sx={{
+              display: "flex",
+              "flex-direction": "column",
+              "justify-content": "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <ButtonReturnShop />
+          </Box>
+        )}
+
         <Box>
-          <Box sx={{mb: '11px'}} >
+          <Box sx={{ mb: "17px" }}>
             {shopContext.itemsCarShop?.length && (
-              <Typography variant={"h4"}>Carrinho de compras</Typography>
+              <Typography variant={"h5"}>Carrinho de compras</Typography>
             )}
           </Box>
           <ColumnStack Element={CardCarShop} values={items} />
