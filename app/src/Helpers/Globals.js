@@ -25,11 +25,11 @@ export const apiRouts = {
 
   /*CONTACTS*/
   ADD_NEW_CONTACTS_BY_USER_ID: '/add/new/contact/user/%user_id%',
-  GET_CONTACTS_BY_USER_ID: '/get/contact/user/%user_id%',
+//  GET_CONTACTS_BY_USER_ID: '/get/contact/user/%user_id%',
 
   /*ADDRESS*/
   ADD_NEW_ADDRESS_BY_USER_ID: '/add/new/address/user/%user_id%',
-  GET_ADDRESS_BY_USER_ID: '/get/address/user/%user_id%',
+//  GET_ADDRESS_BY_USER_ID: '/get/address/user/%user_id%',
 
 
   /*CATEGORY*/
