@@ -130,7 +130,7 @@ dmypy.json
 .pyre/
 
 #db sqlite
-**[a-z].db
+# **[a-z].db
 
 # DEV
 comandos.py
