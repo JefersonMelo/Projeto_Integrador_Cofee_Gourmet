@@ -1,7 +1,7 @@
-from typing import Optional, Tuple
-from sqlalchemy.orm import Session
+from typing import Optional, Tuple, List
+from sqlalchemy.orm import Session, joinedload
 from api.schemas.user_schema import UserCreate, UserLogin
-from api.database.models import DbUser
+from api.database.models import DbUser, DbContact, DbAddress
 
 
 class UsersService:
@@ -30,7 +30,7 @@ class UsersService:
             return results, 'User Created with Success'
 
         except Exception as e:
-            return None, str(e)
+            raise ConnectionError(str(e))
 
     @classmethod
     def get_user_id(
@@ -49,7 +49,7 @@ class UsersService:
             return results, 'Success'
 
         except Exception as e:
-            return None, str(e)
+            raise ConnectionError(str(e))
 
     @classmethod
     def get_user_for_auth(
@@ -73,7 +73,7 @@ class UsersService:
             return results, f'{results.UserName}, Valeu Por Estar Aqui!'
 
         except Exception as e:
-            return None, str(e)
+            raise ConnectionError(str(e))
 
     @classmethod
     def get_user_by_email(
@@ -92,7 +92,7 @@ class UsersService:
             return results, 'Usuário Localizado Com Sucesso!'
 
         except Exception as e:
-            return None, str(e)
+            raise ConnectionError(str(e))
 
     @classmethod
     def get_users(
@@ -112,4 +112,36 @@ class UsersService:
             return results, 'Success'
 
         except Exception as e:
-            return None, str(e)
+            raise ConnectionError(str(e))
+
+    @classmethod
+    def select_contacts_address_by_user_id(
+            cls,
+            db: Session,
+            user_id: int,
+    ) -> Tuple[Optional[List[DbUser]], str]:
+
+        try:
+
+            results = db.query(
+                DbUser
+            ).join(
+                DbContact
+            ).join(
+                DbAddress
+            ).filter(
+                DbUser.UserID == user_id,
+                DbContact.FK_UserID == user_id,
+                DbAddress.FK_UserID == user_id,
+            ).options(
+                joinedload(DbUser.Contacts),
+                joinedload(DbUser.Address),
+            ).all()
+
+            if not results:
+                return None, 'Solicitação Não Localizada'
+
+            return results, 'Informações Localizadas com Sucesso!'
+
+        except Exception as e:
+            raise ConnectionError(str(e))

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 import { useAppContext } from "../Contexts/AppContext";
 import api from "../Services/api";
 import { apiRouts } from "../Helpers/Globals";
@@ -8,7 +9,6 @@ import { ShowErrorSnackBar } from "../Helpers/SnackBars";
 import { useAuthContext } from "../Contexts/AuthenticationContext";
 import ColumnStack from "../Components/Stacks/ColumnStack";
 import CardCarShop from "../Components/Cards/CardCarShop";
-import { Typography } from "@mui/material";
 import ButtonPayment from "../Components/Buttons/ButtonPayment";
 import { useCarShopContext } from "../Contexts/CarShopContext";
 import ButtonReturnShop from "../Components/Buttons/ButtonReturnShop";

@@ -59,3 +59,21 @@ async def user_login(user: Optional[UserLogin] = None):
 
     except Exception:
         raise HTTPException(status_code=400, detail=msg)
+
+
+@router.get('/get/contacts/address/user/{user_id}')
+async def get_contacts_address_by_user(user_id: int):
+    msg = None
+    try:
+        users = UsersUtility()
+
+        results, msg = users.get_user(user_id=user_id)
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'results': results, 'detail': msg}
+
+    except Exception:
+        raise HTTPException(status_code=400, detail=msg)
+
