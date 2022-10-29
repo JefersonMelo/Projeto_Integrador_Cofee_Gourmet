@@ -4,7 +4,7 @@ const { resolve } = require('path');
 const app = express();
 
 app.use('/', express.static(resolve(__dirname, './build')));
-
+console.log(app)
 app.listen(process.env.PORT || 3000,
 (err) => {
     if(err){return console.log(err)}
