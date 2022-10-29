@@ -22,7 +22,7 @@
     "react-swipeable-views-utils": "latest"
   },
   "scripts": {
-    "start": "react-scripts server.js",
+    "start": "node server.js",
     "build": "webpack --mode production",
     "dev": "webpack serve",
     "test": "react-scripts test",
