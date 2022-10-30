@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.61b16df3.css",
+    "main.js": "/static/js/main.5c7e4731.js",
+    "static/media/coffee-cup-and-beans.jpg": "/static/media/coffee-cup-and-beans.3d9ec4dcac667ae2db3b.jpg",
+    "index.html": "/index.html",
+    "main.61b16df3.css.map": "/static/css/main.61b16df3.css.map",
+    "main.5c7e4731.js.map": "/static/js/main.5c7e4731.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61b16df3.css",
+    "static/js/main.5c7e4731.js"
+  ]
+}
