@@ -3,7 +3,7 @@ const { resolve } = require('path');
 
 const app = express();
 
-app.use('/', express.static(resolve(__dirname, './build')));
+app.use('/', express.static(resolve(__dirname, 'app/build')));
 console.log(app)
 app.listen(process.env.PORT || 3000,
 (err) => {
