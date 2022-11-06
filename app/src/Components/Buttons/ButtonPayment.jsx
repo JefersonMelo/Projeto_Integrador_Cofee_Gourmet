@@ -1,24 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect }  from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
-import { apiRouts } from "../../Helpers/Globals";
-import api from "../../Services/api";
 
 export default function ButtonPayment() {
   const [userContext, setUserContext] = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get(apiRouts.GET_CONTACTS_AND_ADDRESS_BY_USER_ID.replace("%user_id%", userContext.userid))
-      .then((res) => {
-        setUserContext((prev) => ({
-          ...prev,
-          contacts: res.data.contacts,
-          address: res.data.address,
-        }));
-      })
-      .catch((err) => console.log(err));
+    setUserContext((prev) => ({
+      ...prev,
+      contacts: {
+        tel: "123",
+      },
+      address: {
+        rua: "123",
+      },
+    }));
   }, []);
 
   const infos = () => {
@@ -35,6 +33,8 @@ export default function ButtonPayment() {
 
   return (
     <Box>
+      {/* <Tooltip title={infos()} arrow>
+        <Typography component={"span"} variant={"body2"}> */}
       <Button
         sx={{ mt: "20px", width: "100%" }}
         variant="contained"
@@ -46,6 +46,8 @@ export default function ButtonPayment() {
       >
         {infos()}
       </Button>
+      {/* </Typography>
+      </Tooltip> */}
     </Box>
   );
 }

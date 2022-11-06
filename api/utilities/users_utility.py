@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, List
+from typing import Optional, Tuple
 from api.database.connection import get_session
 from api.schemas.user_schema import UserCreate, User, UserBase, UserLogin
 from api.services.users_service import UsersService
@@ -40,7 +40,7 @@ class UsersUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e)
 
     def get_user(
             self,
@@ -64,7 +64,7 @@ class UsersUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e)
 
     def user_authenticate(
             self,
@@ -88,7 +88,31 @@ class UsersUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e)
+
+    # def get_user_by_email(
+    #         self,
+    #         email: str
+    # ) -> Tuple[Optional[User], str]:
+    #
+    #     try:
+    #         with self.session_maker() as session:
+    #
+    #             results, msg = self.users.get_user_email(
+    #                 email=email,
+    #                 db=session
+    #             )
+    #
+    #             if not results:
+    #                 session.rollback()
+    #                 return None, msg
+    #
+    #             session.expunge_all()
+    #
+    #             return results, msg
+    #
+    #     except Exception as e:
+    #         return None, str(e)
 
     def get_all_users(
             self,
@@ -114,28 +138,4 @@ class UsersUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(str(e))
-
-    def get_contacts_address_by_user_id(
-            self,
-            user_id: int
-    ) -> Tuple[Optional[List[User]], str]:
-
-        try:
-            with self.session_maker() as session:
-
-                results, msg = self.users.select_contacts_address_by_user_id(
-                    user_id=user_id,
-                    db=session
-                )
-
-                if not results:
-                    session.rollback()
-                    return None, msg
-
-                session.expunge_all()
-
-                return results, msg
-
-        except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e)
