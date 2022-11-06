@@ -5,7 +5,7 @@ APP_NAME = 'Coffee Gourmet'
 
 # Optional
 APP_VERSION = 1.0
-SECRET_KEY = APP_NAME + 'HBIHK%¨YGBNJI*(OLK<LOIUYTRFCVFDERtghuy65redfgy78i'
+SECRET_KEY = APP_NAME + 'qwertyuiopASDFGHJK1234567890#$%¨&*'
 
 # Dont Change
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
