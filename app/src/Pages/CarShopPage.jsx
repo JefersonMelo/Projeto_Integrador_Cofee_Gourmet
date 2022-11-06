@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 import { useAppContext } from "../Contexts/AppContext";
 import api from "../Services/api";
 import { apiRouts } from "../Helpers/Globals";
@@ -8,7 +9,6 @@ import { ShowErrorSnackBar } from "../Helpers/SnackBars";
 import { useAuthContext } from "../Contexts/AuthenticationContext";
 import ColumnStack from "../Components/Stacks/ColumnStack";
 import CardCarShop from "../Components/Cards/CardCarShop";
-import { Typography } from "@mui/material";
 import ButtonPayment from "../Components/Buttons/ButtonPayment";
 import { useCarShopContext } from "../Contexts/CarShopContext";
 import ButtonReturnShop from "../Components/Buttons/ButtonReturnShop";
@@ -20,8 +20,7 @@ export default function CarShopPage() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    api
-      .get(
+    api.get(
         apiRouts.GET_CAR_SHOP_BY_USER_ID.replace(
           "%user_id%",
           authContext.userid
@@ -35,7 +34,7 @@ export default function CarShopPage() {
         }));
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
+        ShowErrorSnackBar(err, setAppContext);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appContext.refresh]);

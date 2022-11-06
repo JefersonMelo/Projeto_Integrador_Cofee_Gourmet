@@ -26,6 +26,8 @@ async def create_new_product(product: Optional[CreateProduct]):
         raise HTTPException(status_code=400, detail=msg)
 
 
+@router.get('/')
+@router.get('/home')
 @router.get('/get/all/products')
 def get_all_products():
     msg = None
@@ -62,4 +64,3 @@ def get_product_by_product_id(product_id: int):
     except Exception as e:
         print(str(e))
         raise HTTPException(status_code=400, detail=msg)
-

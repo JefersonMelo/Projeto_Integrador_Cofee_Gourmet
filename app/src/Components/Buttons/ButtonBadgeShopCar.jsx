@@ -34,7 +34,7 @@ export default function ButtonBadgeShopCar() {
         } 
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
+        ShowErrorSnackBar(err, setAppContext);
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appContext.refresh]);
@@ -45,7 +45,7 @@ export default function ButtonBadgeShopCar() {
         onClick={() =>
           shopContext.itemsCarShop?.length
             ? navigate("/user/car/shop")
-            : ShowErrorSnackBar(err, appContext, setAppContext)
+            : ShowErrorSnackBar(err, setAppContext)
         }
         color="inherit"
       >

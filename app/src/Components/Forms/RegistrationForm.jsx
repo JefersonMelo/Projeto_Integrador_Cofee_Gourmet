@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Avatar, FormHelperText, TextField } from "@mui/material";
+import { Chip, FormHelperText, TextField } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
 import { validatorEmail } from "../../Helpers/Validators";
-import { logout } from "../../Services/storage";
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar,
 } from "../../Helpers/SnackBars";
 
 export default function RegistrationForm() {
-  const [appContext, setAppContext] = useAppContext();
-  const [authContext, setAuthContext] = useAuthContext();
+  const [, setAppContext] = useAppContext();
+  const [, setAuthContext] = useAuthContext();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,26 +42,25 @@ export default function RegistrationForm() {
 
     api.post(apiRouts.CREATE_USER, data)
       .then((res) => {
-        setAuthContext(() => ({
-          ...authContext,
+        setAuthContext((prev) => ({
+          ...prev,
           userid: res.data.id,
           token: res.data.token,
           username: res.data.username,
         }));
         navigate("/home");
-        ShowSuccessSnackBar(res, appContext, setAppContext);
+        ShowSuccessSnackBar(res, setAppContext);
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
-        logout();
+        ShowErrorSnackBar(err, setAppContext);
       });
   };
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Avatar>CB</Avatar>
-      <Typography variant="h5">Cadastro</Typography>
-
+      <strong>
+        <Chip label="Cadastre-se cbgourmet" />
+      </strong>      
       <TextField
         variant="outlined"
         margin="normal"
@@ -87,7 +84,6 @@ export default function RegistrationForm() {
         label="E-mail"
         name="email"
         autoComplete="email"
-        autoFocus
         onChange={(e) => {
           setEmail(e.target.value);
         }}
@@ -95,6 +91,7 @@ export default function RegistrationForm() {
 
       <TextField
         variant="outlined"
+        onKeyPress={(e) =>{if(e.key === "Enter"){onSubmit();}}}
         margin="normal"
         fullWidth
         required={true}

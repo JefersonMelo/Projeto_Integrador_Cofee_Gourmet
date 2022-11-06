@@ -13,7 +13,7 @@ import {
 
 export default function ButtonRemoveItemShop({ removeItem, id }) {
   const colors = Theme.palette;
-  const [appContext, setAppContext] = useAppContext();
+  const [, setAppContext] = useAppContext();
 
   const onSubmit = (val) => {
     const data = {
@@ -24,14 +24,14 @@ export default function ButtonRemoveItemShop({ removeItem, id }) {
 
     api.delete(apiRouts.DELETE_ITEM_CAR_SHOP, { data })
       .then((res) => {
-        ShowSuccessSnackBar(res, appContext, setAppContext);
+        ShowSuccessSnackBar(res, setAppContext);
         setAppContext((prev) => ({
           ...prev,
           refresh: !prev.refresh,
         }));
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
+        ShowErrorSnackBar(err, setAppContext);
       });
   };
   return (

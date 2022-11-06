@@ -15,7 +15,7 @@ import { useAppContext } from "../../Contexts/AppContext";
 
 export default function ButtonAddShoppingCar({ product }) {
   const [authContext] = useAuthContext();
-  const [appContext, setAppContext] = useAppContext();
+  const [, setAppContext] = useAppContext();
   const navigate = useNavigate();
 
   const addCarItemCarShop = () => {
@@ -26,10 +26,10 @@ export default function ButtonAddShoppingCar({ product }) {
 
     api.post(apiRouts.ADD_NEW_ITEM_IN_CAR_SHOP, data)
       .then((res) => {
-        ShowSuccessSnackBar(res, appContext, setAppContext);
+        ShowSuccessSnackBar(res, setAppContext);
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
+        ShowErrorSnackBar(err, setAppContext);
       });
   };
 
@@ -42,7 +42,9 @@ export default function ButtonAddShoppingCar({ product }) {
         <span>
           <Button
             color="inherit"
-            onClick={() =>(!authContext.token ? navigate("/login") : addCarItemCarShop())}
+            onClick={() =>
+              !authContext.token ? navigate("/login") : addCarItemCarShop()
+            }
           >
             <AddShoppingCartIcon color="inherit" />
           </Button>

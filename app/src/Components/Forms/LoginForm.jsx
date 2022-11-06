@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Avatar, TextField } from "@mui/material";
+import { Chip, TextField } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
@@ -14,8 +13,8 @@ import { ShowSuccessSnackBar } from "../../Helpers/SnackBars";
 import { Theme } from "../../Helpers/Theme";
 
 export default function RegistrationForm() {
-  const [appContext, setAppContext] = useAppContext();
-  const [authContext, setAuthContext] = useAuthContext();
+  const [, setAppContext] = useAppContext();
+  const [, setAuthContext] = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkedUser, setCheckedUser] = useState(true);
@@ -30,9 +29,9 @@ export default function RegistrationForm() {
 
     api.post(apiRouts.GET_LOGIN, data)
       .then((res) => {
-        ShowSuccessSnackBar(res, appContext, setAppContext);
-        setAuthContext(() => ({
-          ...authContext,
+        ShowSuccessSnackBar(res, setAppContext);
+        setAuthContext((prev) => ({
+          ...prev,
           userid: res.data.userid,
           username: res.data.username,
           token: res.data.token,
@@ -47,8 +46,9 @@ export default function RegistrationForm() {
   return (
     <>
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Avatar></Avatar>
-        <Typography variant="h5">Login</Typography>
+        <strong>
+          <Chip label="Login cbgourmet" />
+        </strong>
         <TextField
           error={!checkedUser}
           variant="outlined"
@@ -66,6 +66,7 @@ export default function RegistrationForm() {
         />
         <TextField
           error={!checkedUser}
+          onKeyPress={(e) =>{if(e.key === "Enter"){onSubmit();}}}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -80,20 +81,20 @@ export default function RegistrationForm() {
           }}
         />
         {!checkedUser && (
-        <>
-          <Box
-            sx={{
-              justifyContent: "flex-end",
-              display: "flex",
-              alignItems: "flex-end",
-            }}
-          >
-            <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
-              Verifique Email e Senha 🙄
-            </FormHelperText>
-          </Box>
-        </>
-      )}
+          <>
+            <Box
+              sx={{
+                justifyContent: "flex-end",
+                display: "flex",
+                alignItems: "flex-end",
+              }}
+            >
+              <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
+                Verifique Email e Senha 🙄
+              </FormHelperText>
+            </Box>
+          </>
+        )}
         <Button
           sx={{ mt: "0.8rem" }}
           disabled={!validatorEmail(email)}

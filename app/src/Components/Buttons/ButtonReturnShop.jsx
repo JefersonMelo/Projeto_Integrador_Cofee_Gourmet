@@ -9,13 +9,13 @@ export default function ButtonReturnShop() {
 
   return (
     <Box>
-      <Tooltip title="Retornar às Compras">
+      <Tooltip title="Continuar Comprando">
         <span>
           <Button
             variant="contained"
             onClick={() => (!appContext.itemsCarShop ? navigate("/home") : null)}
           >
-            Retornar às Compras
+            Continuar Comprando
           </Button>
         </span>
       </Tooltip>

@@ -1,141 +1,185 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Avatar, FormHelperText, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useAppContext } from "../../Contexts/AppContext";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
-import { validatorEmail } from "../../Helpers/Validators";
-import { logout } from "../../Services/storage";
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar,
 } from "../../Helpers/SnackBars";
+import { useUserContext } from "../../Contexts/UserContext";
 
 export default function NewAddressForm() {
-  const [appContext, setAppContext] = useAppContext();
-  const [authContext, setAuthContext] = useAuthContext();
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkedPassword, setcheckedPassword] = useState(true);
-  const navigate = useNavigate();
+  const [, setAppContext] = useAppContext();
+  const [authContext, ] = useAuthContext();
+  const [, setUserContext]= useUserContext();
+  const [addressName, setAddressName] = useState("");
+  const [addressNumber, setAddressNumber] = useState(0);
+  const [complement, setComplement] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [district, setDistrict] = useState("");
+  const [city, setCity] = useState("");
 
-  const pw = (password) => {
-    if (!password) {
-      setcheckedPassword(false);
-    } else {
-      setcheckedPassword(true);
-    }
-  };
   const onSubmit = () => {
-    if (!password || !email || !userName) {
-      return;
-    }
-
     let data = {
-      UserName: userName,
-      UserEmail: email,
-      Password: password,
+      FK_UserID: authContext.userid,
+      AddressName: addressName,
+      AddressNumber: addressNumber,
+      Complement: complement,
+      ZipCode: zipCode,
+      District: district,
+      City: city,
     };
 
-    api.post(apiRouts.CREATE_USER, data)
+    if (!addressName || !addressNumber || !zipCode || !district || !city)
+      return;
+
+    data.AddressNumber = parseInt(addressNumber);
+
+    api.post(
+        apiRouts.ADD_NEW_ADDRESS_BY_USER_ID.replace(
+          "%user_id%",
+          authContext.userid
+        ),
+        data
+      )
       .then((res) => {
-        setAuthContext(() => ({
-          ...authContext,
-          userid: res.data.id,
-          token: res.data.token,
-          username: res.data.username,
+        setUserContext((prev) => ({
+          ...prev,
+          address: res.data.results,
         }));
-        navigate("/home");
-        ShowSuccessSnackBar(res, appContext, setAppContext);
+        ShowSuccessSnackBar(res, setAppContext);
       })
       .catch((err) => {
-        ShowErrorSnackBar(err, appContext, setAppContext);
-        logout();
+        ShowErrorSnackBar(err, setAppContext);
       });
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <Typography variant="h5">Adicionar Endereço</Typography>
+    <>
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <Typography variant="h6">Adicionar Endereço</Typography>
 
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        required={true}
-        id="name"
-        label="Nome"
-        name="name"
-        autoFocus
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
-      />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          id="nameAddress"
+          label="Nome da Rua"
+          name="nameAddress"
+          onChange={(e) => {
+            setAddressName(e.target.value);
+          }}
+        />
 
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        required={true}
-        id="email"
-        label="E-mail"
-        name="email"
-        autoComplete="email"
-        autoFocus
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
+        <TextField
+          type="number"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          id="addessNumber"
+          label="Número"
+          name="number"
+          onChange={(e) => {
+            setAddressNumber(e.target.value);
+          }}
+        />
 
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        required={true}
-        name="password"
-        label="Senha"
-        type="password"
-        id="password"
-        autoComplete="current-password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-          pw(e.target.value);
-        }}
-      />
-      {!checkedPassword && (
-        <>
-          <Box
-            sx={{
-              justifyContent: "flex-end",
-              display: "flex",
-              alignItems: "flex-end",
-            }}
-          >
-            <FormHelperText error={!checkedPassword} sx={{ mt: "0.5rem" }}>
-              Digite uma Senha 🙄
-            </FormHelperText>
-          </Box>
-        </>
-      )}
+        <TextField
+          type="number"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          name="zipCode"
+          label="CEP"
+          id="zipCode"
+          inputProps={{ maxLength: 7 }}
+          onChange={(e) => {
+            setZipCode(e.target.value);
+          }}
+        />
 
-      <Button
-        sx={{ mt: "0.8rem", mb: "1rem" }}
-        disabled={!validatorEmail(email)}
-        variant="contained"
-        color="primary"
-        type="submit"
-        fullWidth
-        onClick={() => {
-          onSubmit();
-        }}
-      >
-        Entrar
-      </Button>
-    </Box>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="complement"
+          label="Complemento"
+          id="complement"
+          onChange={(e) => {
+            setComplement(e.target.value);
+          }}
+        />
+
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          name="district"
+          label="Bairro"
+          id="district"
+          onChange={(e) => {
+            setDistrict(e.target.value);
+          }}
+        />
+
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          name="city"
+          label="Cidade"
+          id="city"
+          onChange={(e) => {
+            setCity(e.target.value);
+          }}
+        />
+
+        <TextField
+          disabled
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="country"
+          label="País"
+          id="country"
+          defaultValue="Brasil"
+        />
+
+        <TextField
+          disabled
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="planet"
+          label="Planeta"
+          id="planet"
+          defaultValue="Terra"
+        />
+      </Box>
+
+      <Box display="flex" flexDirection="column" alignItems="flex-end">
+        <Button
+          sx={{ mt: "0.8rem", mb: "1rem" }}
+          // disabled={isDisable}
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={() => {
+            onSubmit();
+          }}
+        >
+          Salvar
+        </Button>
+      </Box>
+    </>
   );
 }

@@ -1,4 +1,7 @@
 from typing import Optional, Tuple
+
+from sqlalchemy import update
+from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session
 
 from api.schemas.contacts_schema import ContactsCreate
@@ -47,9 +50,33 @@ class ContactService:
 
             if not results:
                 db.rollback()
-                raise ConnectionError('Contato Não Localizado. Você Já Adicionou Um?')
+                return None, 'Contato Não Localizado. Tente Novamente Mais Tarde'
 
             return results, 'Contato Localizado Com Sucesso!'
+
+        except Exception as e:
+            raise ConnectionError(e)
+
+    @classmethod
+    def update_contact_by_user_id(
+            cls,
+            contact: ContactsCreate,
+            user_id: int,
+            db: Session
+    ) -> Tuple[Optional[Result], str]:
+
+        try:
+
+            results = db.execute(
+                update(DbContact)
+                .where(DbContact.FK_UserID == user_id)
+                .values(**contact.dict()))
+
+            if not results:
+                db.rollback()
+                return None, 'Erro ao Atualizar. Tente Novamente Mais Tarde!'
+
+            return results, 'Atualizado Com Sucesso!'
 
         except Exception as e:
             raise ConnectionError(e)

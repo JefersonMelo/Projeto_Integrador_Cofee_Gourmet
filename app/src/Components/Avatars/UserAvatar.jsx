@@ -9,12 +9,14 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import { logout } from "../../Services/storage";
+import { useNavigate } from "react-router-dom";
 
 
 export default function UserAvatar() {
   const [authContext] = useAuthContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,10 +27,9 @@ export default function UserAvatar() {
   };
 
   const handleSignOut = () => {
+    navigate("/");
     logout();
-    window.location.reload();
     handleClose();
-    
   };
 
   return (

@@ -6,6 +6,7 @@ export const UserProvider = ({ children }) => {
   const [userContext, setUserContext] = useState({
     contacts: null,
     address: null,
+    identification: null,
   });
 
   return (

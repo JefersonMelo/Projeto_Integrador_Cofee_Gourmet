@@ -12,24 +12,24 @@ import {
 } from "../../Helpers/SnackBars";
 import { useUserContext } from "../../Contexts/UserContext";
 
-export default function NewContactForm() {
+export default function NewIdentificationForm() {
   const [, setAppContext] = useAppContext();
-  const [authContext, ] = useAuthContext();
-  const [, setUserContext]= useUserContext();
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [towNumber, setTwoNumber] = useState("");
+  const [authContext] = useAuthContext();
+  const [, setUserContext] = useUserContext();
+  const [docNumber, setDocNumber] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const onSubmit = () => {
     let data = {
       FK_UserID: authContext.userid,
-      Phone_1: phoneNumber,
-      Phone_2: towNumber,
+      DocNumber: docNumber,
+      LastName: lastName,
     };
 
-    if (!phoneNumber) return;
+    if (!docNumber || !lastName) return;
 
     api.post(
-        apiRouts.ADD_NEW_CONTACTS_BY_USER_ID.replace(
+        apiRouts.ADD_IDENTIFICATION_BY_USER_ID.replace(
           "%user_id%",
           authContext.userid
         ),
@@ -38,7 +38,7 @@ export default function NewContactForm() {
       .then((res) => {
         setUserContext((prev) => ({
           ...prev,
-          contacts: res.data.results,
+          identification: res.data.results,
         }));
         ShowSuccessSnackBar(res, setAppContext);
       })
@@ -50,19 +50,19 @@ export default function NewContactForm() {
   return (
     <>
       <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <Typography variant="h6">Adicionar Contatos</Typography>
+        <Typography variant="h6">Adicionar Identidade</Typography>
 
         <TextField
-          type="number"
           variant="outlined"
           margin="normal"
           fullWidth
           required={true}
-          id="phone"
-          label="Telefone Principal"
-          name="phone"
+          id="sobrenomeID"
+          label="Sobrenome"
+          name="lastname"
+          autoFocus
           onChange={(e) => {
-            setPhoneNumber(e.target.value);
+            setLastName(e.target.value);
           }}
         />
 
@@ -71,11 +71,12 @@ export default function NewContactForm() {
           variant="outlined"
           margin="normal"
           fullWidth
-          id="twoPhone"
-          label="Telefone Para Recado"
-          name="twoPhone"
+          required={true}
+          id="docNumberID"
+          label="Número do Documento"
+          name="number"
           onChange={(e) => {
-            setTwoNumber(e.target.value);
+            setDocNumber(e.target.value);
           }}
         />
       </Box>

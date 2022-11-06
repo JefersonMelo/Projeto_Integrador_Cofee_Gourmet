@@ -1,12 +1,11 @@
-
 export const logout = () => {
   localStorage.clear();
-  window.location.replace("/");
+  window.location.reload();
 };
 
 export const removeItem = (key) => {
   localStorage.removeItem(key);
-  window.location.replace("/");
+  window.location.reload();
 };
 
 export const setLocalStorage = (key, value) => {

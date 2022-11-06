@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 from api.schemas.user_schema import UserInfoBase
 
@@ -8,3 +9,8 @@ class ContactsCreate(UserInfoBase):
 
     class Config:
         orm_mode = True
+
+
+class ContactsModified(ContactsCreate):
+    Modified: Optional[datetime] = None
+    ModifiedBy: Optional[str] = None

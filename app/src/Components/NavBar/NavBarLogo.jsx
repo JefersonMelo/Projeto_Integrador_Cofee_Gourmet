@@ -10,7 +10,7 @@ export const NavBarLogo = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Button
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
         sx={{ color: "inherit" }}
       >
