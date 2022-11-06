@@ -4,9 +4,9 @@ function definesApiUrl() {
 //    return "https://api-mycoffeebreakgourmet.herokuapp.com";
   }
 
-  return "https://api-mycoffeebreakgourmet.herokuapp.com";
+//  return "https://api-mycoffeebreakgourmet.herokuapp.com";
 
-//  return "http://localhost:8999";
+  return "http://localhost:8999";
 
 }
 
