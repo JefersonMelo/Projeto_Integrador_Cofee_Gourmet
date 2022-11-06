@@ -9,7 +9,7 @@ class CarShopBase(BaseModel):
     FK_UserID: Optional[int] = None
 
 
-class NewItemCarShop(CarShopBase, CreationBase, DeletionBase):
+class NewItemCarShop(CarShopBase, CreationBase, PaymentConfirmedBase):
     FK_ProductID: Optional[int] = None
 
     class Config:

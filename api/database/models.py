@@ -1,19 +1,19 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 from .database import Base
-from api.database.mixins.base_mixins import DeletionMixin, ModificationMixin, CreationMixin
+from api.database.mixins.base_mixins import DeletionMixin, ModificationMixin, CreationMixin, PaymentConclusionMixin
 from api.database.mixins.address_mixin import AddressMixin
 from api.database.mixins.category_mixin import CategoryMixin
 from api.database.mixins.contact_mixin import ContactMixin
-from api.database.mixins.order_mixin import OrderMixin
+from api.database.mixins.payment_mixin import PaymentMixin
 from api.database.mixins.prod_subtype_mixin import ProductSubtypeMixin
 from api.database.mixins.prod_type_mixin import ProductTypeMixin
 from api.database.mixins.product_mixin import ProductMixin
 from api.database.mixins.provider_mixin import ProviderMixin
 from api.database.mixins.rating_mixin import RatingMixin
 from api.database.mixins.shop_mixin import CarShopMixin
-# from api.database.mixins.shop_relationship_mixin import CarShopOrderRelationshipMixin
 from api.database.mixins.user_mixin import UserMixin
+from .mixins.identification_mixin import IdentificationMixin
 
 
 class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):
@@ -21,40 +21,46 @@ class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):
 
     Items = relationship("DbCarShop", back_populates="User")
     Address = relationship("DbAddress", back_populates="User")
+    Identification = relationship("DbIdentification", back_populates="User")
     Contacts = relationship("DbContact", back_populates="User")
     Rating = relationship("DbRating", back_populates="User")
 
 
-class DbAddress(Base, AddressMixin, DeletionMixin, CreationMixin):
+class DbAddress(Base, AddressMixin, DeletionMixin, CreationMixin, ModificationMixin):
     __tablename__ = "Address"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     User = relationship("DbUser", back_populates="Address")
 
 
-class DbContact(Base, ContactMixin, DeletionMixin, CreationMixin):
+class DbContact(Base, ContactMixin, DeletionMixin, CreationMixin, ModificationMixin):
     __tablename__ = "Contacts"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     User = relationship("DbUser", back_populates="Contacts")
 
 
-class DbCarShop(Base, CarShopMixin, DeletionMixin, CreationMixin):
+class DbIdentification(Base, IdentificationMixin, DeletionMixin, ModificationMixin):
+    __tablename__ = "Identification"
+
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
+    User = relationship("DbUser", back_populates="Identification")
+
+
+class DbCarShop(Base, CarShopMixin, DeletionMixin, CreationMixin, PaymentConclusionMixin):
     __tablename__ = "CarShop"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     FK_ProductID = Column(Integer, ForeignKey("Products.ProductID"))
     User = relationship("DbUser", back_populates="Items")
     Products = relationship("DbProduct", back_populates="CarShop")
-    # Relationships = relationship("DbCarShopOrderRelationship", back_populates="CarShop")
 
 
-class DbOrder(Base, OrderMixin, ModificationMixin, CreationMixin):
-    __tablename__ = "Orders"
+class DbPayment(Base, PaymentMixin, PaymentConclusionMixin):
+    __tablename__ = "Payments"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
-    # Relationships = relationship("DbCarShopOrderRelationship", back_populates="Order")
 
 
 class DbProduct(Base, ProductMixin, DeletionMixin, ModificationMixin, CreationMixin):
@@ -110,12 +116,3 @@ class DbRating(Base, RatingMixin, ModificationMixin, CreationMixin):
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     Products = relationship("DbProduct", back_populates="Rating")
     User = relationship("DbUser", back_populates="Rating")
-
-# class DbCarShopOrderRelationship(Base, CarShopOrderRelationshipMixin,
-# DeletionMixin, ModificationMixin, CreationMixin):
-#     __tablename__ = "CarShopOrderRelationShip"
-#
-#     FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
-#     FK_OrderID = Column(Integer, ForeignKey("Orders.OrderID"))
-#     Order = relationship("DbOrder", back_populates="Relationships")
-#     CarShop = relationship("DbCarShop", back_populates="Relationships")

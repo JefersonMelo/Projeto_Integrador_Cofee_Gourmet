@@ -14,3 +14,7 @@ class DeletionMixin(object):
 class ModificationMixin(object):
     Modified = Column(DateTime, name='Modified', nullable=True)
     ModifiedBy = Column(String(255), name='ModifiedBy', nullable=True)
+
+
+class PaymentConclusionMixin(object):
+    PaymentDate = Column(DateTime, name='PaymentDate', nullable=True)

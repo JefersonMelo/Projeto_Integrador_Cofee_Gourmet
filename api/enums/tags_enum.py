@@ -3,8 +3,9 @@ from enum import Enum
 
 class Tags(Enum):
     User = 'user'
-    Contacts = 'Contacts'
-    Address = 'Address'
+    Contacts = 'contacts'
+    Address = 'address'
+    Identification = 'identification'
     Product = 'product'
     Home = 'home'
     Order = 'order'
@@ -13,3 +14,4 @@ class Tags(Enum):
     ProductType = 'product type'
     ProductSubtype = 'product sub type'
     Provider = 'provider'
+    Payment = 'payment'

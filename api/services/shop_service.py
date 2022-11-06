@@ -55,7 +55,8 @@ class CarShopService:
                 and_(DbCarShop.Deleted.is_(None))
             ).filter(
                 DbProduct.ProductID == DbCarShop.FK_ProductID,
-                and_(DbCarShop.Deleted.is_(None))
+                and_(DbCarShop.Deleted.is_(None),
+                     DbCarShop.PaymentDate.is_(None))
             ).options(
                 joinedload(DbCarShop.Products)
             ).all()
