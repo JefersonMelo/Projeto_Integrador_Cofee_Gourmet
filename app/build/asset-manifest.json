@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.61b16df3.css",
-    "main.js": "/static/js/main.686560a2.js",
+    "main.js": "/static/js/main.990348e2.js",
     "static/media/Goc-Servia.jpg": "/static/media/Goc-Servia.238b6e7e770a7b3078e2.jpg",
     "static/media/Bali-Indonesia.jpg": "/static/media/Bali-Indonesia.9535cb1f6537a805f62a.jpg",
     "static/media/San-Francisco.jpg": "/static/media/San-Francisco.749e7cda4c7cd406efa1.jpg",
@@ -15,10 +15,10 @@
     "static/media/moido-especial.jpg": "/static/media/moido-especial.d9fe6206dda651a4e3d3.jpg",
     "index.html": "/index.html",
     "main.61b16df3.css.map": "/static/css/main.61b16df3.css.map",
-    "main.686560a2.js.map": "/static/js/main.686560a2.js.map"
+    "main.990348e2.js.map": "/static/js/main.990348e2.js.map"
   },
   "entrypoints": [
     "static/css/main.61b16df3.css",
-    "static/js/main.686560a2.js"
+    "static/js/main.990348e2.js"
   ]
 }
