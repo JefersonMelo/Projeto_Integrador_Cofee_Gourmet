@@ -7,6 +7,8 @@ export const UserProvider = ({ children }) => {
     contacts: null,
     address: null,
     identification: null,
+    creditcard: null,
+    tests: null,
   });
 
   return (

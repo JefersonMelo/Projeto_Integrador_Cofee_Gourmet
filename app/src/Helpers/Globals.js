@@ -1,13 +1,13 @@
 function definesApiUrl() {
   if (window.location.origin.indexOf("localhost") === -1) {
-    return window.location.origin;
-//    return "https://api-mycoffeebreakgourmet.herokuapp.com";
+    return "https://api-mycoffeebreakgourmet.herokuapp.com";
+    // return window.location.origin;
   }
+  
+  // return "https://api-mycoffeebreakgourmet.herokuapp.com";
 
-//  return "https://api-mycoffeebreakgourmet.herokuapp.com";
-
-  return "http://localhost:8999";
-
+  return "http://localhost:8999"
+  
 }
 
 export const apiURL = `${definesApiUrl()}/api`;
@@ -18,6 +18,7 @@ export const apiRouts = {
   GET_ALL_USERS: "/all/users/",
   GET_USER_BY_ID: "/id/%user_id%",
   GET_LOGIN: "/login",
+  GET_USER_ALL_INFO_BY_USER_ID: '/get/all/info/user/%user_id%',
 
   /*CONTACTS*/
   ADD_NEW_CONTACTS_BY_USER_ID: '/add/new/contact/user/%user_id%',
@@ -32,7 +33,7 @@ export const apiRouts = {
 
   /*IDENTIFICATION*/
   ADD_IDENTIFICATION_BY_USER_ID: '/add/new/identification/user/%user_id%',
-  EDIT_IDENTIFICATION_BY_USER_ID: '/add/new/identification/user/%user_id%',
+  EDIT_IDENTIFICATION_BY_USER_ID: '/edit/identification/user/%user_id%',
   GET_IDENTIFICATION_BY_USER_ID: '/get/identification/user/%user_id%',
 
 
@@ -44,12 +45,23 @@ export const apiRouts = {
 
   /*PRODUCTS*/
   GET_ALL_PRODUCTS: "/get/all/products",
+  GET_PRODUCT_BY_FKS: "/get/products",
 
   /*CAR SHOP*/
   ADD_NEW_ITEM_IN_CAR_SHOP: "/add/new/product/in/car/shop",
   GET_CAR_SHOP_BY_USER_ID: "/get/car/shop/%user_id%",
-  DELETE_ITEM_CAR_SHOP: "/del/item/car/shop"
+  DELETE_ITEM_CAR_SHOP: "/del/item/car/shop",
 
   /*PAYMENT*/
+  GET_PAYMENT_BY_USER_ID: "/calc/payment/user/%user_id%",
+
+  /*CREDITCARD*/
+  ADD_CREDITCARD_BY_USER_ID: '/add/creditcard/user/%user_id%',
+  EDIT_CREDITCARD_BY_USER_ID: '/edit/creditcard/user/%user_id%',
+  GET_CREDITCARD_BY_USER_ID: '/get/creditcard/user/%user_id%',
+
+  /*TESTS*/
+  ADD_NEW_TEST: '/add/new/test',
+  GET_ALL_TESTS_BY_USER_ID: '/get/tests/user/id/%user_id%',
 
 };

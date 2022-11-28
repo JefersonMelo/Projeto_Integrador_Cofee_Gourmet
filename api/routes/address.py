@@ -22,7 +22,7 @@ async def create_new_address(user_id: int, address: Optional[AddressCreate] = No
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/address/user/{user_id}')
@@ -35,7 +35,7 @@ async def get_address_by_user(user_id: int):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.put('/edit/address/user/{user_id}')
@@ -50,4 +50,4 @@ async def put_contacts_by_user(user_id: int, address: Optional[AddressModified] 
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)

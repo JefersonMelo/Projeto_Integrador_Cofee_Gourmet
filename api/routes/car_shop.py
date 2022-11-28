@@ -42,7 +42,7 @@ def get_car_shop_by_user_id(user_id: int):
 
 @router.delete('/del/item/car/shop')
 def delete_item_car_by_ids(del_item: Optional[RemoveItemCarShop]):
-    msg = None
+    
     try:
         shop_utility = CarShopUtility()
 
@@ -51,4 +51,4 @@ def delete_item_car_by_ids(del_item: Optional[RemoveItemCarShop]):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)

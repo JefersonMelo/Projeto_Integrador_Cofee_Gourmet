@@ -14,8 +14,8 @@ import { useUserContext } from "../../Contexts/UserContext";
 
 export default function NewContactForm() {
   const [, setAppContext] = useAppContext();
-  const [authContext, ] = useAuthContext();
-  const [, setUserContext]= useUserContext();
+  const [authContext] = useAuthContext();
+  const [, setUserContext] = useUserContext();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [towNumber, setTwoNumber] = useState("");
 
@@ -54,7 +54,9 @@ export default function NewContactForm() {
 
         <TextField
           type="number"
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           required={true}
@@ -68,7 +70,9 @@ export default function NewContactForm() {
 
         <TextField
           type="number"
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           id="twoPhone"

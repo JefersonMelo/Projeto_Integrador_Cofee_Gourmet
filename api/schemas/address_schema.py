@@ -11,6 +11,7 @@ class AddressCreate(UserInfoBase):
     Planet: Optional[str] = 'TERRA'
     Country: Optional[str] = 'BR'
     District: Optional[str]
+    State: Optional[str] = 'São Paulo'
     City: Optional[str]
 
     class Config:

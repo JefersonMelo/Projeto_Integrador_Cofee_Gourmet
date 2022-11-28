@@ -35,7 +35,7 @@ class ContactService:
             return results, 'Contato Adicionado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     @classmethod
     def select_contact_by_user_id(
@@ -55,7 +55,7 @@ class ContactService:
             return results, 'Contato Localizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     @classmethod
     def update_contact_by_user_id(
@@ -79,4 +79,4 @@ class ContactService:
             return results, 'Atualizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)

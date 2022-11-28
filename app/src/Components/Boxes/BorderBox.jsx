@@ -1,21 +1,30 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import { UseWindowSize } from "../../Helpers/UseWindowSize";
 
-export default function BorderBox({ Element }) {
+export default function BorderBox({ Element, ...props }) {
+  const [width] = UseWindowSize();
+
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box
+      sx={{ width: "auto" }}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Box
+        minWidth={width <= 500 ? "98%" : "auto"}
         sx={{
           boxShadow: 3,
-          mt: '5rem',
           p: 2,
           border: 1,
-          height: "100%",
-          width: "50%",
+          height: "auto",
+          width: width >= 503 ? "75%" : "auto",
           borderRadius: 3,
+          mt: props.liginOrRegistration ? "7%" : 1,
         }}
       >
-        {<Element />}
+        {typeof Element === "function" ? <Element /> : Element}
       </Box>
     </Box>
   );

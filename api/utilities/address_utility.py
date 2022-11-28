@@ -33,7 +33,7 @@ class AddressUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     def get_address_by_user_id(
             self,
@@ -53,7 +53,7 @@ class AddressUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     def edit_address_by_user_id(
             self,
@@ -85,4 +85,4 @@ class AddressUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)

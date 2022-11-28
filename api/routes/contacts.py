@@ -21,7 +21,7 @@ async def post_new_contact_by_user_id(user_id: int, contact: Optional[ContactsCr
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/contacts/user/{user_id}')
@@ -34,7 +34,7 @@ async def get_contacts_by_user(user_id: int):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.put('/edit/contacts/user/{user_id}')
@@ -49,4 +49,4 @@ async def put_contacts_by_user(user_id: int, contact: Optional[ContactsModified]
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)

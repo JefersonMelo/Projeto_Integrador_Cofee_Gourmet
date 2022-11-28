@@ -18,15 +18,17 @@ export default function NewIdentificationForm() {
   const [, setUserContext] = useUserContext();
   const [docNumber, setDocNumber] = useState("");
   const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
 
   const onSubmit = () => {
     let data = {
       FK_UserID: authContext.userid,
       DocNumber: docNumber,
       LastName: lastName,
+      Name: name,
     };
 
-    if (!docNumber || !lastName) return;
+    if (!docNumber || !lastName || !name) return;
 
     api.post(
         apiRouts.ADD_IDENTIFICATION_BY_USER_ID.replace(
@@ -53,14 +55,44 @@ export default function NewIdentificationForm() {
         <Typography variant="h6">Adicionar Identidade</Typography>
 
         <TextField
+          disabled
           variant="outlined"
+          
+          size="small"
+          margin="normal"
+          fullWidth
+          id="usernameID"
+          label="User Name"
+          name="username"
+          defaultValue={authContext.username}
+        />
+
+        <TextField
+          variant="outlined"
+          
+          size="small"
+          margin="normal"
+          fullWidth
+          required={true}
+          id="nomeID"
+          label="Nome"
+          name="name"
+          autoFocus
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+
+        <TextField
+          variant="outlined"
+          
+          size="small"
           margin="normal"
           fullWidth
           required={true}
           id="sobrenomeID"
           label="Sobrenome"
           name="lastname"
-          autoFocus
           onChange={(e) => {
             setLastName(e.target.value);
           }}
@@ -68,7 +100,9 @@ export default function NewIdentificationForm() {
 
         <TextField
           type="number"
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           required={true}
@@ -84,7 +118,6 @@ export default function NewIdentificationForm() {
       <Box display="flex" flexDirection="column" alignItems="flex-end">
         <Button
           sx={{ mt: "0.8rem", mb: "1rem" }}
-          // disabled={isDisable}
           variant="contained"
           color="primary"
           type="submit"

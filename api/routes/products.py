@@ -2,7 +2,7 @@ from typing import Optional
 from fastapi import HTTPException
 
 from ..utilities.product_utility import ProductUtility
-from ..schemas.product_schema import CreateProduct
+from ..schemas.product_schema import CreateProduct, ProductSelect
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -10,7 +10,7 @@ router = APIRouter()
 
 @router.post('/add/new/product')
 async def create_new_product(product: Optional[CreateProduct]):
-    msg = None
+    
     try:
         product_utility = ProductUtility()
 
@@ -22,15 +22,14 @@ async def create_new_product(product: Optional[CreateProduct]):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/')
 @router.get('/home')
 @router.get('/get/all/products')
 def get_all_products():
-    msg = None
+    
     try:
         prod_utility = ProductUtility()
 
@@ -42,13 +41,12 @@ def get_all_products():
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/product/{product_id}')
 def get_product_by_product_id(product_id: int):
-    msg = None
+    
     try:
         prod_utility = ProductUtility()
 
@@ -62,5 +60,22 @@ def get_product_by_product_id(product_id: int):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)
+
+
+@router.post('/get/products')
+def get_product_by_ids(fks: ProductSelect):
+    try:
+        prod_utility = ProductUtility()
+
+        results, msg = prod_utility.get_products_by_ids(
+            fks=fks
+        )
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'results': results, 'detail': msg}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=e.detail)

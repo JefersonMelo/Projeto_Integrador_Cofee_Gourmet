@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, List
 from sqlalchemy.orm import Session, joinedload
-from api.schemas.product_schema import CreateProduct
+from api.schemas.product_schema import CreateProduct, ProductSelect
 from api.database.models import DbProduct, DbProvider
 
 
@@ -58,7 +58,7 @@ class ProductService:
             return results, 'Produtos Carregados ComSucesso!'
 
         except Exception as e:
-            return [], str(e)
+            return None, str(e.detail)
 
     @classmethod
     def select_product_and_categories_by_product_id(
@@ -82,4 +82,34 @@ class ProductService:
             return results, 'Produto Localiazado Com Sucesso!'
 
         except Exception as e:
-            return None, str(e)
+            return None, str(e.detail)
+
+    @classmethod
+    def select_products_by_ids(
+            cls,
+            db: Session,
+            fks: ProductSelect
+    ):
+        try:
+
+            results = db.query(
+                DbProduct
+            ).join(
+                DbProvider
+            ).filter(
+                DbProduct.FK_ProviderID == DbProvider.ProviderID
+            ).filter(
+                DbProduct.FK_CategoryID == fks.FK_CategoryID,
+                DbProduct.FK_ProductTypeID == fks.FK_ProductTypeID,
+                DbProduct.FK_ProductSubtypeID == fks.FK_ProductSubtypeID
+            ).options(
+                joinedload(DbProduct.Provider)
+            ).all()
+
+            if not results:
+                return None, 'Produto Não Localizado.'
+
+            return results, 'Produto Localiazado Com Sucesso!'
+
+        except Exception as e:
+            return None, str(e.detail)

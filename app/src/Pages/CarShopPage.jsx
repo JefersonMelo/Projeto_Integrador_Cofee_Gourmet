@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { useAppContext } from "../Contexts/AppContext";
@@ -9,15 +10,19 @@ import { ShowErrorSnackBar } from "../Helpers/SnackBars";
 import { useAuthContext } from "../Contexts/AuthenticationContext";
 import ColumnStack from "../Components/Stacks/ColumnStack";
 import CardCarShop from "../Components/Cards/CardCarShop";
-import ButtonPayment from "../Components/Buttons/ButtonPayment";
+import ButtonInfoValidation from "../Components/Buttons/ButtonInfoValidation";
 import { useCarShopContext } from "../Contexts/CarShopContext";
 import ButtonReturnShop from "../Components/Buttons/ButtonReturnShop";
+import { UseWindowSize } from "../Helpers/UseWindowSize";
 
 export default function CarShopPage() {
   const [authContext] = useAuthContext();
   const [appContext, setAppContext] = useAppContext();
   const [shopContext, setShopContext] = useCarShopContext();
   const [items, setItems] = useState([]);
+  const [width] = UseWindowSize();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     api.get(
@@ -42,18 +47,18 @@ export default function CarShopPage() {
   return (
     <Box sx={{ mt: 11, flexGrow: 12 }}>
       <Main open={appContext.drawerOpened} context={appContext}>
-        {shopContext.itemsCarShop?.length && (
+        {shopContext.itemsCarShop?.length ? (
           <Box
             sx={{
+              mb: 2,
               display: "flex",
-              "flex-direction": "column",
-              "justify-content": "flex-end",
-              alignItems: "flex-end",
+              flexDirection: "column",
+              alignItems: width >= 530 ? "flex-end": "flex-start",
             }}
           >
             <ButtonReturnShop />
           </Box>
-        )}
+        ): navigate("/home")}
 
         <Box>
           <Box sx={{ mb: "17px" }}>
@@ -65,7 +70,7 @@ export default function CarShopPage() {
         </Box>
         {shopContext.itemsCarShop?.length && (
           <Box>
-            <ButtonPayment />
+            <ButtonInfoValidation />
           </Box>
         )}
       </Main>

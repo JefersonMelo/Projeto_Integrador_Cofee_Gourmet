@@ -23,7 +23,7 @@ async def post_realization_new_payment(user_id: int, payment: Optional[PaymentCr
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/payments/user/{user_id}')
@@ -36,4 +36,17 @@ async def get_payments_by_user(user_id: int):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        raise HTTPException(status_code=400, detail=e)
+        raise HTTPException(status_code=400, detail=e.detail)
+
+
+@router.get('/calc/payment/user/{user_id}')
+def get_car_shop_by_user_id(user_id: int):
+    try:
+        payment_utility = PaymentUtility()
+
+        results, msg = payment_utility.execute_calc_payments_by_user_id(user_id=user_id)
+
+        return {'results': results, 'detail': msg}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=e.detail)

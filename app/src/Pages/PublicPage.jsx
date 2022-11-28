@@ -8,7 +8,7 @@ import api from "../Services/api";
 import { apiRouts } from "../Helpers/Globals";
 import CardHome from "../Components/Cards/CardHome";
 import ButtonTipWeek from "../Components/Buttons/ButtonTipWeek";
-import ImgCoffeeCup from "../Static/Imgs/coffee-cup-and-beans.jpg";
+import ImgCoffeeCup from "../Static/img-products/coffee-cup-and-beans.jpg";
 import { Main } from "../Pages/Config/MainStyle";
 import { ShowErrorSnackBar } from "../Helpers/SnackBars";
 

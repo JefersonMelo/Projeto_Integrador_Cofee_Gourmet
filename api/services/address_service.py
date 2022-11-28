@@ -35,7 +35,7 @@ class AddressService:
             return results, 'Endereço Salvo Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     @classmethod
     def select_address_by_user_id(
@@ -55,7 +55,7 @@ class AddressService:
             return results, 'Endereço Localizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     @classmethod
     def update_address_by_user_id(
@@ -79,4 +79,4 @@ class AddressService:
             return results, 'Atualizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)

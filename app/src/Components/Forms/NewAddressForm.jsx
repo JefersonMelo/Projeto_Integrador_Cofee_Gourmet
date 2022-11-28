@@ -14,14 +14,15 @@ import { useUserContext } from "../../Contexts/UserContext";
 
 export default function NewAddressForm() {
   const [, setAppContext] = useAppContext();
-  const [authContext, ] = useAuthContext();
-  const [, setUserContext]= useUserContext();
+  const [authContext] = useAuthContext();
+  const [, setUserContext] = useUserContext();
   const [addressName, setAddressName] = useState("");
   const [addressNumber, setAddressNumber] = useState(0);
   const [complement, setComplement] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [district, setDistrict] = useState("");
   const [city, setCity] = useState("");
+  const [state, setState] = useState("São Paulo");
 
   const onSubmit = () => {
     let data = {
@@ -32,6 +33,7 @@ export default function NewAddressForm() {
       ZipCode: zipCode,
       District: district,
       City: city,
+      State: state,
     };
 
     if (!addressName || !addressNumber || !zipCode || !district || !city)
@@ -65,6 +67,8 @@ export default function NewAddressForm() {
 
         <TextField
           variant="outlined"
+          
+          size="small"
           margin="normal"
           fullWidth
           required
@@ -78,7 +82,9 @@ export default function NewAddressForm() {
 
         <TextField
           type="number"
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           required
@@ -92,7 +98,9 @@ export default function NewAddressForm() {
 
         <TextField
           type="number"
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           required
@@ -107,6 +115,8 @@ export default function NewAddressForm() {
 
         <TextField
           variant="outlined"
+          
+          size="small"
           margin="normal"
           fullWidth
           name="complement"
@@ -119,6 +129,8 @@ export default function NewAddressForm() {
 
         <TextField
           variant="outlined"
+          
+          size="small"
           margin="normal"
           fullWidth
           required
@@ -132,7 +144,9 @@ export default function NewAddressForm() {
 
         <TextField
           variant="outlined"
+          size="small"
           margin="normal"
+          
           fullWidth
           required
           name="city"
@@ -144,8 +158,26 @@ export default function NewAddressForm() {
         />
 
         <TextField
+          variant="outlined"
+          size="small"
+          margin="normal"
+          
+          fullWidth
+          required
+          name="state"
+          label="Estado"
+          id="state"
+          onChange={(e) => {
+            setState(e.target.value ? e.target.value : state);
+          }}
+          defaultValue={state}
+        />
+
+        <TextField
           disabled
           variant="outlined"
+          size="small"
+          
           margin="normal"
           fullWidth
           name="country"
@@ -157,7 +189,9 @@ export default function NewAddressForm() {
         <TextField
           disabled
           variant="outlined"
+          size="small"
           margin="normal"
+          
           fullWidth
           name="planet"
           label="Planeta"

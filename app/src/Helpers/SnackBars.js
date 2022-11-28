@@ -5,7 +5,7 @@ export const ShowErrorSnackBar = (err, setAppContext) => {
     warning: {
       opened: true,
       type: "error",
-      msg: `${err.data ? err.data.detail : "Deu Erro Cara"} 😞`,
+      msg: `${(!err.message || err.response) ? err.response.data.detail : "Deu Erro Cara"} 😢`,
     },
   }));
 };

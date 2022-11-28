@@ -8,11 +8,11 @@ import { useAppContext } from "../../Contexts/AppContext";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
-import { validatorEmail } from "../../Helpers/Validators";
+import { EmailValidator } from "../../Helpers/Validators/EmailValidator";
 import { ShowSuccessSnackBar } from "../../Helpers/SnackBars";
 import { Theme } from "../../Helpers/Theme";
 
-export default function RegistrationForm() {
+export default function LoginForm() {
   const [, setAppContext] = useAppContext();
   const [, setAuthContext] = useAuthContext();
   const [email, setEmail] = useState("");
@@ -51,7 +51,9 @@ export default function RegistrationForm() {
         </strong>
         <TextField
           error={!checkedUser}
+          
           variant="outlined"
+          size="small"
           margin="normal"
           fullWidth
           required={true}
@@ -66,8 +68,14 @@ export default function RegistrationForm() {
         />
         <TextField
           error={!checkedUser}
-          onKeyPress={(e) =>{if(e.key === "Enter"){onSubmit();}}}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onSubmit();
+            }
+          }}
           variant="outlined"
+          
+          size="small"
           margin="normal"
           fullWidth
           required={true}
@@ -90,14 +98,14 @@ export default function RegistrationForm() {
               }}
             >
               <FormHelperText error={!checkedUser} sx={{ mt: "0.5rem" }}>
-                Verifique Email e Senha 🙄
+                Verifique Email e Senha 😞
               </FormHelperText>
             </Box>
           </>
         )}
         <Button
           sx={{ mt: "0.8rem" }}
-          disabled={!validatorEmail(email)}
+          disabled={!EmailValidator(email)}
           variant="contained"
           color="primary"
           type="submit"

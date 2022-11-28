@@ -15,3 +15,5 @@ class Tags(Enum):
     ProductSubtype = 'product sub type'
     Provider = 'provider'
     Payment = 'payment'
+    CreditCard = 'creditcard'
+    Test = 'tests'

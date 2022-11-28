@@ -18,3 +18,7 @@ export const handleOptionsAPI = (options, id, label) => {
 export const openInNewTab = (url) => {
   return window.open(url, "_blank");
 };
+
+export const IntegerListGenerator = (start, end) => {
+  return Array(end - start + 1).fill().map((_, idx) => start + idx);
+}

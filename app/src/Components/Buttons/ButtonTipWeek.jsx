@@ -8,7 +8,7 @@ export default function ButtonTipWeek() {
       variant="contained"
       onClick={() => openInNewTab("http://blog.clubecafe.net.br/")}
     >
-      Acesse Nosso Blog Com Dicas Sobre Café
+      Dicas Sobre Café
     </Button>
   );
 }

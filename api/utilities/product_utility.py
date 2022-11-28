@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, List
 from api.database.connection import get_session
-from api.schemas.product_schema import CreateProduct, Product
+from api.schemas.product_schema import CreateProduct, Product, ProductSelect
 from api.services.product_service import ProductService
 
 
@@ -17,6 +17,9 @@ class ProductUtility:
 
         try:
             with self.session_maker() as session:
+
+                if product.Discount > 0:
+                    product.DiscountPrice = product.Price * ((100 - product.Discount) / 100)
 
                 results, msg = self.prod_service.insert_new_product(
                     product=product,
@@ -70,6 +73,30 @@ class ProductUtility:
 
                 results, msg = self.prod_service.select_product_and_categories_by_product_id(
                     product_id=product_id,
+                    db=session
+                )
+
+                if not results:
+                    session.rollback()
+                    return None, msg
+
+                session.expunge_all()
+
+                return results, msg
+
+        except Exception as e:
+            return None, str(e)
+
+    def get_products_by_ids(
+            self,
+            fks: ProductSelect
+    ) -> Tuple[Optional[Tuple[Product]], str]:
+
+        try:
+            with self.session_maker() as session:
+
+                results, msg = self.prod_service.select_products_by_ids(
+                    fks=fks,
                     db=session
                 )
 

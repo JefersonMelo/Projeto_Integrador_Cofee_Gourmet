@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,8 +15,10 @@ export default function ButtonBadgeShopCar() {
   const [appContext, setAppContext] = useAppContext();
   const [shopContext, setShopContext] = useCarShopContext();
   const [authContext] = useAuthContext();
+  const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  const err = { data: { detail: "Carrinho Vazio" } };
+  const err = { response: { data: { detail: "Carrinho Vazio" } } };
+
 
   useEffect(() => {
     api.get(
@@ -26,24 +28,25 @@ export default function ButtonBadgeShopCar() {
         )
       )
       .then((res) => {
-        if (!!res.data.results) {
+        if (res.data.results) {
+          setItems(res.data.results);
           setShopContext((prev) => ({
             ...prev,
             itemsCarShop: res.data.results,
           }));
-        } 
+        }
       })
-      .catch((err) => {
+      .catch(() => {
         ShowErrorSnackBar(err, setAppContext);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appContext.refresh]);
 
   return (
     <Box>
       <Button
         onClick={() =>
-          shopContext.itemsCarShop?.length
+          items?.length
             ? navigate("/user/car/shop")
             : ShowErrorSnackBar(err, setAppContext)
         }

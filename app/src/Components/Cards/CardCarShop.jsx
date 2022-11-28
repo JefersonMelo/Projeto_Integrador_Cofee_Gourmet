@@ -8,27 +8,43 @@ import {
   formatCurrencyBR,
   FromISODateHourTmzToDMY,
 } from "../../Helpers/Formats";
-import ImgCoffeeCup from "../../Static/Imgs/coffee-cup-and-beans.jpg";
 import { Box } from "@mui/material";
 import ButtonRemoveItemShop from "../Buttons/ButtonRemoveItemShop";
+import { UseWindowSize } from "../../Helpers/UseWindowSize";
+import { Theme } from "../../Helpers/Theme";
+import { img } from "../../Static/img-products/Imgs";
 
 export default function CardCarShop({ id, row }) {
+  const [width] = UseWindowSize();
+  const colors = Theme.palette;
+
   return (
     <Card
-      sx={{ minWidth: "50%", elevation: 3, display: "flex" }}
+      sx={{
+        elevation: 3,
+        display: width >= 503 ? "flex" : "auto",
+      }}
       key={`${id}-${row.Products.ProductID}`}
     >
       <CardMedia
         component="img"
-        height="250px"
-        image={ImgCoffeeCup}
+        sx={{ width: '100%', height: 200  }}
+        image={img(row.Products.ProductID)}
         alt="Coffee in Cup"
       />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardHeader title={row.Products.ProductName} />
+      <Box>
+        <CardHeader title={row.Products.ProductName} 
+        action={
+          <ButtonRemoveItemShop removeItem={row} id={id} />
+        }/>
 
         <CardContent>
-          <Typography paragraph color="text.secondary" component={"pre"} variant={"body2"}>
+          <Typography
+            paragraph
+            color="text.secondary"
+            component={"pre"}
+            variant={"body2"}
+          >
             <Typography id={"3"} component={"pre"} variant={"body2"}>
               Peso:{" "}
               {row.Products.WeightInGrams >= 1000
@@ -36,9 +52,11 @@ export default function CardCarShop({ id, row }) {
                 : `${row.Products.WeightInGrams}g`}
             </Typography>
 
-            <Typography id={"4"} component={"pre"} variant={"body2"}>{`Preço: ${formatCurrencyBR(
-              row.Products.Price
-            )}`}</Typography>
+            <Typography
+              id={"4"}
+              component={"pre"}
+              variant={"body2"}
+            >{`Preço: ${formatCurrencyBR(row.Products.Price)}`}</Typography>
 
             <Typography id={"5"} component={"pre"} variant={"body2"}>
               {row.Products.Discount
@@ -46,13 +64,14 @@ export default function CardCarShop({ id, row }) {
                 : null}
             </Typography>
 
+            <Typography component={"pre"} variant={"body2"} sx={{color: colors.success.main}} id={"8"}>{row.Products.Discount ? `Com Desconto: ${formatCurrencyBR(row.Products.DiscountPrice)}`: null}</Typography>
+
             <Typography id={"6"} component={"pre"} variant={"body2"}>
               Validade:{" "}
               {FromISODateHourTmzToDMY(row.Products.ValidityEndDate.toString())}
             </Typography>
           </Typography>
         </CardContent>
-          <ButtonRemoveItemShop removeItem={row} id={id} />
       </Box>
     </Card>
   );

@@ -7,11 +7,12 @@ import { useAppContext } from "../../Contexts/AppContext";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import api from "../../Services/api";
 import { apiRouts } from "../../Helpers/Globals";
-import { validatorEmail } from "../../Helpers/Validators";
+import { EmailValidator } from "../../Helpers/Validators/EmailValidator";
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar,
 } from "../../Helpers/SnackBars";
+import { Theme } from "../../Helpers/Theme";
 
 export default function RegistrationForm() {
   const [, setAppContext] = useAppContext();
@@ -21,6 +22,7 @@ export default function RegistrationForm() {
   const [password, setPassword] = useState("");
   const [checkedPassword, setcheckedPassword] = useState(true);
   const navigate = useNavigate();
+  const colors = Theme.palette;
 
   const pw = (password) => {
     if (!password) {
@@ -48,7 +50,7 @@ export default function RegistrationForm() {
           token: res.data.token,
           username: res.data.username,
         }));
-        navigate("/home");
+        navigate("/login");
         ShowSuccessSnackBar(res, setAppContext);
       })
       .catch((err) => {
@@ -57,83 +59,118 @@ export default function RegistrationForm() {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <strong>
-        <Chip label="Cadastre-se cbgourmet" />
-      </strong>      
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        required={true}
-        id="name"
-        label="Nome"
-        name="name"
-        autoFocus
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
-      />
+    <>
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <strong>
+          <Chip label="Cadastre-se cbgourmet" />
+        </strong>
+        <TextField
+          variant="outlined"
+          
+          size="small"
+          margin="normal"
+          fullWidth
+          required={true}
+          id="name"
+          label="Nome"
+          name="name"
+          autoFocus
+          onChange={(e) => {
+            setUserName(e.target.value);
+          }}
+        />
 
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        required={true}
-        id="email"
-        label="E-mail"
-        name="email"
-        autoComplete="email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
+        <TextField
+          variant="outlined"
+          
+          size="small"
+          margin="normal"
+          fullWidth
+          required={true}
+          id="email"
+          label="E-mail"
+          name="email"
+          autoComplete="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
 
-      <TextField
-        variant="outlined"
-        onKeyPress={(e) =>{if(e.key === "Enter"){onSubmit();}}}
-        margin="normal"
-        fullWidth
-        required={true}
-        name="password"
-        label="Senha"
-        type="password"
-        id="password"
-        autoComplete="current-password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-          pw(e.target.value);
-        }}
-      />
-      {!checkedPassword && (
-        <>
-          <Box
-            sx={{
-              justifyContent: "flex-end",
-              display: "flex",
-              alignItems: "flex-end",
-            }}
-          >
-            <FormHelperText error={!checkedPassword} sx={{ mt: "0.5rem" }}>
-              Digite uma Senha 🙄
-            </FormHelperText>
-          </Box>
-        </>
-      )}
+        <TextField
+          variant="outlined"
+          
+          size="small"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onSubmit();
+            }
+          }}
+          margin="normal"
+          fullWidth
+          required={true}
+          name="password"
+          label="Senha"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+            pw(e.target.value);
+          }}
+        />
+        {!checkedPassword && (
+          <>
+            <Box
+              sx={{
+                justifyContent: "flex-end",
+                display: "flex",
+                alignItems: "flex-end",
+              }}
+            >
+              <FormHelperText error={!checkedPassword} sx={{ mt: "0.5rem" }}>
+                Digite uma Senha 🙄
+              </FormHelperText>
+            </Box>
+          </>
+        )}
 
-      <Button
-        sx={{ mt: "0.8rem", mb: "1rem" }}
-        disabled={!validatorEmail(email)}
-        variant="contained"
-        color="primary"
-        type="submit"
-        fullWidth
-        onClick={() => {
-          onSubmit();
+        <Button
+          sx={{ mt: "0.8rem", mb: "1rem" }}
+          disabled={!EmailValidator(email)}
+          variant="contained"
+          color="primary"
+          type="submit"
+          fullWidth
+          onClick={() => {
+            onSubmit();
+          }}
+        >
+          Cadastrar
+        </Button>
+      </Box>
+
+      <Box
+        sx={{
+          mt: "0.5rem",
+          justifyContent: "flex-end",
+          display: "flex",
+          alignItems: "flex-end",
         }}
       >
-        Entrar
-      </Button>
-    </Box>
+        <Button
+          sx={{
+            "&:hover, &.Mui-focusVisible": {
+              backgroundColor: colors.dropzone.lighGrey,
+            },
+          }}
+          color="primary"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Realizar Login
+        </Button>
+      </Box>
+    </>
   );
 }

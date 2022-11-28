@@ -11,3 +11,4 @@ class AddressMixin(object):
     Country = Column(String(2), index=True)
     District = Column(String(255), index=True)
     City = Column(String(255), index=True)
+    State = Column(String(255), index=True)

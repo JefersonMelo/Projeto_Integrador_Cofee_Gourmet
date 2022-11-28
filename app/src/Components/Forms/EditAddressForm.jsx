@@ -12,7 +12,7 @@ import {
 } from "../../Helpers/SnackBars";
 import { useUserContext } from "../../Contexts/UserContext";
 
-export default function EditAddressForm() {
+export default function EditAddressForm(props) {
   const [, setAppContext] = useAppContext();
   const [authContext] = useAuthContext();
   const [userContext, setUserContext] = useUserContext();
@@ -28,6 +28,7 @@ export default function EditAddressForm() {
   const [city, setCity] = useState(userContext.address.City);
   const [planet, setPlanet] = useState(userContext.address.Planet);
   const [country, setCountry] = useState(userContext.address.Country);
+  const [state, setState] = useState(userContext.address.State);
   const [isEdit, setIsEdit] = useState(false);
 
   const onSubmit = () => {
@@ -39,16 +40,25 @@ export default function EditAddressForm() {
       ZipCode: zipCode,
       District: district,
       City: city,
+      State: state,
       Modified: null,
       ModifiedBy: authContext.username,
       Planet: planet,
       Country: country,
     };
 
-    if (!addressName || !addressNumber || !zipCode || !district || !city)
+    if (
+      !addressName ||
+      !addressNumber ||
+      !zipCode ||
+      !district ||
+      !city ||
+      !state
+    )
       return;
 
     data.AddressNumber = parseInt(addressNumber);
+    setIsEdit(false);
 
     api.put(
         apiRouts.EDIT_ADDRESS_BY_USER_ID.replace(
@@ -58,7 +68,6 @@ export default function EditAddressForm() {
         data
       )
       .then((res) => {
-        setIsEdit(false);
         setUserContext((prev) => ({
           ...prev,
           address: res.data.results,
@@ -73,13 +82,20 @@ export default function EditAddressForm() {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Box
+        sx={{ minWidth: 160 }}
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-start"
+      >
         <Typography variant="h7">
-          {!isEdit ? "3 \t Endereço" : "Editar Endereço"}
+          {!isEdit ? "\t Endereço" : "Editar Endereço"}
         </Typography>
 
         <TextField
           disabled={!isEdit}
+          size="small"
+          
           variant="outlined"
           margin="normal"
           fullWidth
@@ -99,9 +115,11 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
           type="number"
           variant="outlined"
           margin="normal"
+          
           fullWidth
           required
           id="addessNumber"
@@ -119,6 +137,7 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
           type="number"
           variant="outlined"
           margin="normal"
@@ -138,6 +157,8 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
+          
           variant="outlined"
           margin="normal"
           fullWidth
@@ -156,7 +177,9 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
           variant="outlined"
+          
           margin="normal"
           fullWidth
           required
@@ -173,7 +196,9 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
           variant="outlined"
+          
           margin="normal"
           fullWidth
           required
@@ -189,9 +214,30 @@ export default function EditAddressForm() {
         />
 
         <TextField
+          variant="outlined"
+          disabled={!isEdit}
+          size="small"
+          margin="normal"
+          
+          fullWidth
+          required
+          name="state"
+          label="Estado"
+          id="state"
+          onChange={(e) => {
+            setState(e.target.value);
+          }}
+          defaultValue={
+            userContext.address.State ? userContext.address.State : null
+          }
+        />
+
+        <TextField
           inputProps={{ maxLength: 2 }}
           disabled={!isEdit}
+          size="small"
           variant="outlined"
+          
           margin="normal"
           fullWidth
           name="country"
@@ -207,8 +253,10 @@ export default function EditAddressForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
           variant="outlined"
           margin="normal"
+          
           fullWidth
           name="planet"
           label="Planeta"
@@ -231,6 +279,7 @@ export default function EditAddressForm() {
               type="submit"
               onClick={() => {
                 setIsEdit(false);
+                props.setEdit(false);
               }}
             >
               Cancelar
@@ -241,6 +290,7 @@ export default function EditAddressForm() {
               type="submit"
               onClick={() => {
                 onSubmit();
+                props.setEdit(false);
               }}
             >
               Salvar

@@ -1,14 +1,24 @@
 {
   "files": {
     "main.css": "/static/css/main.61b16df3.css",
-    "main.js": "/static/js/main.4bc8e44c.js",
+    "main.js": "/static/js/main.686560a2.js",
+    "static/media/Goc-Servia.jpg": "/static/media/Goc-Servia.238b6e7e770a7b3078e2.jpg",
+    "static/media/Bali-Indonesia.jpg": "/static/media/Bali-Indonesia.9535cb1f6537a805f62a.jpg",
+    "static/media/San-Francisco.jpg": "/static/media/San-Francisco.749e7cda4c7cd406efa1.jpg",
+    "static/media/moagem-media.jpg": "/static/media/moagem-media.428a067153d7169b8197.jpg",
+    "static/media/po-e-grao.jpg": "/static/media/po-e-grao.840e2f08c4ef6f2d9747.jpg",
+    "static/media/Bird.jpg": "/static/media/Bird.eb32b7dffab973aa30c7.jpg",
+    "static/media/sem-cafe.jpg": "/static/media/sem-cafe.94c69c1781ea722a7019.jpg",
     "static/media/coffee-cup-and-beans.jpg": "/static/media/coffee-cup-and-beans.3d9ec4dcac667ae2db3b.jpg",
+    "static/media/payment.jpg": "/static/media/payment.6e8b27597883f97b1bd9.jpg",
+    "static/media/granulado.jpg": "/static/media/granulado.b7a5fa5daa74213c4609.jpg",
+    "static/media/moido-especial.jpg": "/static/media/moido-especial.d9fe6206dda651a4e3d3.jpg",
     "index.html": "/index.html",
     "main.61b16df3.css.map": "/static/css/main.61b16df3.css.map",
-    "main.4bc8e44c.js.map": "/static/js/main.4bc8e44c.js.map"
+    "main.686560a2.js.map": "/static/js/main.686560a2.js.map"
   },
   "entrypoints": [
     "static/css/main.61b16df3.css",
-    "static/js/main.4bc8e44c.js"
+    "static/js/main.686560a2.js"
   ]
 }

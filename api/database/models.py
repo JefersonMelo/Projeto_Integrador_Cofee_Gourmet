@@ -14,37 +14,38 @@ from api.database.mixins.rating_mixin import RatingMixin
 from api.database.mixins.shop_mixin import CarShopMixin
 from api.database.mixins.user_mixin import UserMixin
 from .mixins.identification_mixin import IdentificationMixin
+from .mixins.creditcard_mixin import CreditCardMixin
+from .mixins.test_mixin import TestMixin
 
 
 class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):
     __tablename__ = "Users"
 
     Items = relationship("DbCarShop", back_populates="User")
-    Address = relationship("DbAddress", back_populates="User")
-    Identification = relationship("DbIdentification", back_populates="User")
-    Contacts = relationship("DbContact", back_populates="User")
-    Rating = relationship("DbRating", back_populates="User")
+    Address = relationship("DbAddress", uselist=False)
+    Identification = relationship("DbIdentification", uselist=False)
+    Contacts = relationship("DbContact", uselist=False)
+    Rating = relationship("DbRating", uselist=False)
+    CreditCard = relationship("DbCreditCard", uselist=False)
+    Test = relationship("DbTest")
 
 
 class DbAddress(Base, AddressMixin, DeletionMixin, CreationMixin, ModificationMixin):
     __tablename__ = "Address"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
-    User = relationship("DbUser", back_populates="Address")
 
 
 class DbContact(Base, ContactMixin, DeletionMixin, CreationMixin, ModificationMixin):
     __tablename__ = "Contacts"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
-    User = relationship("DbUser", back_populates="Contacts")
 
 
 class DbIdentification(Base, IdentificationMixin, DeletionMixin, ModificationMixin):
     __tablename__ = "Identification"
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
-    User = relationship("DbUser", back_populates="Identification")
 
 
 class DbCarShop(Base, CarShopMixin, DeletionMixin, CreationMixin, PaymentConclusionMixin):
@@ -61,6 +62,13 @@ class DbPayment(Base, PaymentMixin, PaymentConclusionMixin):
 
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     FK_CarShopID = Column(Integer, ForeignKey("CarShop.CarShopID"))
+    FK_CardID = Column(Integer, ForeignKey("CreditCards.CardID"))
+
+
+class DbCreditCard(Base, CreditCardMixin, DeletionMixin, CreationMixin,):
+    __tablename__ = "CreditCards"
+
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
 
 
 class DbProduct(Base, ProductMixin, DeletionMixin, ModificationMixin, CreationMixin):
@@ -116,3 +124,9 @@ class DbRating(Base, RatingMixin, ModificationMixin, CreationMixin):
     FK_UserID = Column(Integer, ForeignKey("Users.UserID"))
     Products = relationship("DbProduct", back_populates="Rating")
     User = relationship("DbUser", back_populates="Rating")
+
+
+class DbTest(Base, TestMixin, ModificationMixin):
+    __tablename__ = "Tests"
+
+    FK_UserID = Column(Integer, ForeignKey("Users.UserID"))

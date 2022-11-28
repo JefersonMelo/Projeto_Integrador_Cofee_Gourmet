@@ -1,7 +1,10 @@
 from typing import Optional, Tuple, List
+
+from sqlalchemy import update
+from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session, joinedload
 from api.database.models import DbUser, DbIdentification
-from api.schemas.identification_schema import Identification
+from api.schemas.identification_schema import Identification, IdentificationModified
 
 
 class IdentificationService:
@@ -30,7 +33,7 @@ class IdentificationService:
             return results, 'Documento Cadastrado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
     def select_identification_by_user_id(
@@ -42,15 +45,10 @@ class IdentificationService:
         try:
 
             results = db.query(
-                DbUser
-            ).join(
                 DbIdentification
             ).filter(
                 DbIdentification.FK_UserID == user_id,
-                DbUser.UserID == user_id
-            ).options(
-                joinedload(DbUser.Identification)
-            ).all()
+            ).first()
 
             if not results:
                 db.rollback()
@@ -59,4 +57,28 @@ class IdentificationService:
             return results, 'Documento Localizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
+
+    @classmethod
+    def update_identification_by_user_id(
+            cls,
+            identification: IdentificationModified,
+            user_id: int,
+            db: Session
+    ) -> Tuple[Optional[Result], str]:
+
+        try:
+
+            results = db.execute(
+                update(DbIdentification)
+                .where(DbIdentification.FK_UserID == user_id)
+                .values(**identification.dict()))
+
+            if not results:
+                db.rollback()
+                return None, 'Erro ao Atualizar. Tente Novamente Mais Tarde!'
+
+            return results, 'Atualizado Com Sucesso!'
+
+        except Exception as e:
+            return None, str(e.detail)

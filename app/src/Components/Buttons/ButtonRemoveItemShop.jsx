@@ -1,6 +1,6 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { Theme } from "../../Helpers/Theme";
 import { Box, Tooltip, Typography } from "@mui/material";
 import api from "../../Services/api";
@@ -43,7 +43,7 @@ export default function ButtonRemoveItemShop({ removeItem, id }) {
             aria-label="delete"
             onClick={() => (onSubmit(removeItem))}
           >
-            <DeleteIcon fontSize="small" />
+            <RemoveCircleOutlineIcon fontSize="small" />
           </IconButton>
         </Typography>
       </Tooltip>

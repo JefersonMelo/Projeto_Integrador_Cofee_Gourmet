@@ -32,7 +32,7 @@ class ContactsUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     def get_contact_by_user_id(
             self,
@@ -52,7 +52,7 @@ class ContactsUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     def edit_contact_by_user_id(
             self,
@@ -84,4 +84,4 @@ class ContactsUtility:
                 return results, msg
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)

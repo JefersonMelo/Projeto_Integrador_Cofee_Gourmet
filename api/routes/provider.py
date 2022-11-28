@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.post('/add/new/provider')
 async def create_new_provider(provider: Optional[Provider]):
-    msg = None
+    
     try:
         provider_utility = ProviderUtility()
 
@@ -23,13 +23,12 @@ async def create_new_provider(provider: Optional[Provider]):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/all/providers')
 def get_all_providers():
-    msg = None
+    
     try:
         provider_utility = ProviderUtility()
 
@@ -41,13 +40,12 @@ def get_all_providers():
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)
 
 
 @router.get('/get/provider/{provider_id}')
 def get_product_by_provider_id(provider_id: int):
-    msg = None
+    
     try:
         provider_utility = ProviderUtility()
 
@@ -61,5 +59,4 @@ def get_product_by_provider_id(provider_id: int):
         return {'results': results, 'detail': msg}
 
     except Exception as e:
-        print(str(e))
-        raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=e.detail)

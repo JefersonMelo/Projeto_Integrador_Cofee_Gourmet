@@ -1,7 +1,7 @@
 from typing import Optional, Tuple, List
 from sqlalchemy.orm import Session, joinedload
 from api.schemas.user_schema import UserCreate, UserLogin
-from api.database.models import DbUser, DbContact, DbAddress
+from api.database.models import DbUser, DbContact, DbAddress, DbIdentification, DbCreditCard
 
 
 class UsersService:
@@ -30,7 +30,7 @@ class UsersService:
             return results, 'User Created with Success'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
     def get_user_id(
@@ -49,7 +49,7 @@ class UsersService:
             return results, 'Success'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
     def get_user_for_auth(
@@ -73,7 +73,7 @@ class UsersService:
             return results, f'{results.UserName}, Valeu Por Estar Aqui!'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
     def get_user_by_email(
@@ -92,19 +92,17 @@ class UsersService:
             return results, 'Usuário Localizado Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
     def get_users(
             cls,
             db: Session,
-            skip: int,
-            limit: int
     ):
 
         try:
 
-            results = db.query(DbUser).offset(skip).limit(limit).all()
+            results = db.query(DbUser).all()
 
             if not results:
                 return None, 'Error'
@@ -112,10 +110,10 @@ class UsersService:
             return results, 'Success'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)
 
     @classmethod
-    def select_contacts_address_by_user_id(
+    def select_user_all_info_by_user_id(
             cls,
             db: Session,
             user_id: int,
@@ -129,14 +127,18 @@ class UsersService:
                 DbContact
             ).join(
                 DbAddress
+            ).join(
+                DbCreditCard
+            ).join(
+                DbIdentification
             ).filter(
-                DbUser.UserID == user_id,
-                DbContact.FK_UserID == user_id,
-                DbAddress.FK_UserID == user_id,
+                DbUser.UserID == user_id
             ).options(
-                joinedload(DbUser.Contacts),
                 joinedload(DbUser.Address),
-            ).all()
+                joinedload(DbUser.Contacts),
+                joinedload(DbUser.CreditCard),
+                joinedload(DbUser.Identification),
+            ).first()
 
             if not results:
                 return None, 'Solicitação Não Localizada'
@@ -144,4 +146,4 @@ class UsersService:
             return results, 'Informações Localizadas com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(str(e))
+            return None, str(e.detail)

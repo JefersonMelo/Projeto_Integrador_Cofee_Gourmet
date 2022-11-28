@@ -32,7 +32,7 @@ class PaymentService:
             return results, 'Compra Realizada Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)
 
     @classmethod
     def select_payments_by_user_id(
@@ -52,4 +52,4 @@ class PaymentService:
             return results, 'Compras Localizadas Com Sucesso!'
 
         except Exception as e:
-            raise ConnectionError(e)
+            return None, str(e.detail)

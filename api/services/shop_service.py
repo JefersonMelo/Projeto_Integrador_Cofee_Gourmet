@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, Tuple, List, Union
 
-from sqlalchemy import and_, update
+from sqlalchemy import and_, update, func
 from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session, joinedload
 
@@ -35,7 +35,7 @@ class CarShopService:
             return results, 'Adicionado ao Super Carro com Sucesso!'
 
         except Exception as e:
-            return None, str(e)
+            return None, str(e.detail)
 
     @classmethod
     def select_user_items(
@@ -67,7 +67,7 @@ class CarShopService:
             return results, 'Carrinho Carregado Com Sucesso!'
 
         except Exception as e:
-            return None, str(e)
+            return None, str(e.detail)
 
     @classmethod
     def delete_item_car_shop_by_user_id(
@@ -76,7 +76,7 @@ class CarShopService:
             user_id: int,
             product_id: int,
             car_id: int,
-    ) -> Union[Optional[DbCarShop], str]:
+    ):
 
         try:
             # SQLite dont supported returning
@@ -103,5 +103,4 @@ class CarShopService:
             return results, 'Item Deletado Do Carrinho Com Sucesso!'
 
         except Exception as e:
-            print(str(e))
-            raise ConnectionError('Erro Ao Deletar Item Do Carrinho')
+            return None, str(e.detail)

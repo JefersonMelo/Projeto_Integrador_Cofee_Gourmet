@@ -12,7 +12,7 @@ import {
 } from "../../Helpers/SnackBars";
 import { useUserContext } from "../../Contexts/UserContext";
 
-export default function EditContactForm() {
+export default function EditContactForm(props) {
   const [, setAppContext] = useAppContext();
   const [authContext] = useAuthContext();
   const [userContext, setUserContext] = useUserContext();
@@ -30,6 +30,7 @@ export default function EditContactForm() {
     };
 
     if (!phoneNumber) return;
+    setIsEdit(false);
 
     api.put(
         apiRouts.EDIT_CONTACTS_BY_USER_ID.replace(
@@ -39,7 +40,6 @@ export default function EditContactForm() {
         data
       )
       .then((res) => {
-        setIsEdit(false);
         setUserContext((prev) => ({
           ...prev,
           contacts: res.data.results,
@@ -56,11 +56,13 @@ export default function EditContactForm() {
     <>
       <Box display="flex" flexDirection="column" alignItems="flex-start">
         <Typography variant="h7">
-          {!isEdit ? "1 \t Contatos" : "Editar Contatos"}
+          {!isEdit ? "\t Contatos" : "Editar Contatos"}
         </Typography>
 
         <TextField
           disabled={!isEdit}
+          size="small"
+          
           inputProps={{ maxLength: 11 }}
           type="number"
           variant="outlined"
@@ -80,6 +82,8 @@ export default function EditContactForm() {
 
         <TextField
           disabled={!isEdit}
+          size="small"
+          
           inputProps={{ maxLength: 11 }}
           type="number"
           variant="outlined"
@@ -105,6 +109,7 @@ export default function EditContactForm() {
               type="submit"
               onClick={() => {
                 setIsEdit(false);
+                props.setEdit(false);
               }}
             >
               Cancelar
@@ -115,6 +120,7 @@ export default function EditContactForm() {
               type="submit"
               onClick={() => {
                 onSubmit();
+                props.setEdit(false);
               }}
             >
               Salvar

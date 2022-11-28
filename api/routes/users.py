@@ -10,7 +10,6 @@ router = APIRouter()
 
 @router.post('/create/user/')
 async def create_user(user: Optional[UserCreate] = None):
-    msg = None
     try:
         users = UsersUtility()
 
@@ -29,7 +28,6 @@ async def create_user(user: Optional[UserCreate] = None):
 
 @router.get('/user/id/{user_id}')
 async def get_user(user_id: int):
-    msg = None
     try:
         users = UsersUtility()
 
@@ -46,7 +44,6 @@ async def get_user(user_id: int):
 
 @router.post('/login')
 async def user_login(user: Optional[UserLogin] = None):
-    msg = None
     try:
         users = UsersUtility()
 
@@ -61,19 +58,33 @@ async def user_login(user: Optional[UserLogin] = None):
         raise HTTPException(status_code=400, detail=msg)
 
 
-# @router.get('/get/contacts/address/user/{user_id}')
-# async def get_contacts_address_by_user(user_id: int):
-#     msg = None
-#     try:
-#         users = UsersUtility()
-#
-#         results, msg = users.get_user(user_id=user_id)
-#
-#         if not results:
-#             raise HTTPException(status_code=400, detail=msg)
-#
-#         return {'results': results, 'detail': msg}
-#
-#     except Exception:
-#         raise HTTPException(status_code=400, detail=msg)
+@router.get('/get/all/info/user/{user_id}')
+async def get_user_all_info_by_user(user_id: int):
+    try:
+        users = UsersUtility()
 
+        results, msg = users.get_all_info_by_user_id(user_id=user_id)
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'results': results, 'detail': msg}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=e.detail)
+
+
+@router.get('/get/all/users/')
+async def get_all_users():
+    try:
+        users = UsersUtility()
+
+        results, msg = users.get_all_users()
+
+        if not results:
+            raise HTTPException(status_code=400, detail=msg)
+
+        return {'results': results, 'detail': msg}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=e.detail)

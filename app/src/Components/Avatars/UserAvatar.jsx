@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { Chip, Menu, MenuItem } from "@mui/material";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +11,6 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuthContext } from "../../Contexts/AuthenticationContext";
 import { logout } from "../../Services/storage";
-import { useNavigate } from "react-router-dom";
-
 
 export default function UserAvatar() {
   const [authContext] = useAuthContext();
@@ -35,10 +35,7 @@ export default function UserAvatar() {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip 
-        arrow
-        title="Configurações de Conta"
-        >
+        <Tooltip arrow title="Configurações de Conta">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -91,11 +88,25 @@ export default function UserAvatar() {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("/user/config");
+            }}
+          >
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
             Configurações
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("/my/tests");
+            }}
+          >
+            <ListItemIcon>
+              <QuestionAnswerIcon fontSize="small" />
+            </ListItemIcon>
+            Feedback
           </MenuItem>
           <MenuItem
             onClick={() => {
