@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { styled, useTheme } from "@mui/material/styles";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-// import IconButton from "@mui/material/IconButton";
-// import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-// import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -30,7 +29,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function LeftDrawer({ Element }) {
-  // const theme = useTheme();
+  const theme = useTheme();
   const colors = Theme.palette;
   const [appContext, setAppContext] = useAppContext();
 
@@ -59,13 +58,13 @@ export default function LeftDrawer({ Element }) {
         open={appContext.drawerOpened}
       >
         <DrawerHeader>
-          {/* <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
             )}
-          </IconButton> */}
+          </IconButton>
         </DrawerHeader>
         <Divider />
         <Typography sx={{ ml: "2%" }} variant="h6">
