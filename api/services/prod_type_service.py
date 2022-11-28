@@ -1,7 +1,9 @@
 from typing import Optional, Tuple, List
+
 from sqlalchemy.orm import Session
-from api.schemas.prod_type_schema import ProductType
+
 from api.database.models import DbProductType
+from api.schemas.prod_type_schema import ProductType
 
 
 class ProductTypeService:

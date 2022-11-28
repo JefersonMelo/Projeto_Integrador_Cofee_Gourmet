@@ -1,8 +1,6 @@
 from datetime import datetime
-from typing import Optional, Tuple
 
 from sqlalchemy import and_, update
-from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session
 
 from api.database.models import DbCreditCard

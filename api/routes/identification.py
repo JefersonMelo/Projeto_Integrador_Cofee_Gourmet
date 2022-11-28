@@ -1,8 +1,9 @@
+from typing import Optional
+
 from fastapi import APIRouter
 from fastapi import HTTPException
-from typing import Optional
-from ..schemas.identification_schema import Identification, IdentificationModified
 
+from ..schemas.identification_schema import Identification, IdentificationModified
 from ..utilities.identification_utility import IdentificationUtility
 
 router = APIRouter()

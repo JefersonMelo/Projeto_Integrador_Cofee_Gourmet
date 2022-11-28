@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import Optional, Tuple
+
 from api.database.connection import get_session
 from api.schemas.contacts_schema import ContactsCreate, ContactsModified
-from api.schemas.user_schema import User, UserBase, UserLogin
 from api.services.contacts_service import ContactService
 
 

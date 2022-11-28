@@ -2,6 +2,7 @@ from typing import Optional, Tuple, List
 
 from sqlalchemy import and_
 from sqlalchemy.orm import Session, joinedload
+
 from api.database.models import DbProvider, DbProduct
 from api.schemas.provider_schema import Provider
 

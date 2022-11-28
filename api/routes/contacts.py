@@ -1,9 +1,10 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
 from ..schemas.contacts_schema import ContactsCreate, ContactsModified
 from ..utilities.contacts_utility import ContactsUtility
-from fastapi import APIRouter
 
 router = APIRouter()
 

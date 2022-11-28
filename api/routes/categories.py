@@ -1,9 +1,10 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
+from ..schemas.category_schema import Category
 from ..utilities.category_utility import CategoryUtility
-from ..schemas .category_schema import Category
-from fastapi import APIRouter
 
 router = APIRouter()
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Numeric, DECIMAL
+from sqlalchemy import Column, Integer, String, DateTime, Numeric
 
 
 class ProductMixin(object):

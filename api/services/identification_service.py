@@ -2,8 +2,9 @@ from typing import Optional, Tuple, List
 
 from sqlalchemy import update
 from sqlalchemy.engine import Result
-from sqlalchemy.orm import Session, joinedload
-from api.database.models import DbUser, DbIdentification
+from sqlalchemy.orm import Session
+
+from api.database.models import DbIdentification
 from api.schemas.identification_schema import Identification, IdentificationModified
 
 

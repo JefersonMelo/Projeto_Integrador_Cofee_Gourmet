@@ -1,7 +1,9 @@
 from typing import Optional, Tuple, List
+
 from sqlalchemy.orm import Session, joinedload
-from api.schemas.category_schema import Category
+
 from api.database.models import DbCategory, DbProductType
+from api.schemas.category_schema import Category
 
 
 class CategoryService:

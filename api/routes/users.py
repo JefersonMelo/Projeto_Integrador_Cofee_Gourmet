@@ -1,9 +1,10 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
-from ..utilities.users_utility import UsersUtility
 from ..schemas.user_schema import UserCreate, UserLogin
-from fastapi import APIRouter
+from ..utilities.users_utility import UsersUtility
 
 router = APIRouter()
 

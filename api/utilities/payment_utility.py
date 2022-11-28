@@ -1,11 +1,6 @@
-from typing import Optional, Tuple, List
-
-import sqlalchemy
-from sqlalchemy import cast, func
+from typing import Optional, Tuple
 
 from api.database.connection import get_session
-from api.database.models import DbPayment
-from api.schemas.address_schema import AddressCreate
 from api.schemas.payment_schema import PaymentCreate
 from api.services.payment_service import PaymentService
 from api.services.shop_service import CarShopService

@@ -1,7 +1,9 @@
 from typing import Optional, Tuple, List
+
 from sqlalchemy.orm import Session, joinedload
-from api.schemas.product_schema import CreateProduct, ProductSelect
+
 from api.database.models import DbProduct, DbProvider
+from api.schemas.product_schema import CreateProduct, ProductSelect
 
 
 class ProductService:

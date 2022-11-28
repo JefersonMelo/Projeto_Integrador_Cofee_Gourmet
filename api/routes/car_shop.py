@@ -1,9 +1,9 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
 from ..schemas.car_shop_schema import NewItemCarShop, RemoveItemCarShop
-from fastapi import APIRouter
-
 from ..utilities.shop_utility import CarShopUtility
 
 router = APIRouter()

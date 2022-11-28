@@ -1,6 +1,8 @@
 from contextlib import contextmanager
 from typing import Generator
+
 from requests import Session
+
 from . import models
 from .database import SessionLocal, engine
 

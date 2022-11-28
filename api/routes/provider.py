@@ -1,9 +1,9 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
 from ..schemas.provider_schema import Provider
-from fastapi import APIRouter
-
 from ..utilities.provider_utility import ProviderUtility
 
 router = APIRouter()

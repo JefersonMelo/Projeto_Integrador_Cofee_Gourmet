@@ -1,8 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
-from .database import Base
-from api.database.mixins.base_mixins import DeletionMixin, ModificationMixin, CreationMixin, PaymentConclusionMixin
+
 from api.database.mixins.address_mixin import AddressMixin
+from api.database.mixins.base_mixins import DeletionMixin, ModificationMixin, CreationMixin, PaymentConclusionMixin
 from api.database.mixins.category_mixin import CategoryMixin
 from api.database.mixins.contact_mixin import ContactMixin
 from api.database.mixins.payment_mixin import PaymentMixin
@@ -13,8 +13,9 @@ from api.database.mixins.provider_mixin import ProviderMixin
 from api.database.mixins.rating_mixin import RatingMixin
 from api.database.mixins.shop_mixin import CarShopMixin
 from api.database.mixins.user_mixin import UserMixin
-from .mixins.identification_mixin import IdentificationMixin
+from .database import Base
 from .mixins.creditcard_mixin import CreditCardMixin
+from .mixins.identification_mixin import IdentificationMixin
 from .mixins.test_mixin import TestMixin
 
 

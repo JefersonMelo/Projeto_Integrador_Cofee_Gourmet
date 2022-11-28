@@ -4,8 +4,8 @@ from sqlalchemy import update
 from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session
 
-from api.schemas.contacts_schema import ContactsCreate
 from api.database.models import DbContact
+from api.schemas.contacts_schema import ContactsCreate
 
 
 class ContactService:

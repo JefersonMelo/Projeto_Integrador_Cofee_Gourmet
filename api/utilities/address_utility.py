@@ -1,10 +1,9 @@
 from datetime import datetime
 from typing import Optional, Tuple
+
 from api.database.connection import get_session
 from api.schemas.address_schema import AddressCreate, AddressModified
-from api.schemas.user_schema import UserCreate, User, UserBase, UserLogin
 from api.services.address_service import AddressService
-from api.services.users_service import UsersService
 
 
 class AddressUtility:

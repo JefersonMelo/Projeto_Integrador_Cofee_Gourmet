@@ -1,9 +1,10 @@
 from typing import Optional
+
+from fastapi import APIRouter
 from fastapi import HTTPException
 
-from ..utilities.prod_subtype_utility import ProductSubtypeUtility
 from ..schemas.prod_subtype_schema import ProductSubtype
-from fastapi import APIRouter
+from ..utilities.prod_subtype_utility import ProductSubtypeUtility
 
 router = APIRouter()
 

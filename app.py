@@ -1,10 +1,10 @@
-from fastapi.middleware.gzip import GZipMiddleware
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from api.api import api
-from fastapi import FastAPI, Request
 
 # App Instance
 app = FastAPI()

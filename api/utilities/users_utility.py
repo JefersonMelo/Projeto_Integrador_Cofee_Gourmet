@@ -1,12 +1,13 @@
 from typing import Optional, Tuple, Union
+
 from api.database.connection import get_session
 from api.schemas.user_schema import UserCreate, User, UserBase, UserLogin
 from api.services.address_service import AddressService
 from api.services.contacts_service import ContactService
 from api.services.creditcard_service import CreditCardService
 from api.services.identification_service import IdentificationService
-from api.services.users_service import UsersService
 from api.services.test_service import TestsService
+from api.services.users_service import UsersService
 
 
 class UsersUtility:

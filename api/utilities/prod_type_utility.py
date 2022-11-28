@@ -1,4 +1,5 @@
 from typing import Optional, Tuple, List
+
 from api.database.connection import get_session
 from api.schemas.prod_type_schema import ProductType
 from api.services.prod_type_service import ProductTypeService

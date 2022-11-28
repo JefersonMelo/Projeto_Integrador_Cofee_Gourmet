@@ -1,7 +1,9 @@
 from typing import Optional, Tuple, List
+
 from sqlalchemy.orm import Session, joinedload
-from api.schemas.user_schema import UserCreate, UserLogin
+
 from api.database.models import DbUser, DbContact, DbAddress, DbIdentification, DbCreditCard
+from api.schemas.user_schema import UserCreate, UserLogin
 
 
 class UsersService:

@@ -1,7 +1,8 @@
 from typing import Optional, Tuple, List
+
 from sqlalchemy.orm import Session
 
-from api.database.models import DbAddress, DbPayment
+from api.database.models import DbPayment
 from api.schemas.payment_schema import PaymentCreate
 
 

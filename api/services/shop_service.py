@@ -1,12 +1,11 @@
 from datetime import datetime
-from typing import Optional, Tuple, List, Union
+from typing import Optional, Tuple, List
 
-from sqlalchemy import and_, update, func
-from sqlalchemy.engine import Result
+from sqlalchemy import and_, update
 from sqlalchemy.orm import Session, joinedload
 
-from api.schemas.car_shop_schema import NewItemCarShop
 from api.database.models import DbCarShop, DbProduct
+from api.schemas.car_shop_schema import NewItemCarShop
 
 
 class CarShopService:

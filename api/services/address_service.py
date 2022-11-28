@@ -4,8 +4,8 @@ from sqlalchemy import update
 from sqlalchemy.engine import Result
 from sqlalchemy.orm import Session
 
-from api.schemas.address_schema import AddressCreate, AddressModified
 from api.database.models import DbAddress
+from api.schemas.address_schema import AddressCreate, AddressModified
 
 
 class AddressService:

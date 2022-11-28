@@ -1,7 +1,7 @@
 from typing import Optional
-from fastapi import HTTPException
 
 from fastapi import APIRouter
+from fastapi import HTTPException
 
 from api.schemas.address_schema import AddressCreate, AddressModified
 from api.utilities.address_utility import AddressUtility
