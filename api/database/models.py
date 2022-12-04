@@ -23,11 +23,11 @@ class DbUser(Base, UserMixin, DeletionMixin, ModificationMixin):
     __tablename__ = "Users"
 
     Items = relationship("DbCarShop", back_populates="User")
-    Address = relationship("DbAddress", uselist=False)
-    Identification = relationship("DbIdentification", uselist=False)
-    Contacts = relationship("DbContact", uselist=False)
-    Rating = relationship("DbRating", uselist=False)
-    CreditCard = relationship("DbCreditCard", uselist=False)
+    Address = relationship("DbAddress")
+    Identification = relationship("DbIdentification")
+    Contacts = relationship("DbContact")
+    Rating = relationship("DbRating")
+    CreditCard = relationship("DbCreditCard")
     Test = relationship("DbTest")
 
 
