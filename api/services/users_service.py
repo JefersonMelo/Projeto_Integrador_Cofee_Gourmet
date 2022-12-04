@@ -29,7 +29,7 @@ class UsersService:
 
             db.refresh(results)
 
-            return results, 'User Created with Success'
+            return results, 'Cadastro Realizado Com Sucesso. Por favor, Realize Login!'
 
         except Exception as e:
             return None, str(e.detail)
@@ -70,7 +70,7 @@ class UsersService:
             ).first()
 
             if not results:
-                return None, 'Triste, Mas Você Não Te Achei!'
+                return None, 'Triste, Mas Não Te Achei!'
 
             return results, f'{results.UserName}, Valeu Por Estar Aqui!'
 
