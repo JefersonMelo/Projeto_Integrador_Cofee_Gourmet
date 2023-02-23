@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  app:
+    depends_on:
+      - api
+    build: ./app
+    ports:
+      - 3000:3000
+
+  api:
+    depends_on:
+      - database
+    build: ./api
+    ports:
+      - 8000:8000
+    volumes:
+      - coffee_break:/api/database/data/
+
+  database:
+    image: keinos/sqlite3
+    volumes:
+      - coffee_break:/database/data/
+    ports:
+      - 3306:3306
+
+#  database:
+#    image: lscr.io/linuxserver/sqlitebrowser:latest
+#    container_name: sqlitebrowser
+#    security_opt:
+#      - seccomp:unconfined #optional
+#    environment:
+#      - P.UID=1000
+#      - PGID=1000
+#      - TZ=Etc/UTC
+#    volumes:
+#      - sqlitebrowser:/path/to/config:/config
+#      - sqlitebrowser:/data/db
+#    ports:
+#      - 27017:27017
+#    restart: unless-stopped
+
+volumes:
+  coffee_break:
