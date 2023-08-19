@@ -1,13 +1,8 @@
 function definesApiUrl() {
   if (window.location.origin.indexOf("localhost") === -1) {
-    return "https://api-mycoffeebreakgourmet.herokuapp.com";
-    // return window.location.origin;
+    return window.location.origin;
   }
-  
-  // return "https://api-mycoffeebreakgourmet.herokuapp.com";
-
   return "http://localhost:8999"
-  
 }
 
 export const apiURL = `${definesApiUrl()}/api`;

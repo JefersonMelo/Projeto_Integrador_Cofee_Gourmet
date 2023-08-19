@@ -22,4 +22,4 @@ import uvicorn
 """
 if __name__ == '__main__':
     hostname = socket.gethostname()
-    uvicorn.run(app="app:app", host='0.0.0.0', reload=True, workers=4)
+    uvicorn.run(app="api.app:app", host=hostname, port=8999, reload=True, workers=4)
